@@ -1,0 +1,17 @@
+[uwsgi]
+chdir=/home/USER/gabbler
+socket=django.sock
+chmod-socket=664
+processes=2
+env=DJANGO_SETTINGS_MODULE=gabbler.settings
+; uid=1000
+; gid=2000
+harakiri=20
+module=gabbler.wsgi:application
+master=True
+pidfile=/tmp/django-USER.pid
+vacuum=True
+max-requests=5000
+daemonize=/home/USER/log/django.log
+buffer-size=32768
+workers=2
