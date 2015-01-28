@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block title %}Test{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if name %}
+                    <h1>Greetings {{ name }}</h1>
+                {% else %}
+                    <h1>Enter your name and greetings!</h1>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post">
+                    {% csrf_token %}
+                    <input class="form-control" name="name" placeholder="Your Name">
+                    <button class="btn btn-success">Hey!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
