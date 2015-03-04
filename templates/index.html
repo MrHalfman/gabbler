@@ -28,10 +28,21 @@
             </ul>
         </div>
     </div>
-    {% block content %}
-    {% endblock %}
+    <div class ="container">
+        {% block content %}
+        {% endblock %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Fermer"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="panel-footer text-center">
         Gabbler &copy; - 2015
     </div>
+    <script>$.material.init();</script> <!-- Init the material JS -->
 </body>
 </html>

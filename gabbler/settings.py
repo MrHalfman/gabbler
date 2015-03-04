@@ -1,3 +1,5 @@
+from django.contrib.messages import constants as message_constants
+
 """
 Django settings for gabbler project.
 
@@ -86,3 +88,12 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+
+# Custom messages tags for bootstrap
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'debug',
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'danger',
+}
