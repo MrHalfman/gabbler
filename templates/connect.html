@@ -2,5 +2,29 @@
 {% block title %} Connect {% endblock %}
 
 {% block content %}
-
+    <div class="panel panel-success" xmlns="http://www.w3.org/1999/html">
+        <div class="panel-heading">
+            <h3 class="panel-title">Connection</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputUsername" class="col-lg-2 control-label">Username</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username">
+                    </div>
+                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <div class="col-lg-10">
+                        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
