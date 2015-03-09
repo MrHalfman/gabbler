@@ -1,5 +1,61 @@
 {% extends "template.html" %}
+{% block background-style %}id="background-home"{% endblock %}
+{% block footer-style %}id="green"{% endblock %}
+{% block navbar %}
+    <div id="navbarHome" class="navbar">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
 
-{% block content %}
-    <h3>Hello</h3>
+    </div>
+</div>
 {% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-mg-5 col-sm-5"" id="green">
+            <h1 id="#intro-title">Welcome to Gabbler</h1>
+            <p id="intro">
+                Don't loose the thread with your friends and every fascinating people in the world !
+                Start gabble on day, became a member of the gabbler family forever.
+            </p>
+        </div>
+        <div class="col-lg-5 col-mg-5 col-sm-5">
+            <div class="well">
+                <form class="form-horizontal" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <input type="hidden" name="redirection" value="connect">
+                            <input type="text" name="username" class="form-control form-spacing" id="username" placeholder="Username">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <div class="col-lg-5">
+                            <button type="submit" class="btn btn-warning all-height-button">Connection</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="well">
+                <h3> Want to start now ?</h3>
+                <form class="form-horizontal" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <input type="hidden" name="redirection" value="new">
+                            <input type="text" name="full_name" class="form-control form-spacing" id="full_name" placeholder="Full name">
+                            <input type="text" name="username" class="form-control form-spacing" id="username" placeholder="Email">
+                            <input type="password" name="password" class="form-control form-spacing" id="password" placeholder="Password">
+                            <button type="submit" class="btn btn-info">Join Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

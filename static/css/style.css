@@ -1,3 +1,14 @@
+/* ----------------- HOME PAGE ----------------- */
+
+#background-home {
+    background-image: url(../pictures/background.jpg);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
 #navbarHome {
     background : #FFFFFF;
     color : #323232;
@@ -7,3 +18,20 @@
     background: #5A8368;
     color: #ffffff;
 }
+
+#intro-title {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#intro {
+    margin-top: 50px;
+    font-size: 25px;
+}
+
+.form-spacing {
+    margin-bottom: 10px;
+}
+
+/* --------------------------------------------- */
+/* --------------------------------------------- */
