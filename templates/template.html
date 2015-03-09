@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <title>Gabbler - {% block title %}Home{% endblock %}</title>
 </head>
-<body>
+<body {% block background-style %}{% endblock %}>
     {% block navbar %}
     <div class="navbar navbar-default">
         <div class="navbar-header">
@@ -43,9 +43,11 @@
             {% endfor %}
         {% endif %}
     </div>
-    <div class="panel-footer text-center">
-        Gabbler &copy; - 2015
-    </div>
+    {% block footer %}
+        <div class="panel-footer text-center">
+            Gabbler &copy; - 2015
+        </div>
+    {% endblock %}
     <script>$.material.init();</script> <!-- Init the material JS -->
 </body>
 </html>
