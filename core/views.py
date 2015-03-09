@@ -36,6 +36,14 @@ def connect(request) :
 
 
 def register(request) :
+    if request.method == "POST":
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        return HttpResponseRedirect("/")
+
     return render(request, "register.html")
 
 
