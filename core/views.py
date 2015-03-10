@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
+from models import User
 
 
 def home(request):
@@ -18,7 +19,7 @@ def home(request):
 
             username = request.POST.get("username")
             password = request.POST.get("password")
-            user = authenticate(username = username, password = password)
+            user = authenticate(username=username, password=password)
 
             if user:
                 login(request, user)  # Fait la variable de session avec l'utilisateur dedans
@@ -43,6 +44,20 @@ def register(request):
         email = request.POST.get("email")
         username = request.POST.get("username")
         password = request.POST.get("password")
+        user, created = User.objects.get_or_create(
+            email=email,
+            username=username,
+            first_name=first_name,
+            last_name=last_name
+        )
+
+        if created:
+            user.set_password(password)
+            user.save()
+
+        user = authenticate(username=username, password=password)
+
+        login(request, user)
         return HttpResponseRedirect("/")
 
     return render(request, "register.html")
