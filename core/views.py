@@ -2,7 +2,7 @@
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout as django_logout
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
 from models import User
 
@@ -15,17 +15,9 @@ def home(request):
             une erreur.
         """
         if request.POST.get("redirection") == "connect":
-            return HttpResponseRedirect("/connect")  # Redirection en cas d'autentification
-
             username = request.POST.get("username")
             password = request.POST.get("password")
-            user = authenticate(username=username, password=password)
-
-            if user:
-                login(request, user)  # Fait la variable de session avec l'utilisateur dedans
-
-            else:
-                messages.error(request, "Username or password invalid")
+            return login(request, username, password)
 
         else:
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
@@ -33,7 +25,22 @@ def home(request):
     return render(request, "index.html")
 
 
+def login(request, username, password):
+    user = authenticate(username=username, password=password)
+
+    if user:
+        django_login(request, user)  # Fait la variable de session avec l'utilisateur dedans
+        return HttpResponseRedirect("/")
+    else:
+        messages.error(request, "Username or password invalid")
+        return HttpResponseRedirect("/connect")
+
+
 def connect(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        return login(request, username, password)
     return render(request, "connect.html")
 
 
