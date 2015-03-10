@@ -1,12 +1,13 @@
 /* ----------------- HOME PAGE ----------------- */
 
-#background-home {
+.background-home {
     background-image: url(../pictures/background.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    padding-top: 30px;
 }
 
 #navbarHome {
