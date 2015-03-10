@@ -19,8 +19,15 @@ def home(request):
             password = request.POST.get("password")
             return login(request, username, password)
 
-        else:
+        elif request.POST.get("redirection") == "new":
+
+            request.session["data_register"] = {
+                "username": request.POST.get("username_register"),
+                "email": request.POST.get("email_register"),
+                "password": request.POST.get("password_register")
+            }
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
+
 
     return render(request, "index.html")
 
@@ -67,7 +74,9 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect("/")
 
-    return render(request, "register.html")
+    data = request.session.get("data_register")
+    del request.session["data_register"]
+    return render(request, "register.html", data)
 
 
 def logout(request):
