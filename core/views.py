@@ -2,7 +2,7 @@
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
 
 
@@ -46,3 +46,8 @@ def register(request):
         return HttpResponseRedirect("/")
 
     return render(request, "register.html")
+
+
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect("/")
