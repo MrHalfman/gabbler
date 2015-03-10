@@ -13,29 +13,30 @@ def home(request):
             est vide, il remplacera le contenu par "None" au lieu de retourner
             une erreur.
         """
-        if request.POST.get("redirection") == "connect" :
-            return HttpResponseRedirect("/connect") # Redirection en cas d'autentification
+        if request.POST.get("redirection") == "connect":
+            return HttpResponseRedirect("/connect")  # Redirection en cas d'autentification
 
             username = request.POST.get("username")
             password = request.POST.get("password")
             user = authenticate(username = username, password = password)
 
             if user:
-                login(request, user) # Fait la variable de session avec l'utilisateur dedans
+                login(request, user)  # Fait la variable de session avec l'utilisateur dedans
 
             else:
                 messages.error(request, "Username or password invalid")
 
         else:
-            return HttpResponseRedirect("/register") # Redirection en cas d'autentification
+            return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
 
     return render(request, "index.html")
 
-def connect(request) :
+
+def connect(request):
     return render(request, "connect.html")
 
 
-def register(request) :
+def register(request):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
@@ -45,14 +46,3 @@ def register(request) :
         return HttpResponseRedirect("/")
 
     return render(request, "register.html")
-
-
-def test(request, toto):
-    return render(request, "test.html", {"toto": toto})
-
-
-def testpost(request):
-    context = {}
-    if request.method == "POST":
-        context['name'] = request.POST.get("name")
-    return render(request, "testpost.html", context)
