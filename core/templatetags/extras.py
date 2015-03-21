@@ -4,5 +4,5 @@ register = template.Library()
 
 
 @register.filter
-def superurlize(value):
-    return mark_safe("<a href='/%s'>%s</a>" % (value, value))
+def userlink(user):
+    return mark_safe("<a href='/user/%s'>%s</a>" % (user.username, user.username))

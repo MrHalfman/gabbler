@@ -27,14 +27,13 @@ def home(request):
                 "password": request.POST.get("password_register")
             }
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
-
-
-    return render(request, "index.html")
+    if request.user.is_authenticated():
+        return render(request, "logged_index.html")
+    return render(request, "guest_index.html")
 
 
 def login(request, username, password):
     user = authenticate(username=username, password=password)
-
     if user:
         django_login(request, user)  # Fait la variable de session avec l'utilisateur dedans
         return HttpResponseRedirect("/")
@@ -70,7 +69,7 @@ def register(request):
 
         user = authenticate(username=username, password=password)
 
-        login(request, user)
+        django_login(request, user)
         return HttpResponseRedirect("/")
 
     data = request.session.get("data_register")
@@ -81,3 +80,8 @@ def register(request):
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect("/")
+
+
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+    return render(request, "user/profile.html", {"req_user": user})
