@@ -3,6 +3,14 @@
 
 {% block content %}
     <div class="panel panel-default">
+        <div class="panel panel-body">
+            <form method="post">
+                <textarea class="form-control" placeholder="Say something!"></textarea>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
         <div class="panel-body">
             Your profile : {{ user|userlink }}
         </div>

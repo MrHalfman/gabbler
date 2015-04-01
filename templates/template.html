@@ -6,10 +6,10 @@
 <head lang="en">
     <link rel="stylesheet" href="{% static "css/style.css"%}"/>
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}"/>
-    <link rel="stylesheet" href="{% static "css/material.min.css"%}"/>
+    <link rel="stylesheet" href="{% static "css/material-fullpalette.min.css"%}"/>
+    <link rel="stylesheet" href="{% static "css/ripples.min.css"%}"/>
     <script type="text/javascript" src="{% static "js/jquery-2.1.3.min.js"%}"></script>
     <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
-    <script type="text/javascript" src="{% static "js/material.min.js"%}"></script>
     <meta charset="UTF-8">
     <title>Gabbler - {% block title %}Home{% endblock %}</title>
 </head>
@@ -30,7 +30,7 @@
                     <li><a href="{% url "connect" %}">Connect</a></li>
                     <li><a href="{% url "register" %}">Register</a></li>
                 {% else %}
-                    <li class="navbar-text">Welcome {{ user|userlink }}</li>
+                    <li class="navbar-text">Welcome, {{ user.username }}</li>
                     <li><a href="{% url "logout" %}">Log Out</a></li>
                 {% endif %}
             </ul>
@@ -54,6 +54,9 @@
             Gabbler &copy; - 2015
         </div>
     {% endblock %}
+
+    <script type="text/javascript" src="{% static "js/material.min.js"%}"></script>
+    <script type="text/javascript" src="{% static "js/ripples.min.js"%}"></script>
     <script>$.material.init();</script> <!-- Init the material JS -->
 </body>
 </html>
