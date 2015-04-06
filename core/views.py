@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
+from social.models import Gab
 from models import User
 
 
@@ -20,15 +21,19 @@ def home(request):
             return login(request, username, password)
 
         elif request.POST.get("redirection") == "new":
-
             request.session["data_register"] = {
                 "username": request.POST.get("username_register"),
                 "email": request.POST.get("email_register"),
                 "password": request.POST.get("password_register")
             }
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
+
     if request.user.is_authenticated():
-        return render(request, "logged_index.html")
+        context = {
+            "gabs": Gab.objects.filter(user=request.user)
+        }
+        return render(request, "logged_index.html", context)
+
     return render(request, "guest_index.html")
 
 

@@ -1,0 +1,8 @@
+{% load extras %}
+{% for gab in gabs %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {{ gab.user|userlink }} : "{{ gab.text }}" le {{ gab.date }}
+        </div>
+    </div>
+{% endfor %}

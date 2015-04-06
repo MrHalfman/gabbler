@@ -1,16 +1,19 @@
 from django.db import models
 
+
 class FriendShip(models.Model):
     user1 = models.ForeignKey("core.User", related_name="user1")
     user2 = models.ForeignKey("core.User", related_name="user2")
     date = models.DateTimeField(auto_now_add=True)
     reciprocity = models.BooleanField(default=False)
 
+
 class Gab(models.Model):
     user = models.ForeignKey("core.User", related_name="gabs")
     date = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=255)
-    reply = models.ForeignKey("Gab", related_name="replies")
+    reply = models.ForeignKey("Gab", related_name="replies", blank=True, null=True)
+
 
 class PrivateMessage(models.Model):
     sender = models.ForeignKey("core.User", related_name="sender")
@@ -19,13 +22,16 @@ class PrivateMessage(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
 
+
 class Regab(models.Model):
     user = models.ForeignKey("core.User", related_name="regabs")
     gab = models.ForeignKey("Gab", related_name="regabs")
 
+
 class Favorite(models.Model):
     user = models.ForeignKey("core.User", related_name="favorites")
     gab = models.ForeignKey("Gab", related_name="favorites")
+
 
 class Notifications(models.Model):
     user = models.ForeignKey("core.User", related_name="notifications")
