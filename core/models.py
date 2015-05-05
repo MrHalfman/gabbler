@@ -13,8 +13,8 @@ class User(AbstractUser):
 
 
 class Place(models.Model):
-    city = models.CharField(max_length=163)
-    country = models.CharField(max_length=200)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
 
 class UserLink(models.Model):
