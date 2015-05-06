@@ -1,33 +1,41 @@
 /* ----------------- HOME PAGE ----------------- */
 
-.background-home {
-    background-image: url(../pictures/background.jpg);
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    padding-top: 30px;
-}
-
-#navbarHome {
-    background : #FFFFFF;
-    color : #323232;
-}
-
-#green {
-    background: #5A8368;
-    color: #ffffff;
-}
-
-#intro-title {
-    font-size: 40px;
+.header-home {
+    background-color: #ffffff;
+    color: #5a8368;
+    text-align: right;
     font-weight: bold;
+    padding : 5px;
 }
 
-#intro {
-    margin-top: 50px;
-    font-size: 25px;
+.wrapper-content {
+    background-color: #5a8368;
+    padding: 30px;
+    height: 100vh;
+}
+
+.tile {
+    background-color: #ffffff;
+    color: #5a8368;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.tile:hover {
+    background-color: #5a8368;
+    color: #ffffff;
+    transition-duration: 800ms;
+}
+
+.glyphicon-title {
+    font-size: 90px;
+}
+
+.form-box {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 10px;
 }
 
 /* --------------------------------------------- */
