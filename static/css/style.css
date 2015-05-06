@@ -47,6 +47,32 @@
 /* --------------------------------------------- */
 /* --------------------------------------------- */
 
+/* -------------------- PROFILE PAGE -------------------- */
+
+.profile-picture {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.about {
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding: 0 !important;
+}
+
+.text-about {
+    padding: 10px;
+}
+
+/* --------------------------------------------- */
+/* --------------------------------------------- */
+
 .title-spacing {
     margin-bottom: 20px;
 }

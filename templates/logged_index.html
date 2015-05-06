@@ -2,22 +2,42 @@
 {% load extras %}
 
 {% block content %}
-    <div class="panel panel-default">
-        <div class="panel panel-body">
-            <form action="{% url "post_gab" %}" method="post">
-                {% csrf_token %}
-                <textarea class="form-control" name="text" placeholder="Say something!"></textarea>
-                <div class="text-right">
-                    <button class="btn btn-success" type="submit">Send</button>
-                </div>
-            </form>
+    <div class="row">
+        <div class="col-sm-4 col-xs-12 about">
+            <div class="col-sm-12 col-xs-4 profile-picture">
+                <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+            </div>
+            <div class="col-sm-12 col-xs-8 text-about">
+                    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                    <em>
+                        {% if user.bio %}
+                            {{ user.bio }}
+                        {% else %}
+                            I'm true member of Gabbler and it's already not bad!
+                        {% endif %}
+                    </em>
+            </div>
         </div>
-    </div>
-    {% include "skeletons/gab.html" with gabs=gabs %}
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-            Your profile : {{ user|userlink }}
+        <div class="col-sm-8 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel panel-body">
+                    <form action="{% url "post_gab" %}" method="post">
+                        {% csrf_token %}
+                        <textarea class="form-control" name="text" placeholder="Say something!"></textarea>
+                        <div class="text-right">
+                            <button class="btn btn-success" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% include "skeletons/gab.html" with gabs=gabs %}
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    Your profile : {{ user|userlink }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
