@@ -1,3 +1,7 @@
+/* ----------------------------------------------------------------- */
+/* ------------------------ GEOLOCALISATION ------------------------ */
+/* ----------------------------------------------------------------- */
+
 function setMarker(positionSet, map, markers) {
     var myMarker = new google.maps.Marker({
         position: positionSet,
@@ -71,3 +75,6 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+/* ----------------------------------------------------------------- */
+/* ----------------------------------------------------------------- */
