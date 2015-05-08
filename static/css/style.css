@@ -26,7 +26,10 @@
     padding: 10px;
     text-align: center;
     margin-bottom: 10px;
+    border-left: 5px solid #5a8368;
+    border-right: 5px solid #5a8368;
 }
+
 
 .tile:hover {
     background-color: #5a8368;
@@ -35,7 +38,7 @@
 }
 
 .glyphicon-title {
-    font-size: 90px;
+    font-size: 160px;
 }
 
 .form-box {
@@ -44,6 +47,9 @@
     margin-bottom: 10px;
 }
 
+.head-text {
+    font-size: 25px;
+}
 /* --------------------------------------------- */
 /* --------------------------------------------- */
 
