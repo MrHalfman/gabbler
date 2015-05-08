@@ -55,22 +55,20 @@
 
 /* -------------------- PROFILE PAGE -------------------- */
 
-.profile-picture {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    max-height: 300px;
-    overflow: hidden;
-}
-
-.text-about {
-    padding: 10px;
-}
-
 #googleMap {
     height: 150px;
+}
+
+/* --------------------------------------------- */
+
+.gab-text {
+    font-size: 18px;
+    word-wrap: break-word;
+}
+
+.gab-footer {
+    text-align: right;
+    font-size: 12px;
 }
 
 /* --------------------------------------------- */
@@ -83,4 +81,6 @@
 .form-spacing {
     margin-bottom: 10px;
 }
+
+
 

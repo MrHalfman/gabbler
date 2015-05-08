@@ -2,7 +2,19 @@
 {% for gab in gabs %}
     <div class="panel panel-default">
         <div class="panel-body">
-            {{ gab.user|userlink }} : "{{ gab.text }}" le {{ gab.date }}
+            <div class="row">
+                <div class="col-sm-2 col-xs-2 profile-picture">
+                    <div class="thumbnail">
+                        <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+                    </div>
+                </div>
+                <div class="col-sm-10 col-xs-10 profile-picture">
+                    <p class="gab-text">{{ gab.text }}</p>
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
+                </div>
+            </div>
         </div>
     </div>
 {% endfor %}
