@@ -38,7 +38,7 @@
 }
 
 .glyphicon-title {
-    font-size: 160px;
+    font-size: 120px;
 }
 
 .form-box {
@@ -61,15 +61,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: auto;
     max-height: 300px;
     overflow: hidden;
-}
-
-.about {
-    background-color: #ffffff;
-    margin-bottom: 10px;
-    padding: 0 !important;
 }
 
 .text-about {
@@ -90,3 +83,4 @@
 .form-spacing {
     margin-bottom: 10px;
 }
+

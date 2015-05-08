@@ -3,21 +3,29 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-4 col-xs-12 about">
-            <div class="col-sm-12 col-xs-4 profile-picture">
-                <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+        <div class="col-sm-4 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel panel-body">
+                    <div class="col-sm-12 col-xs-4 profile-picture">
+                        <div class="thumbnail">
+                            <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-8 text-about">
+                        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                        <blockquote>
+                            <em>
+                                {% if user.bio %}
+                                    {{ user.bio }}
+                                {% else %}
+                                    I'm true member of Gabbler and it's already not bad!
+                                {% endif %}
+                            </em>
+                        </blockquote>
+                    </div>
+                    <div id="googleMap" class="col-sm-12 col-xs-12"></div>
+                </div>
             </div>
-            <div class="col-sm-12 col-xs-8 text-about">
-                    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-                    <em>
-                        {% if user.bio %}
-                            {{ user.bio }}
-                        {% else %}
-                            I'm true member of Gabbler and it's already not bad!
-                        {% endif %}
-                    </em>
-            </div>
-            <div id="googleMap" class="col-sm-12 col-xs-12"></div>
         </div>
 
         <div class="col-sm-8 col-xs-12">
