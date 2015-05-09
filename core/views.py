@@ -36,7 +36,7 @@ def home(request):
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
 
     if request.user.is_authenticated():
-        gabs = Gab.objects.filter(user=request.user)
+        gabs = Gab.objects.filter(user=request.user).order_by('-date')
 
         # Add a new field in the gab for the YouTube link (display it in an iframe later)
         for gab in gabs:
