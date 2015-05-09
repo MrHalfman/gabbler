@@ -8,8 +8,9 @@ from social.models import Gab
 from core.models import User
 import re
 
-def encode_string_with_links(unencoded_string):
-    return URL_REGEX.sub(r'<a href="\1">\1</a>', unencoded_string)
+def links_to_tags(text):
+    url_regex = re.compile(r'(https?:\/\/)?(www)?([\da-z\.-]+)\.([a-zA-Z-\.]{2,6})\/?[\/\w\.\?=&-]*\/?')
+    return url_regex.sub(r'<a href="\1">\1</a>', text)
 
 
 def home(request):
@@ -37,16 +38,16 @@ def home(request):
 
         # Add a new field in the gab for the YouTube link (display it in an iframe later)
         for gab in gabs:
-            youtubeLink = re.search(r'(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/[^ ]+', gab.text)
-            if youtubeLink:
-                embedLink = re.search(r'(https?\:\/\/)?www\.youtube\.com\/embed\/[^ ]+', youtubeLink.group())
-                if embedLink:
-                    gab.youtubeLink = youtubeLink.group()
+            youtube_link = re.search(r'(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/[^ ]+', gab.text)
+            if youtube_link:
+                embed_link = re.search(r'(https?\:\/\/)?www\.youtube\.com\/embed\/[^ ]+', youtube_link.group())
+                if embed_link:
+                    gab.youtube_link = youtube_link.group()
                 else:
-                    idVideo = youtubeLink.group().split("=")[1]
-                    idVideo = re.search(r'[^ =&]+', idVideo)
-                    if idVideo:
-                        gab.youtubeLink = "http://www.youtube.com/embed/" + idVideo.group()
+                    id_video = youtube_link.group().split("=")[1]
+                    id_video = re.search(r'[^ =&]+', id_video)
+                    if id_video:
+                        gab.youtube_link = "http://www.youtube.com/embed/" + id_video.group()
 
         context = {
             "gabs": gabs
