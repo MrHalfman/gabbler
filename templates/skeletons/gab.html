@@ -10,6 +10,9 @@
                 </div>
                 <div class="col-sm-10 col-xs-10 profile-picture">
                     <p class="gab-text">{{ gab.text }}</p>
+                    {% if gab.youtubeLink %}
+                        <iframe src="{{ gab.youtubeLink }}"></iframe>
+                    {% endif %}
                 </div>
                 <div class="col-sm-12 col-xs-12">
                     <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>

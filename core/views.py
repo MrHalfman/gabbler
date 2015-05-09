@@ -5,7 +5,11 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
 from social.models import Gab
-from models import User
+from core.models import User
+import re
+
+def encode_string_with_links(unencoded_string):
+    return URL_REGEX.sub(r'<a href="\1">\1</a>', unencoded_string)
 
 
 def home(request):
@@ -29,8 +33,23 @@ def home(request):
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
 
     if request.user.is_authenticated():
+        gabs = Gab.objects.filter(user=request.user)
+
+        # Add a new field in the gab for the YouTube link (display it in an iframe later)
+        for gab in gabs:
+            youtubeLink = re.search(r'(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/[^ ]+', gab.text)
+            if youtubeLink:
+                embedLink = re.search(r'(https?\:\/\/)?www\.youtube\.com\/embed\/[^ ]+', youtubeLink.group())
+                if embedLink:
+                    gab.youtubeLink = youtubeLink.group()
+                else:
+                    idVideo = youtubeLink.group().split("=")[1]
+                    idVideo = re.search(r'[^ =&]+', idVideo)
+                    if idVideo:
+                        gab.youtubeLink = "http://www.youtube.com/embed/" + idVideo.group()
+
         context = {
-            "gabs": Gab.objects.filter(user=request.user)
+            "gabs": gabs
         }
         return render(request, "logged_index.html", context)
 
