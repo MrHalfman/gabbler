@@ -11,7 +11,9 @@
                 <div class="col-sm-10 col-xs-10 profile-picture">
                     <p class="gab-text">{{ gab.text }}</p>
                     {% if gab.youtube_link %}
-                        <iframe src="{{ gab.youtube_link }}"></iframe>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe src="{{ gab.youtube_link }}" ></iframe>
+                        </div>
                     {% endif %}
                 </div>
                 <div class="col-sm-12 col-xs-12">
