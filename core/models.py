@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     # first_name, last_name and username, password, email are already defined
-    avatar = models.ImageField(upload_to="avatars/", default="avatars/default.png")
+    avatar = models.ImageField(upload_to="avatars/", default="/media/avatars/default.png")
     banner = models.ImageField(upload_to="banners/", blank=True)
     bio = models.TextField(max_length=300)
     birthdate = models.DateTimeField(default=None, blank=True, null=True)
