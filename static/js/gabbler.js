@@ -2,10 +2,36 @@
 /* ------------------------ GEOLOCALISATION ------------------------ */
 /* ----------------------------------------------------------------- */
 
+/**
+ * Traforms coords into a real address and save it in the form
+ * @param  positionSet  The latitude and the longitude of a point
+ */
+function saveAddress(positionSet) {
+
+    // Get the city form the latitude and the longitude
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'latLng': positionSet}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if(results[0]) {
+                var results = results[0].address_components;
+
+                for(var i = 0; i < results.length; i ++) {
+                    if(results[i].types.indexOf("locality") >= 0) {
+                        var city = results[i].long_name;
+                        var latitude = positionSet.lat();
+                        var longitude = positionSet.lng();
+                        var zoom = 10;
+                    }
+                }
+            }
+        }
+    });
+}
+
 function setMarker(positionSet, map, markers) {
     var myMarker = new google.maps.Marker({
         position: positionSet,
-        map: map,
+        map: map
     });
 
     // Remove the previous markers
@@ -17,12 +43,12 @@ function setMarker(positionSet, map, markers) {
 
 function getPosition(latitude, longitude) {
     var map;
-    var markers = [];
+    // var markers = [];
 
     var positionSet = new google.maps.LatLng(latitude, longitude);
     var mapOptions = {
         center   : positionSet, // Where the center of the card is
-        zoom     : 15, // Level of zoom
+        zoom : 10,
         draggable : false,
         disableDoubleClickZoom : true,
         streetViewControl : false,
@@ -39,7 +65,8 @@ function getPosition(latitude, longitude) {
     };
 
     map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
-    setMarker(positionSet, map, markers);
+    // setMarker(positionSet, map, markers);
+    saveAddress(positionSet);
 }
 
 
