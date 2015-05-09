@@ -105,3 +105,32 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 /* ----------------------------------------------------------------- */
 /* ----------------------------------------------------------------- */
+
+function emptyGab(max) {
+    if (max - $("#gab-form").val().length == max) {
+        $("#send-gab").prop('disabled', true);
+    }
+    else {
+        $("#send-gab").prop('disabled', false);
+    }
+}
+
+var max = 255
+$("#count").text(max);
+emptyGab(max);
+
+$("#gab-form").keyup(function(){
+    var babyGab = $(this).val();
+    var charCount = max - babyGab.length;
+    $("#count").text(charCount);
+
+    if (charCount < 0) {
+        $("#count").addClass('gab-overflow');
+        $("#send-gab").prop('disabled', true);
+    } else {
+        $("#send-gab").prop('disabled', false);
+        $("#count").removeClass('gab-overflow');
+        emptyGab(max);
+    }
+});
+
