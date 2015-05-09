@@ -13,8 +13,10 @@ class User(AbstractUser):
 
 
 class Place(models.Model):
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
+    zoom = models.IntegerField(default=0)
+    city = models.TextField(max_length=100, blank=True)
 
 
 class UserLink(models.Model):
