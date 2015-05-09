@@ -8,9 +8,11 @@ from social.models import Gab
 from core.models import User
 import re
 
+"""
 def links_to_tags(text):
-    url_regex = re.compile(r'(https?:\/\/)?(www)?([\da-z\.-]+)\.([a-zA-Z-\.]{2,6})\/?[\/\w\.\?=&-]*\/?')
+    url_regex = re.compile(r'((https?:\/\/)?(www)?([\da-z\.-]+)\.([a-zA-Z-\.]{2,6})\/?[\/\w\.\?=&-]*\/?)')
     return url_regex.sub(r'<a href="\1">\1</a>', text)
+"""
 
 
 def home(request):
