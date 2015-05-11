@@ -134,3 +134,7 @@ $("#gab-form").keyup(function(){
     }
 });
 
+document.getElementById("btn-update-profile").onclick = function () {
+    location.href = "update";
+};
+

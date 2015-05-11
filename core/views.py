@@ -112,3 +112,9 @@ def logout(request):
 def user_profile(request, username):
     user = User.objects.get(username=username)
     return render(request, "user/profile.html", {"req_user": user})
+
+
+def update(request):
+    if request.user.is_authenticated():
+        return render(request, "user/update_profile.html")
+    return render(request, "guest_index.html")
