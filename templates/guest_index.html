@@ -1,67 +1,65 @@
-{% extends "include.html" %}
-
-{% block body %}
-    <div class="wrapper-content">
-        <div class="header-home">
-            <h2>Gabbler inc.</h2>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-box">
-                        <form class="form-horizontal" method="post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="hidden" name="redirection" value="connect">
-                                    <input type="text" name="username" class="form-control form-spacing" id="username" placeholder="Username">
-                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-                                    <button type="submit" class="btn btn-warning all-height-button">Connection</button>
-                                </div>
+{% include 'skeletons/head_includes.html' %}
+<div class="wrapper-content">
+    <div class="header-home">
+        <h2>Gabbler inc.</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-box">
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="hidden" name="redirection" value="connect">
+                                <input type="text" name="username" class="form-control form-spacing" id="username" placeholder="Username">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                <button type="submit" class="btn btn-warning all-height-button">Connection</button>
                             </div>
-                        </form>
-                    </div>
-                    <div class="form-box">
-                        <h3> Want to start now ?</h3>
-                        <form class="form-horizontal" method="post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="hidden" name="redirection" value="new">
-                                    <input type="text" name="username_register" class="form-control form-spacing" id="username" placeholder="Username">
-                                    <input type="email" name="email_register" class="form-control form-spacing" id="email" placeholder="Email">
-                                    <input type="password" name="password_register" class="form-control form-spacing" id="password" placeholder="Password">
-                                    <button type="submit" class="btn btn-info">Join Now</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-sm-6">
-                        <div class="col-sm-6 tile">
-                            <span class="glyphicon glyphicon-globe glyphicon-title" aria-hidden="true"></span>
+                <div class="form-box">
+                    <h3> Want to start now ?</h3>
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="hidden" name="redirection" value="new">
+                                <input type="text" name="username_register" class="form-control form-spacing" id="username" placeholder="Username">
+                                <input type="email" name="email_register" class="form-control form-spacing" id="email" placeholder="Email">
+                                <input type="password" name="password_register" class="form-control form-spacing" id="password" placeholder="Password">
+                                <button type="submit" class="btn btn-info">Join Now</button>
+                            </div>
                         </div>
-                        <div class="col-sm-6 tile">
-                            <span class="glyphicon glyphicon-bullhorn glyphicon-title" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-sm-6 tile">
-                            <span class="glyphicon glyphicon-heart glyphicon-title" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-sm-6 tile">
-                            <span class="glyphicon glyphicon-user glyphicon-title" aria-hidden="true"></span>
-                        </div>
-                    <div class="col-sm-12 tile">
-                        <div class ="head-text">
-                            Spead your gabbles around the world, speak more and more &
-                            be a member of the Gab' family
-                        </div>
-                        <!-- <h2 class="text-globe">Spead your gabbles around the world</h2>
-                        <h2 class="text-bullhorn">Speak more and more</h2>
-                        <h2 class="text-heart">Be a member of the Gab' family</h2>
-                        <h2 class="text-user">Don't loose your friends</h2> -->
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                    <div class="col-sm-6 tile">
+                        <span class="glyphicon glyphicon-globe glyphicon-title" aria-hidden="true"></span>
                     </div>
+                    <div class="col-sm-6 tile">
+                        <span class="glyphicon glyphicon-bullhorn glyphicon-title" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-6 tile">
+                        <span class="glyphicon glyphicon-heart glyphicon-title" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-sm-6 tile">
+                        <span class="glyphicon glyphicon-user glyphicon-title" aria-hidden="true"></span>
+                    </div>
+                <div class="col-sm-12 tile">
+                    <div class ="head-text">
+                        Spead your gabbles around the world, speak more and more &
+                        be a member of the Gab' family
+                    </div>
+                    <!-- <h2 class="text-globe">Spead your gabbles around the world</h2>
+                    <h2 class="text-bullhorn">Speak more and more</h2>
+                    <h2 class="text-heart">Be a member of the Gab' family</h2>
+                    <h2 class="text-user">Don't loose your friends</h2> -->
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
+</div>
+{% include 'skeletons/footer_includes.html' %}
