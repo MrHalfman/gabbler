@@ -116,7 +116,7 @@ function emptyGab(max) {
     }
 }
 
-var max = 255
+var max = 255;
 $("#count").text(max);
 emptyGab(max);
 
@@ -135,7 +135,7 @@ $("#gab-form").keyup(function(){
     }
 });
 
-document.getElementById("btn-update-profile").onclick = function () {
-    location.href = "update";
-};
+function updateRedirection(){
+    document.location.href = "update";
+}
 
