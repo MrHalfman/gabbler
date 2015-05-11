@@ -15,6 +15,11 @@
                             <iframe src="{{ gab.youtube_link }}" ></iframe>
                         </div>
                     {% endif %}
+                    {% if gab.giphy %}
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe src="{{ gab.giphy }}" ></iframe>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col-sm-12 col-xs-12">
                     <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
