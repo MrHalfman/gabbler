@@ -116,5 +116,9 @@ def user_profile(request, username):
 
 def update(request):
     if request.user.is_authenticated():
-        return render(request, "user/update_profile.html")
-    return render(request, "guest_index.html")
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        email = request.user.email
+        update_flag = True
+        return render(request, "user/update_profile.html", locals())
+    return HttpResponseRedirect("/")
