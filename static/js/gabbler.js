@@ -49,6 +49,7 @@ function getPosition(latitude, longitude) {
     var mapOptions = {
         center   : positionSet, // Where the center of the card is
         zoom : 10,
+        scrollwheel: false,
         draggable : false,
         disableDoubleClickZoom : true,
         streetViewControl : false,
