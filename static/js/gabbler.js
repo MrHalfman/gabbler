@@ -126,7 +126,6 @@ function emptyGab(max) {
 function copyToHiddenField() {
     var gab = $(".gab-field").text();
     $("#content").val(gab);
-    console.log("kikouuuu");
 }
 
 // Verify some conditions before send the gab
