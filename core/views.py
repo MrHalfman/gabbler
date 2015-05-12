@@ -17,6 +17,32 @@ def links_to_tags(text):
     return url_regex.sub(r'<a href="\1">\1</a>', text)
 """
 
+def get_gif(gab):
+    giphy_request = re.search(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
+    if giphy_request:
+        url = "http://api.giphy.com/v1/gifs/search?q=" + giphy_request.group(1) + "&api_key=dc6zaTOxFJmzC"
+        req = urllib2.Request(url)
+        response = urllib2.urlopen(req)
+        if response:
+            decoded_json = json.loads(response.read())
+            if decoded_json["data"]:
+                gab.giphy = decoded_json["data"][0]["embed_url"]
+
+def get_video(gab):
+    youtube_link = re.search(r'(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/[^ ]+', gab.text)
+    if youtube_link:
+        embed_link = re.search(r'(https?\:\/\/)?www\.youtube\.com\/embed\/[^ ]+', youtube_link.group())
+        if embed_link:
+            gab.youtube_link = youtube_link.group()
+        else:
+            id_video = youtube_link.group().split("=")[1]
+            id_video = re.search(r'[^ =&]+', id_video)
+            if id_video:
+                gab.youtube_link = "http://www.youtube.com/embed/" + id_video.group()
+
+
+# ######################################################################################################################
+# ######################################################################################################################
 
 def home(request):
     if request.method == "POST":
@@ -41,33 +67,10 @@ def home(request):
     if request.user.is_authenticated():
         gabs = Gab.objects.filter(user=request.user).order_by('-date')
 
-
-
         # Add a new field in the gab for the YouTube link (display it in an iframe later)
         for gab in gabs:
-            # Giphy part
-            # (G>[a-zA-Z0-9]+(\+[a-zA-Z0-9])*)
-            giphy_request = re.search(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
-            if giphy_request:
-                url = "http://api.giphy.com/v1/gifs/search?q=" + giphy_request.group(1) + "&api_key=dc6zaTOxFJmzC"
-                req = urllib2.Request(url)
-                response = urllib2.urlopen(req)
-                if response:
-                    decoded_json = json.loads(response.read())
-                    if decoded_json["data"]:
-                        gab.giphy = decoded_json["data"][0]["embed_url"]
-
-            # youtube video part
-            youtube_link = re.search(r'(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/[^ ]+', gab.text)
-            if youtube_link:
-                embed_link = re.search(r'(https?\:\/\/)?www\.youtube\.com\/embed\/[^ ]+', youtube_link.group())
-                if embed_link:
-                    gab.youtube_link = youtube_link.group()
-                else:
-                    id_video = youtube_link.group().split("=")[1]
-                    id_video = re.search(r'[^ =&]+', id_video)
-                    if id_video:
-                        gab.youtube_link = "http://www.youtube.com/embed/" + id_video.group()
+            get_gif(gab)
+            get_video(gab)
 
         context = {
             "gabs": gabs
