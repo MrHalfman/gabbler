@@ -79,9 +79,24 @@
 .gab-overflow {
     color: #ff3000;
 }
+
+.gab-field {
+    padding-bottom: 5px;
+    border-bottom: 1px solid darkgrey;
+}
+
+.on-hover-gab {
+    border-bottom: 2px solid #5a8368;
+}
+
+.help-text {
+    color: darkgrey;
+}
+
 .btn-update{
     margin-top: 10px;
 }
+
 
 /* --------------------------------------------- */
 /* --------------------------------------------- */
