@@ -18,9 +18,10 @@ def links_to_tags(text):
 """
 
 def get_gif(gab):
-    giphy_request = re.search(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
+    giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
     if giphy_request:
-        url = "http://api.giphy.com/v1/gifs/search?q=" + giphy_request.group(1) + "&api_key=dc6zaTOxFJmzC"
+        get_parameters = "+".join(str(id[0]) for id in giphy_request)
+        url = "http://api.giphy.com/v1/gifs/search?q=" + get_parameters + "&api_key=dc6zaTOxFJmzC"
         req = urllib2.Request(url)
         response = urllib2.urlopen(req)
         if response:
