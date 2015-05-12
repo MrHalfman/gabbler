@@ -35,9 +35,9 @@
             <div class="panel panel-default">
                 <div class="panel panel-body">
                     <div id="count"></div>
-                    <form action="{% url "post_gab" %}" method="post">
+                    <form id="gab-form" action="{% url "post_gab" %}" method="post">
                         {% csrf_token %}
-                        <textarea id="gab-form" class="form-control" name="text" placeholder="Say something!"></textarea>
+                        <textarea id="gab-field" class="form-control" name="text" placeholder="Say something!"></textarea>
                         <div class="text-right">
                             <button id="send-gab" class="btn btn-success" type="submit">Send</button>
                         </div>
@@ -53,4 +53,5 @@
             </div>
         </div>
     </div>
+    <script> $(document).ready(function(){ checkGab(); }) </script>
 {% endblock %}

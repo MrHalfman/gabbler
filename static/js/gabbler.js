@@ -11,7 +11,7 @@ function saveAddress(positionSet) {
     // Get the city form the latitude and the longitude
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'latLng': positionSet}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
+        if(status == google.maps.GeocoderStatus.OK) {
             if(results[0]) {
                 var results = results[0].address_components;
 
@@ -107,8 +107,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
 /* ----------------------------------------------------------------- */
 /* ----------------------------------------------------------------- */
 
+function updateRedirection(){
+    document.location.href = "update";
+}
+
 function emptyGab(max) {
-    if (max - $("#gab-form").val().length == max) {
+    if(max - $("#gab-field").val().length == max) {
         $("#send-gab").prop('disabled', true);
     }
     else {
@@ -116,26 +120,41 @@ function emptyGab(max) {
     }
 }
 
-var max = 255;
-$("#count").text(max);
-emptyGab(max);
 
-$("#gab-form").keyup(function(){
-    var babyGab = $(this).val();
-    var charCount = max - babyGab.length;
-    $("#count").text(charCount);
-
-    if (charCount < 0) {
-        $("#count").addClass('gab-overflow');
-        $("#send-gab").prop('disabled', true);
-    } else {
-        $("#send-gab").prop('disabled', false);
-        $("#count").removeClass('gab-overflow');
+function checkGab() {
+    if($("#gab-field")) {
+        var max = 255;
+        $("#count").text(max);
         emptyGab(max);
-    }
-});
 
-function updateRedirection(){
-    document.location.href = "update";
+        $("#gab-field").keyup(function () {
+            var babyGab = $(this).val();
+            var charCount = max - babyGab.length;
+            $("#count").text(charCount);
+            var re = /\S/;
+
+            if(!re.test(babyGab) || (charCount < 0)) {
+                if(charCount < 0) {
+                    $("#count").addClass('gab-overflow');
+                }
+                else {
+                    $("#count").removeClass('gab-overflow');
+                }
+                $("#send-gab").prop('disabled', true);
+            } else {
+                $("#send-gab").prop('disabled', false);
+                emptyGab(max);
+            }
+        });
+
+        $('#gab-field').keypress(function (e) {
+            if(!e.shiftKey) {
+                if(e.which == 13) {
+                    $("#gab-form").submit();
+                    return false;
+                }
+            }
+        });
+    }
 }
 
