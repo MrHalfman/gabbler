@@ -8,7 +8,7 @@
                         <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
                     </div>
                 </div>
-                <div class="col-sm-10 col-xs-10 profile-picture">
+                <div class="col-sm-9 col-xs-9">
                     <p class="gab-text">{{ gab.text }}</p>
                     {% if gab.youtube_link %}
                         <div class="embed-responsive embed-responsive-16by9">
@@ -20,6 +20,12 @@
                             <iframe src="{{ gab.giphy }}" ></iframe>
                         </div>
                     {% endif %}
+                </div>
+                <div class="col-sm-1 col-xs-1">
+                    <div class="col-sm-12 col-xs-12">
+                        <a href="#">Me</a>
+                    </div>
+                    <!-- Add the fav & regab icons here! -->
                 </div>
                 <div class="col-sm-12 col-xs-12">
                     <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
