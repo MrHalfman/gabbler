@@ -97,6 +97,15 @@
     margin-top: 10px;
 }
 
+#delete-gab{
+    color: darkgrey;
+    font-size: 16px;
+}
+
+#delete-gab:hover {
+    text-decoration: none;
+    color: red;
+}
 
 /* --------------------------------------------- */
 /* --------------------------------------------- */

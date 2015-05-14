@@ -11,3 +11,8 @@ def post_gab(request):
         text=request.POST.get("text")
     )
     return HttpResponseRedirect("/")
+
+def delete_gab(request, gab_pk):
+    gab = Gab.objects.get(pk=gab_pk)
+    gab.delete()
+    return HttpResponseRedirect("/")
