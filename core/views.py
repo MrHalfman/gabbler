@@ -160,7 +160,7 @@ def update(request):
 
         if not request.user.check_password(request.POST.get("old-password")):
             error = True
-            messages.error(request, "Wrong old password.")
+            messages.error(request, "Please type your password before validate your modifications.")
 
         if request.POST.get("new-password") != request.POST.get("new-password-confirm"):
             error = True

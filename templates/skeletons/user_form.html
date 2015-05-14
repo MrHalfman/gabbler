@@ -34,16 +34,6 @@
                 </div>
 
                 {% if update_flag %}
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-10">
-                        <hr>
-                        <p><em>If you want to change your password, please type your old one and twice the new one</em></p>
-                    </div>
-                    <label for="inputPassword" class="col-lg-2 control-label">Old password</label>
-                    <div class="col-lg-10 form-spacing">
-                        <input type="password" name="old-password" class="form-control" id="password" placeholder="Old password" value="{{ password }}">
-                    </div>
-
                     <label for="inputPassword" class="col-lg-2 control-label">New password (twice)</label>
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password" class="form-control" id="old-password" placeholder="New password">
@@ -52,6 +42,17 @@
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password-confirm" class="form-control" id="new-password-1" placeholder="New password again">
                     </div>
+
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10">
+                        <hr>
+                    </div>
+                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <div class="col-lg-10 form-spacing">
+                        <input type="password" name="old-password" class="form-control" id="password"
+                               placeholder="Type your password before validate your modifications" value="{{ password }}">
+                    </div>
+
                 {% else %}
                     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10 form-spacing">
