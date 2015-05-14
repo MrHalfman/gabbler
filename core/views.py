@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
 from social.models import Gab
-from core.models import User
+from core.models import User, Place
 import re
 import json
 import urllib2
@@ -104,12 +104,15 @@ def register(request):
 
         username = request.POST.get("username")
         password = request.POST.get("password")
+        new_place = Place()
+        new_place.save()
 
         user, created = User.objects.get_or_create(
             email=request.POST.get("email"),
             username=request.POST.get("username"),
             first_name=request.POST.get("first_name"),
-            last_name=request.POST.get("last_name")
+            last_name=request.POST.get("last_name"),
+            place=new_place
         )
 
         if created:
@@ -122,7 +125,8 @@ def register(request):
         return HttpResponseRedirect("/")
 
     data = request.session.get("data_register")
-    del request.session["data_register"]
+    if data:
+        del request.session["data_register"]
     return render(request, "register.html", data)
 
 
