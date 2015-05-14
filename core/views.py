@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login as django_login, logout as d
 from django.contrib import messages
 from social.models import Gab
 from core.models import User, Place
+from django.contrib.auth.decorators import login_required
 import re
 import json
 import urllib2
@@ -140,11 +141,47 @@ def user_profile(request, username):
     return render(request, "user/profile.html", {"req_user": user})
 
 
+@login_required
 def update(request):
-    if request.user.is_authenticated():
+    if request.method == "POST":
+        error = False
+
+        if not request.POST.get("first_name"):
+            error = True
+            messages.error(request, "Please give us your first name.")
+
+        if not request.POST.get("last_name"):
+            error = True
+            messages.error(request, "Please give us your last name.")
+
+        if not request.POST.get("email"):
+            error = True
+            messages.error(request, "Please give us your email.")
+
+        if not request.user.check_password(request.POST.get("old-password")):
+            error = True
+            messages.error(request, "Wrong old password.")
+
+        if request.POST.get("new-password") != request.POST.get("new-password-confirm"):
+            error = True
+            messages.error(request, "Password and confirmation passwords aren't the same.")
+
+        if not error:
+            request.user.first_name = request.POST.get("first_name")
+            request.user.last_name = request.POST.get("last_name")
+            request.user.email = request.POST.get("email")
+
+            if request.POST.get("new-password"):
+                request.user.set_password(request.POST.get("new-password"))
+
+            request.user.save()
+
+        return HttpResponseRedirect("/update/")
+
+    elif request.method == "GET":
         first_name = request.user.first_name
         last_name = request.user.last_name
         email = request.user.email
         update_flag = True
+
         return render(request, "user/update_profile.html", locals())
-    return HttpResponseRedirect("/")

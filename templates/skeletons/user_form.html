@@ -5,7 +5,7 @@
 <div class="panel">
     <div class="panel-body">
         {% if update_flag %}
-            <h1 class="title-spacing">Please, tell us more about you!</h1>
+            <h1 class="title-spacing">Update yourself here!</h1>
         {% else %}
             <h1 class="title-spacing">Start gabble today and never stop !</h1>
         {%  endif %}
@@ -34,11 +34,28 @@
                 </div>
 
                 {% if update_flag %}
-                    {% comment %} Nedd to add 3 fields for password{% endcomment %}
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10">
+                        <hr>
+                        <p><em>If you want to change your password, please type your old one and twice the new one</em></p>
+                    </div>
+                    <label for="inputPassword" class="col-lg-2 control-label">Old password</label>
+                    <div class="col-lg-10 form-spacing">
+                        <input type="password" name="old-password" class="form-control" id="password" placeholder="Old password" value="{{ password }}">
+                    </div>
+
+                    <label for="inputPassword" class="col-lg-2 control-label">New password (twice)</label>
+                    <div class="col-lg-10 form-spacing">
+                        <input type="password" name="new-password" class="form-control" id="old-password" placeholder="New password">
+                    </div>
+                    <label for="inputPassword" class="col-lg-2 control-label"></label>
+                    <div class="col-lg-10 form-spacing">
+                        <input type="password" name="new-password-confirm" class="form-control" id="new-password-1" placeholder="New password again">
+                    </div>
                 {% else %}
                     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10 form-spacing">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="{{ password }}">
+                        <input type="password" name="new-password-2" class="form-control" id="new-password-2" placeholder="Password">
                     </div>
                 {% endif %}
             </div>
