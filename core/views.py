@@ -74,7 +74,14 @@ def home(request):
             get_gif(gab)
             get_video(gab)
 
+        place_elements = ""
+        if request.user.place:
+            place_elements = request.user.place.city, request.user.place.country
+            place_elements = filter(None, place_elements)
+
         context = {
+            "place": ", ".join(place_elements),
+            "birthdate": request.user.birthdate,
             "gabs": gabs
         }
         return render(request, "logged_index.html", context)
