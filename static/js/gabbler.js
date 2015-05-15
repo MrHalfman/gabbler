@@ -112,7 +112,7 @@ function updateRedirection(){
     document.location.href = "update";
 }
 
-function confirmDeletion(){
+function confirmDeletion(gabId){
     event.preventDefault();
     swal({
         title: "Are you sure to delete your gab?",
@@ -126,7 +126,8 @@ function confirmDeletion(){
     },
     function(isConfirm){
         if (isConfirm) {
-            link = $("#delete-gab").attr('href');
+            link = "delete-gab/" + gabId + "/";
+            console.log(link);
             window.location = link;
         }
     });
