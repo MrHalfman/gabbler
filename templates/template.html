@@ -1,5 +1,4 @@
 {% include 'skeletons/head_includes.html' %}
-{% block navbar %}
 <div class="navbar navbar-default">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -25,7 +24,6 @@
         </ul>
     </div>
 </div>
-{% endblock %}
 
 <div class ="container">
     {% block content %}
@@ -39,9 +37,9 @@
         {% endfor %}
     {% endif %}
 </div>
-{% block footer %}
-    <div class="panel-footer text-center {% block footer-class %}{% endblock %}">
-        Gabbler &copy; - 2015
-    </div>
+<div class="panel-footer text-center {% block footer-class %}{% endblock %}">
+    Gabbler &copy; - 2015
+</div>
+{% block additional_scripts %}
 {% endblock %}
 {% include 'skeletons/footer_includes.html' %}

@@ -112,22 +112,6 @@ function updateRedirection(){
     document.location.href = "update";
 }
 
-// Check if they are some text in the gab form (if not, disable the button)
-function emptyGab(max) {
-    if(max - $(".gab-field").text().length == max) {
-        $("#send-gab").prop('disabled', true);
-    }
-    else {
-        $("#send-gab").prop('disabled', false);
-    }
-}
-
-// Copy the text in the div and set it into an hidden field
-function copyToHiddenField() {
-    var gab = $(".gab-field").text();
-    $("#content").val(gab);
-}
-
 function confirmDeletion(){
     event.preventDefault();
     swal({
@@ -147,53 +131,4 @@ function confirmDeletion(){
         }
     });
 }
-
-// Verify some conditions before send the gab
-function checkGab() {
-    if($(".gab-field")) {
-
-        $("#gab-form").submit(function() {
-            copyToHiddenField();
-        });
-
-        $(".gab-field").click(function() {
-            $(this).addClass("on-hover-gab");
-            $(this).text("");
-        });
-
-        var max = 255;
-        $("#count").text(max);
-
-        $(".gab-field").keyup(function () {
-            var babyGab = $(this).text();
-            var charCount = max - babyGab.length;
-            $("#count").text(charCount);
-            var re = /\S/;
-
-            if(!re.test(babyGab) || (charCount < 0)) {
-                if(charCount < 0) {
-                    $("#count").addClass('gab-overflow');
-                }
-                else {
-                    $("#count").removeClass('gab-overflow');
-                }
-                $("#send-gab").prop('disabled', true);
-            } else {
-                $("#send-gab").prop('disabled', false);
-                emptyGab(max);
-            }
-        });
-
-        $('.gab-field').keypress(function (e) {
-            if(!e.shiftKey) {
-                if(e.which == 13) {
-                    copyToHiddenField();
-                    $("#gab-form").submit();
-                    return false;
-                }
-            }
-        });
-    }
-}
-
 
