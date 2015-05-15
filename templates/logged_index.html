@@ -20,16 +20,18 @@
                             </blockquote>
                         {% endif %}
 
+                        <hr>
+
                         {% if place %}
-                            <span class="mdi-social-domain">
-                                {{ place }}
-                            </span>
+                            <div class="col-sm-12 user-info">
+                                <span class="mdi-social-domain"></span>&nbsp;{{ place }}
+                            </div>
                         {% endif %}
 
                         {% if birthdate %}
-                            <span class="mdi-social-cake">
-                                {{ user.birthdate|date:"m-d-Y" }}
-                            </span>
+                            <div class="col-sm-12 user-info">
+                                <span class="mdi-social-cake"></span>&nbsp;{{ user.birthdate|date:"M d, Y" }}
+                            </div>
                         {% endif %}
                     </div>
                     <div id="" class="col-sm-10 col-xs-10 btn-update">
