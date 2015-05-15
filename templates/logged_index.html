@@ -13,15 +13,24 @@
                     </div>
                     <div class="col-sm-12 col-xs-8">
                         <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-                        <blockquote>
-                            <em>
-                                {% if user.bio %}
-                                    {{ user.bio }}
-                                {% else %}
-                                    I'm true member of Gabbler and it's already not bad!
-                                {% endif %}
-                            </em>
-                        </blockquote>
+
+                        {%  if user.bio %}
+                            <blockquote>
+                                <em>{{ user.bio }}</em>
+                            </blockquote>
+                        {% endif %}
+
+                        {% if place %}
+                            <span class="mdi-social-domain">
+                                {{ place }}
+                            </span>
+                        {% endif %}
+
+                        {% if birthdate %}
+                            <span class="mdi-social-cake">
+                                {{ user.birthdate|date:"m-d-Y" }}
+                            </span>
+                        {% endif %}
                     </div>
                     <div id="" class="col-sm-10 col-xs-10 btn-update">
                         <button type="submit" class="btn btn-info" onclick="updateRedirection()">Update</button>
@@ -59,8 +68,6 @@
 {% block additional_scripts %}
     <script type="text/javascript">
     $(document).ready(function() {
-        console.log("toto");
-
         // Check if they are some text in the gab form (if not, disable the button)
         function emptyGab(max) {
             if(max - $(".gab-field").text().length == max) {
