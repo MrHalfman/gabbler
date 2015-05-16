@@ -55,9 +55,9 @@
 
 /* -------------------- PROFILE PAGE -------------------- */
 
-#googleMap {
-    height: 150px;
-}
+.user-info {
+    font-size: 16px;
+ }
 
 .gab-text {
     font-size: 18px;
