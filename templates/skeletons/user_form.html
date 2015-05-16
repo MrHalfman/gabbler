@@ -34,6 +34,27 @@
                 </div>
 
                 {% if update_flag %}
+
+                    <label for="inputBirthdate" class="col-lg-2 control-label">Birthdate</label>
+                    <div class="col-lg-10 form-spacing">
+                        <input name="birthdate" class="form-control datepicker" id="birthdate"
+                               placeholder="Your birthdate " value="{{ birthdate }}">
+                    </div>
+
+                    <label for="inputLocation" class="col-lg-2 control-label">Location</label>
+                    <div class="col-lg-5 form-spacing">
+                        <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ city }}">
+                    </div>
+                    <div class="col-lg-5 form-spacing">
+                        <input type="text" name="country" class="form-control" id="country" placeholder="Country" value="{{ country }}">
+                    </div>
+
+
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10">
+                        <hr>
+                    </div>
+
                     <label for="inputPassword" class="col-lg-2 control-label">New password (twice)</label>
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password" class="form-control" id="old-password" placeholder="New password">
@@ -42,6 +63,7 @@
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password-confirm" class="form-control" id="new-password-1" placeholder="New password again">
                     </div>
+
 
                     <div class="col-lg-2"></div>
                     <div class="col-lg-10">
@@ -68,3 +90,17 @@
         </form>
     </div>
 </div>
+
+{% if update_flag %}
+    {% block additional_scripts %}
+        <script type="text/javascript">
+        $(document).ready(function() {
+           $(".datepicker").datepicker( {
+                format:  "dd/mm/yyyy",
+                clearBtn: true,
+                endDate: Date.now()
+            });
+        });
+        </script>
+    {% endblock %}
+{% endif %}

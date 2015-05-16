@@ -1,4 +1,5 @@
 # coding=UTF-8
+import datetime
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -177,18 +178,39 @@ def update(request):
             request.user.first_name = request.POST.get("first_name")
             request.user.last_name = request.POST.get("last_name")
             request.user.email = request.POST.get("email")
+            request.user.place.city = request.POST.get("city")
+            request.user.place.country = request.POST.get("country")
+
+            if request.POST.get("birthdate") != "":
+                try :
+                    request.user.birthdate = datetime.datetime.strptime(request.POST.get("birthdate"), "%d/%m/%Y")
+                except :
+                    messages.error(request, "You must choose a date from the date picker.")
+            else:
+                request.user.birthdate = None
 
             if request.POST.get("new-password"):
                 request.user.set_password(request.POST.get("new-password"))
 
             request.user.save()
+            request.user.place.save()
 
         return HttpResponseRedirect("/update/")
 
     elif request.method == "GET":
-        first_name = request.user.first_name
-        last_name = request.user.last_name
-        email = request.user.email
-        update_flag = True
 
-        return render(request, "user/update_profile.html", locals())
+        birthdate = ""
+        if request.user.birthdate != None:
+            birthdate =  request.user.birthdate.strftime('%d/%m/%Y')
+
+        context = {
+            "first_name":request.user.first_name,
+            "last_name":request.user.last_name,
+            "email":request.user.email,
+            "city":request.user.place.city,
+            "country":request.user.place.country,
+            "birthdate":birthdate,
+            "update_flag": True
+        }
+
+        return render(request, "user/update_profile.html", context)
