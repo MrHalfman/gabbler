@@ -10,11 +10,11 @@ urlpatterns = patterns('',
     url(r'^connect/', 'core.views.connect', name="connect"),
     url(r'^logout/', 'core.views.logout', name="logout"),
     url(r'^update/', 'core.views.update', name="update"),
-    url(r'^delete_user/', 'core.views.delete_user', name="deleteUser"),
+    url(r'^delete_user/', 'core.views.delete_user', name="delete_user"),
 
     # Social
     url(r'^post_gab/', 'social.views.post_gab', name="post_gab"),
-    url(r'delete_gab/(?P<gab_pk>\w+)/', 'social.views.delete_gab', name="delete_gab"),
+    url(r'^delete_gab/(?P<gab_pk>\w+)/', 'social.views.delete_gab', name="delete_gab"),
 
     url(r'^admin/', include(admin.site.urls))
 )
