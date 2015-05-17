@@ -11,7 +11,24 @@
         {%  endif %}
 
         <form class="form-horizontal" method="post">
+            {% comment %}
+                <ul class="nav nav-pills">
+                    <li role="presentation"><a href="#" onclick="displayPart()">About you</a></li>
+                    <li role="presentation"><a href="#" onclick="displayPart()">Your banner and avatar</a></li>
+                    <li role="presentation"><a href="#" onclick="displayPart()">Update your password</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            Others <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><a href="#">Delete my account</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            {% endcomment %}
+
             {% csrf_token %}
+
             <div class="form-group">
                 <label for="inputUsername" class="col-lg-2 control-label">Full name</label>
                 <div class="col-lg-5 form-spacing">
@@ -35,46 +52,6 @@
 
                 {% if update_flag %}
 
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-10">
-                        <hr>
-                    </div>
-
-                    <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
-                    <div class="col-lg-10 form-spacing">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <span class="btn btn-success btn-file">
-                                    Browse<input type="file" name="avatar" id="avatar">
-                                </span>
-                            </span>
-                            <input id="avatar-value" type="text" class="form-control" readonly="">
-                        </div>
-                        <!-- <span class="btn btn-success btn-file">
-                            Browse <input type="file" name="avatar" id="avatar" >
-                        </span> -->
-
-                        <!--<input type="file" name="profile" class="form-control" id="profile"
-                               placeholder="Your new profile">-->
-                    </div>
-
-                    <label for="upload-banner" class="col-lg-2 control-label">Banner</label>
-                    <div class="col-lg-10 form-spacing">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <span class="btn btn-success btn-file">
-                                    Browse<input type="file" name="banner" id="banner">
-                                </span>
-                            </span>
-                            <input id="banner-value" type="text" class="form-control" readonly="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-10">
-                        <hr>
-                    </div>
-
                     <label for="input-birthdate" class="col-lg-2 control-label">Birthdate</label>
                     <div class="col-lg-10 form-spacing">
                         <input name="birthdate" class="form-control datepicker" id="birthdate"
@@ -94,6 +71,38 @@
                     <div class="col-lg-10">
                         <hr>
                     </div>
+
+                    
+                    <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
+                    <div class="col-lg-10 form-spacing">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-success btn-file">
+                                    Browse<input type="file" name="avatar" id="avatar">
+                                </span>
+                            </span>
+                            <input id="avatar-value" type="text" class="form-control" readonly="">
+                        </div>
+                    </div>
+
+                    <label for="upload-banner" class="col-lg-2 control-label">Banner</label>
+                    <div class="col-lg-10 form-spacing">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-success btn-file">
+                                    Browse<input type="file" name="banner" id="banner">
+                                </span>
+                            </span>
+                            <input id="banner-value" type="text" class="form-control" readonly="">
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10">
+                        <hr>
+                    </div>
+
 
                     <label for="input-password" class="col-lg-2 control-label">New password (twice)</label>
                     <div class="col-lg-10 form-spacing">
