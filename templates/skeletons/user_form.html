@@ -35,13 +35,37 @@
 
                 {% if update_flag %}
 
-                    <label for="inputBirthdate" class="col-lg-2 control-label">Birthdate</label>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10">
+                        <hr>
+                    </div>
+
+                    <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
+                    <div class="col-lg-10 form-spacing">
+                        <span class="btn btn-success btn-file">
+                            Browse <input type="file" name="profile" id="profile" >
+                        </span>
+                    </div>
+
+                    <label for="upload-banner" class="col-lg-2 control-label">Banner</label>
+                    <div class="col-lg-10 form-spacing">
+                        <span class="btn btn-success btn-file">
+                            Browse <input type="file" name="banner" id="banner">
+                        </span>
+                    </div>
+
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10">
+                        <hr>
+                    </div>
+
+                    <label for="input-birthdate" class="col-lg-2 control-label">Birthdate</label>
                     <div class="col-lg-10 form-spacing">
                         <input name="birthdate" class="form-control datepicker" id="birthdate"
                                placeholder="Your birthdate " value="{{ birthdate }}">
                     </div>
 
-                    <label for="inputLocation" class="col-lg-2 control-label">Location</label>
+                    <label for="input-location" class="col-lg-2 control-label">Location</label>
                     <div class="col-lg-5 form-spacing">
                         <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ city }}">
                     </div>
@@ -55,11 +79,11 @@
                         <hr>
                     </div>
 
-                    <label for="inputPassword" class="col-lg-2 control-label">New password (twice)</label>
+                    <label for="input-password" class="col-lg-2 control-label">New password (twice)</label>
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password" class="form-control" id="old-password" placeholder="New password">
                     </div>
-                    <label for="inputPassword" class="col-lg-2 control-label"></label>
+                    <label for="input-password" class="col-lg-2 control-label"></label>
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password-confirm" class="form-control" id="new-password-1" placeholder="New password again">
                     </div>
@@ -69,14 +93,14 @@
                     <div class="col-lg-10">
                         <hr>
                     </div>
-                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <label for="input-password" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="old-password" class="form-control" id="password"
                                placeholder="Type your password before validate your modifications" value="{{ password }}">
                     </div>
 
                 {% else %}
-                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <label for="input-password" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10 form-spacing">
                         <input type="password" name="new-password-2" class="form-control" id="new-password-2" placeholder="Password">
                     </div>
