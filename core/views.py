@@ -216,3 +216,19 @@ def update(request):
         }
 
         return render(request, "user/update_profile.html", context)
+
+@login_required
+def delete_user(request):
+    if request.method == "POST":
+        if not request.user.check_password(request.POST.get("password")):
+            error = True
+            messages.error(request, "Please type your correct password before validate the deletion.")
+
+            if error:
+                return HttpResponseRedirect("user/delete_profile.html")
+        else :
+            request.user.delete()
+            return HttpResponseRedirect("/")
+
+    else:
+        return render(request, "user/delete_profile.html")

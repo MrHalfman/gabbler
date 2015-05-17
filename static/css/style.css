@@ -118,6 +118,10 @@
     margin-bottom: 10px;
 }
 
+.spacing-up {
+    margin-top: 50px;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -134,4 +138,9 @@
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.sad-smiley {
+    font-size: 180px;
+    word-break: keep-all;
 }

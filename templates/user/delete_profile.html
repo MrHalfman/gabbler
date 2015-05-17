@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+{% block title %} Connect {% endblock %}
+
+{% block content %}
+    <div class="panel panel-success">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-3 sad-smiley">
+                    &nbsp;:(
+                </div>
+                <div class="col-sm-9">
+                    <h1 class="title-spacing">
+                        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                        BE CAREFUL
+                    </h1>
+                    <p>
+                        Caution, you are about to permanently delete your account. If you're agree it will be impossible to recover it.<br>
+                        Are you so sure you want to delete your account?
+                    </p>
+                    <button type="submit" class="btn btn-primary" onclick="returnHome()">No, go back to my homepage please !</button>
+                    <button type="submit" class="btn" onclick="displayDeletionForm()">Yes delete my account</button>
+
+                    <div id="delete-form" class="spacing-up" hidden="">
+                        <h5>Before you leave, give us your password to confirm the deletion</h5>
+                        <form class="form-horizontal" method="post">
+                            {%  csrf_token %}
+                            <input type="password" name="password" class="form-control" id="password"
+                                   placeholder="Your password">
+                            <button type="submit" class="btn btn-warning">Delete my account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

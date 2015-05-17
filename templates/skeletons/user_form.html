@@ -72,7 +72,7 @@
                         <hr>
                     </div>
 
-                    
+
                     <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
                     <div class="col-lg-10 form-spacing">
                         <div class="input-group">
@@ -137,6 +137,9 @@
                 </div>
             </div>
         </form>
+        {% if update_flag %}
+            <a href="{% url "deleteUser" %}">Delete my user account</a>
+        {% endif %}
     </div>
 </div>
 

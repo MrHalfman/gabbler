@@ -24,3 +24,10 @@ function confirmDeletion(gabId){
     });
 }
 
+function returnHome() {
+    window.location.href="/"
+}
+
+function displayDeletionForm() {
+    $('#delete-form').show();
+}
