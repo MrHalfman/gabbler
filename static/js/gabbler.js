@@ -17,7 +17,7 @@ function confirmDeletion(gabId){
     },
     function(isConfirm){
         if (isConfirm) {
-            link = "delete-gab/" + gabId + "/";
+            link = "delete_gab/" + gabId + "/";
             console.log(link);
             window.location = link;
         }
