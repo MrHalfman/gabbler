@@ -49,11 +49,6 @@ def get_video(gab):
 
 def home(request):
     if request.method == "POST":
-        """
-            POST.get() diffère de POST[] dans le sens où si le champ
-            est vide, il remplacera le contenu par "None" au lieu de retourner
-            une erreur.
-        """
         if request.POST.get("redirection") == "connect":
             username = request.POST.get("username")
             password = request.POST.get("password")
@@ -180,8 +175,6 @@ def update(request):
             request.user.email = request.POST.get("email")
             request.user.place.city = request.POST.get("city")
             request.user.place.country = request.POST.get("country")
-
-            request.user.avatar = request.POST.get("avatar")
 
             if request.POST.get("birthdate") != "":
                 try :
