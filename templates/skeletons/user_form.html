@@ -42,16 +42,32 @@
 
                     <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
                     <div class="col-lg-10 form-spacing">
-                        <span class="btn btn-success btn-file">
-                            Browse <input type="file" name="profile" id="profile" >
-                        </span>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-success btn-file">
+                                    Browse<input type="file" name="avatar" id="avatar">
+                                </span>
+                            </span>
+                            <input id="avatar-value" type="text" class="form-control" readonly="">
+                        </div>
+                        <!-- <span class="btn btn-success btn-file">
+                            Browse <input type="file" name="avatar" id="avatar" >
+                        </span> -->
+
+                        <!--<input type="file" name="profile" class="form-control" id="profile"
+                               placeholder="Your new profile">-->
                     </div>
 
                     <label for="upload-banner" class="col-lg-2 control-label">Banner</label>
                     <div class="col-lg-10 form-spacing">
-                        <span class="btn btn-success btn-file">
-                            Browse <input type="file" name="banner" id="banner">
-                        </span>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-success btn-file">
+                                    Browse<input type="file" name="banner" id="banner">
+                                </span>
+                            </span>
+                            <input id="banner-value" type="text" class="form-control" readonly="">
+                        </div>
                     </div>
 
                     <div class="col-lg-2"></div>
@@ -118,13 +134,26 @@
 {% if update_flag %}
     {% block additional_scripts %}
         <script type="text/javascript">
-        $(document).ready(function() {
-           $(".datepicker").datepicker( {
-                format:  "dd/mm/yyyy",
-                clearBtn: true,
-                endDate: Date.now()
+            $(document).ready(function() {
+                $(".datepicker").datepicker( {
+                    format:  "dd/mm/yyyy",
+                    clearBtn: true,
+                    endDate: Date.now()
+                });
+
+                function getFileName(path, inputName) {
+                    var fileName = path.replace(/\\/g, '/').replace(/.*\//, '');
+                    $(inputName).val(fileName);
+                }
+
+                $("#avatar:file").change(function (){
+                    var fileName = getFileName($(this).val(), "#avatar-value");
+                });
+
+                $("#banner:file").change(function (){
+                    var fileName = getFileName($(this).val(), "#banner-value");
+                });
             });
-        });
         </script>
     {% endblock %}
 {% endif %}

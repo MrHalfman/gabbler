@@ -181,6 +181,8 @@ def update(request):
             request.user.place.city = request.POST.get("city")
             request.user.place.country = request.POST.get("country")
 
+            request.user.avatar = request.POST.get("avatar")
+
             if request.POST.get("birthdate") != "":
                 try :
                     request.user.birthdate = datetime.datetime.strptime(request.POST.get("birthdate"), "%d/%m/%Y")
