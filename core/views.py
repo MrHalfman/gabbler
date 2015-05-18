@@ -8,6 +8,7 @@ from django.contrib import messages
 from social.models import Gab
 from core.models import User, Place
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 import re
 import json
 import urllib2
@@ -219,7 +220,17 @@ def delete_user(request):
 
             if error:
                 return HttpResponseRedirect("user/delete_profile.html")
-        else :
+        else:
+            message = "Just a quick message to say goodbye :(\n"\
+                "We hope you enjoyed to gab and spending time with us.\n\n"\
+                "Thank you for your interest, Maybe will see you again later!\n"\
+                "The gabbler team"
+
+            send_mail("Goodbye dear friend",
+                message,
+                "gabbler.noreply@gmail.com",
+                [request.user.email])
+
             request.user.delete()
             return HttpResponseRedirect("/")
 
