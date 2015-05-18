@@ -31,3 +31,8 @@ function returnHome() {
 function displayDeletionForm() {
     $('#delete-form').show();
 }
+
+function displayPart(part) {
+    $(".update-part").hide();
+    $(part).show();
+}

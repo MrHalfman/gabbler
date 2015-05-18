@@ -2,5 +2,21 @@
 {% block title %} Register {% endblock %}
 
 {% block content %}
-    {% include 'skeletons/user_form.html' %}
+    <div class="panel">
+    <div class="panel-body">
+        <h1 class="title-spacing">Start gabble today and never stop !</h1>
+
+        <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {% include 'skeletons/base_user_form.html' %}
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

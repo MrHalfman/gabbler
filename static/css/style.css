@@ -110,6 +110,10 @@
 /* --------------------------------------------- */
 /* --------------------------------------------- */
 
+.nav-spacing {
+    margin-top: 30px;
+}
+
 .title-spacing {
     margin-bottom: 20px;
 }
@@ -143,4 +147,12 @@
 .sad-smiley {
     font-size: 180px;
     word-break: keep-all;
+}
+
+.update-part {
+    display: none;
+}
+
+.general {
+    display: block;
 }

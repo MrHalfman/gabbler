@@ -1,0 +1,27 @@
+<label for="inputUsername" class="col-lg-2 control-label">Full name</label>
+<div class="col-lg-5 form-spacing">
+    <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First name" value="{{ first_name }}">
+</div>
+<div class="col-lg-5 form-spacing">
+    <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last name" value="{{ last_name }}">
+</div>
+
+{% if not update_flag %}
+    <label for="inputUsername" class="col-lg-2 control-label">Username</label>
+    <div class="col-lg-10 form-spacing">
+        <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="{{ username }}">
+    </div>
+{% endif %}
+
+<label for="inputUsername" class="col-lg-2 control-label">Email</label>
+<div class="col-lg-10 form-spacing">
+    <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ email }}">
+</div>
+
+{% if not update_flag %}
+    <label for="input-password" class="col-lg-2 control-label">Password</label>
+    <div class="col-lg-10 form-spacing">
+        <input type="password" name="password" class="form-control" id="password"
+               placeholder="Password" value="{{ password }}">
+    </div>
+{% endif %}
