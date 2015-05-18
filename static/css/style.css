@@ -145,8 +145,8 @@
 }
 
 .sad-smiley {
-    font-size: 180px;
-    word-break: keep-all;
+    font-size: 170px;
+    white-space: nowrap;
 }
 
 .update-part {
@@ -155,4 +155,13 @@
 
 .general {
     display: block;
+}
+
+
+/* -------------------------- MEDIA QUERIES -------------------------- */
+
+@media all and (max-width: 800px)  {
+    .sad-smiley {
+        display: none;
+    }
 }
