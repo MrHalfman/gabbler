@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
 from social.models import Gab
-from core.models import User, Place
+from core.models import User, Place, MailNotifications
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 import re
@@ -109,15 +109,20 @@ def register(request):
 
         username = request.POST.get("username")
         password = request.POST.get("password")
+
         new_place = Place()
         new_place.save()
+
+        notifications = MailNotifications()
+        notifications.save()
 
         user, created = User.objects.get_or_create(
             email=request.POST.get("email"),
             username=request.POST.get("username"),
             first_name=request.POST.get("first_name"),
             last_name=request.POST.get("last_name"),
-            place=new_place
+            place=new_place,
+            mail_notifications=notifications
         )
 
         if created:
@@ -177,6 +182,26 @@ def update(request):
             request.user.place.city = request.POST.get("city")
             request.user.place.country = request.POST.get("country")
 
+            check_boxes = request.POST.getlist("notifications")
+
+            request.user.mail_notifications.regab = False
+            request.user.mail_notifications.like = False
+            request.user.mail_notifications.private_message = False
+            request.user.mail_notifications.citation = False
+
+            if "regab" in check_boxes:
+                request.user.mail_notifications.regab = True
+
+            if "like" in check_boxes:
+                request.user.mail_notifications.like = True
+
+            if "private_message" in check_boxes:
+                request.user.mail_notifications.private_message = True
+
+            if "citation" in check_boxes:
+                request.user.mail_notifications.citation = True
+
+
             if request.POST.get("birthdate") != "":
                 try :
                     request.user.birthdate = datetime.datetime.strptime(request.POST.get("birthdate"), "%d/%m/%Y")
@@ -190,6 +215,7 @@ def update(request):
 
             request.user.save()
             request.user.place.save()
+            request.user.mail_notifications.save()
 
         return HttpResponseRedirect("/update/")
 
@@ -199,13 +225,16 @@ def update(request):
         if request.user.birthdate != None:
             birthdate =  request.user.birthdate.strftime('%d/%m/%Y')
 
+        boole = bool(request.user.mail_notifications.regab)
+
+
+
         context = {
             "first_name":request.user.first_name,
             "last_name":request.user.last_name,
             "email":request.user.email,
-            "city":request.user.place.city,
-            "country":request.user.place.country,
             "birthdate":birthdate,
+            "bool": boole,
             "update_flag": True
         }
 

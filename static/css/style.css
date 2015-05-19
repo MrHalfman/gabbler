@@ -157,6 +157,10 @@
     display: block;
 }
 
+.down-togglebutton {
+    padding-top: 6px;
+}
+
 
 /* -------------------------- MEDIA QUERIES -------------------------- */
 

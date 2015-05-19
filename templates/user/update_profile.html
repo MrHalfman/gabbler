@@ -8,6 +8,7 @@
         <ul class="nav nav-pills">
             <li role="presentation"><a href="#" onclick='displayPart(".general")'>About you</a></li>
             <li role="presentation"><a href="#" onclick='displayPart(".picture")'>Your banner and avatar</a></li>
+            <li role="presentation"><a href="#" onclick='displayPart(".notifications")'>Mail notifications</a></li>
             <li role="presentation"><a href="#" onclick='displayPart(".password")'>Update your password</a></li>
             <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
@@ -20,17 +21,34 @@
         </ul>
         <form class="form-horizontal nav-spacing" method="post">
             {% csrf_token %}
-
             <div class="form-group">
                 <div class="update-part general">
                     {% include 'skeletons/base_user_form.html' %}
 
+                    <!-- <label for="input-location" class="col-lg-2 control-label">About you</label>
+                    <div class="col-lg-10 form-spacing">
+                        <div contentEditable="true" class="gab-field" name="gab-div">
+                            {% if bio %}
+                                {{ bio }}
+                            {% else %}
+                                <span class="help-text">Say something!</span>
+                            {% endif %}
+                        </div>
+                        <input type="hidden" name="bio" id="content" value="{{ bio }}">
+                    </div> -->
+
+                    <label for="input-birthdate" class="col-lg-2 control-label">Birthdate</label>
+                    <div class="col-lg-10 form-spacing">
+                    <input name="birthdate" class="form-control datepicker" id="birthdate"
+                           placeholder="Your birthdate " value="{{ birthdate }}">
+                    </div>
+
                     <label for="input-location" class="col-lg-2 control-label">Location</label>
                     <div class="col-lg-5 form-spacing">
-                        <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ city }}">
+                        <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ user.place.city }}">
                     </div>
                     <div class="col-lg-5 form-spacing">
-                        <input type="text" name="country" class="form-control" id="country" placeholder="Country" value="{{ country }}">
+                        <input type="text" name="country" class="form-control" id="country" placeholder="Country" value="{{ user.place.country }}">
                     </div>
                 </div>
 
@@ -61,6 +79,60 @@
                     </div>
                 </div>
 
+                <div class="update-part notifications">
+
+                    <label class="col-lg-6 col-lg-offset-2">When someone regab one of yours</label>
+                    <div class="col-lg-4 form-spacing down-togglebutton">
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="notifications" value="regab"
+                                       {% if user.mail_notifications.regab %}checked=""{% endif %}>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr class="col-lg-8 col-lg-offset-2">
+                    </div>
+
+                    <label class="col-lg-6 col-lg-offset-2">When someone like your gabs</label>
+                    <div class="col-lg-4 form-spacing down-togglebutton">
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="notifications" value="like"
+                                       {% if user.mail_notifications.like %}checked=""{% endif %}}>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr class="col-lg-8 col-lg-offset-2">
+                    </div>
+
+                    <label class="col-lg-6 col-lg-offset-2">When someone send you a private message</label>
+                    <div class="col-lg-4 form-spacing down-togglebutton">
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="notifications" value="private_message"
+                                       {% if user.mail_notifications.private_message %}checked=""{% endif %}>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr class="col-lg-8 col-lg-offset-2">
+                    </div>
+
+                    <label class="col-lg-6 col-lg-offset-2">When your name is mentioned in a gab</label>
+                    <div class="col-lg-4 form-spacing down-togglebutton">
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="notifications" value="citation"
+                                       {% if user.mail_notifications.citation %}checked=""{% endif %}>
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="update-part password">
                     <label for="input-password" class="col-lg-2 control-label">New password (twice)</label>
@@ -73,12 +145,7 @@
                     </div>
                 </div>
 
-
-                <div class="col-lg-2"></div>
-                <div class="col-lg-10">
-                    <hr>
-                </div>
-
+                <hr class="col-lg-12">
 
                 <label for="input-password" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-10 form-spacing">
