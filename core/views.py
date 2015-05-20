@@ -93,32 +93,80 @@ def connect(request):
 def register(request):
     if request.method == "POST":
 
+        error = False
+
         username = request.POST.get("username")
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
-        new_place = Place()
-        new_place.save()
 
-        notifications = MailNotifications()
-        notifications.save()
+        if not request.POST.get("last_name"):
+            error = True
+            messages.error(request, "Please give us your last name.")
 
-        user, created = User.objects.get_or_create(
-            email=request.POST.get("email"),
-            username=request.POST.get("username"),
-            first_name=request.POST.get("first_name"),
-            last_name=request.POST.get("last_name"),
-            place=new_place,
-            mail_notifications=notifications
-        )
+        if not request.POST.get("first_name"):
+            error = True
+            messages.error(request, "Please give us your first name.")
 
-        if created:
-            user.set_password(password)
-            user.save()
+        if not username:
+            error = True
+            messages.error(request, "Please give us your favorite username.")
+        else:
+            if User.objects.filter(username=username).exists():
+                error = True
+                messages.error(request, "This username is already used, please choose another one.")
+            else:
+                reg_username = re.compile("[a-z0-9_-]{3,16}")
+                if not reg_username.match(username):
+                    error = True
+                    messages.error(request, "You must choose a valid username.")
 
-        user = authenticate(username=username, password=password)
 
-        django_login(request, user)
-        return HttpResponseRedirect("/")
+        if not email:
+            error = True
+            messages.error(request, "Please give us your email.")
+        else :
+            if User.objects.filter(email=email).exists():
+                error = True
+                messages.error(request, "Someone already use this email. Please pick another one.")
+
+        if not password:
+            error = True
+            messages.error(request, "You must choose a great password to protect your account.")
+
+        if error:
+            pre_form = {
+                "email" : request.POST.get("email"),
+                "username" : request.POST.get("username"),
+                "first_name" : request.POST.get("first_name"),
+                "last_name" : request.POST.get("last_name")
+            }
+            return render(request, "register.html", pre_form)
+
+        else:
+            new_place = Place()
+            new_place.save()
+
+            notifications = MailNotifications()
+            notifications.save()
+
+            user, created = User.objects.get_or_create(
+                email=request.POST.get("email"),
+                username=request.POST.get("username"),
+                first_name=request.POST.get("first_name"),
+                last_name=request.POST.get("last_name"),
+                place=new_place,
+                mail_notifications=notifications
+            )
+
+            if created:
+                user.set_password(password)
+                user.save()
+
+            user = authenticate(username=username, password=password)
+
+            django_login(request, user)
+            return HttpResponseRedirect("/")
 
     data = request.session.get("data_register")
     if data:
