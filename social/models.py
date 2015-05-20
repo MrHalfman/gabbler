@@ -8,10 +8,16 @@ class FriendShip(models.Model):
     reciprocity = models.BooleanField(default=False)
 
 
+class AdditionalContent(models.Model):
+    video = models.URLField()
+    gif = models.CharField(max_length=250)
+
+
 class Gab(models.Model):
     user = models.ForeignKey("core.User", related_name="gabs")
     date = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=255)
+    extras = models.ForeignKey("AdditionalContent", related_name="extras", blank=True, null=True)
     reply = models.ForeignKey("Gab", related_name="replies", blank=True, null=True)
 
 
