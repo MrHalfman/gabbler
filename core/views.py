@@ -32,19 +32,6 @@ def get_gif(gab):
             if decoded_json["data"]:
                 gab.giphy = decoded_json["data"][0]["embed_url"]
 
-def get_video(gab):
-    youtube_link = re.search(r'(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/[^ ]+', gab.text)
-    if youtube_link:
-        embed_link = re.search(r'(https?\:\/\/)?www\.youtube\.com\/embed\/[^ ]+', youtube_link.group())
-        if embed_link:
-            gab.youtube_link = youtube_link.group()
-        else:
-            id_video = youtube_link.group().split("=")[1]
-            id_video = re.search(r'[^ =&]+', id_video)
-            if id_video:
-                gab.youtube_link = "http://www.youtube.com/embed/" + id_video.group()
-
-
 # ######################################################################################################################
 # ######################################################################################################################
 
@@ -69,7 +56,6 @@ def home(request):
         # Add a new field in the gab for the YouTube link (display it in an iframe later)
         for gab in gabs:
             get_gif(gab)
-            get_video(gab)
 
         place_elements = ""
         if request.user.place:
