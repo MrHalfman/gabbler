@@ -44,10 +44,12 @@
         <div class="col-sm-8 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel panel-body">
-                    <div id="count"></div>
+                    <div class="count"></div>
                     <form id="gab-form" action="{% url "post_gab" %}" method="post">
                         {% csrf_token %}
-                        <div contentEditable="true" class="gab-field" name="gab-div"><span class="help-text">Say something!</span></div>
+                        <div contentEditable="true" class="content-field" name="gab-div">
+                            <span class="help-text">Say something!</span>
+                        </div>
                         <input type="hidden" name="text" id="content">
                         <div class="text-right">
                             <button id="send-gab" class="btn btn-success" type="submit" disabled="true">Send</button>
@@ -69,64 +71,7 @@
 {% block additional_scripts %}
     <script type="text/javascript">
     $(document).ready(function() {
-        // Check if they are some text in the gab form (if not, disable the button)
-        function emptyGab(max) {
-            if(max - $(".gab-field").text().length == max) {
-                $("#send-gab").prop('disabled', true);
-            }
-            else {
-                $("#send-gab").prop('disabled', false);
-            }
-        }
-
-        // Copy the text in the div and set it into an hidden field
-        function copyToHiddenField() {
-            var gab = $(".gab-field").text();
-            $("#content").val(gab);
-        }
-
-       // Verify some conditions before send the gab
-        $("#gab-form").submit(function() {
-            copyToHiddenField();
-        });
-
-        $(".gab-field").click(function() {
-            $(this).addClass("on-hover-gab");
-            $(this).text("");
-        });
-
-        var max = 255;
-        $("#count").text(max);
-
-        $(".gab-field").keyup(function () {
-            var babyGab = $(this).text();
-            var charCount = max - babyGab.length;
-            $("#count").text(charCount);
-            var re = /\S/;
-
-            if(!re.test(babyGab) || (charCount < 0)) {
-                if(charCount < 0) {
-                    $("#count").addClass('gab-overflow');
-                }
-                else {
-                    $("#count").removeClass('gab-overflow');
-                }
-                $("#send-gab").prop('disabled', true);
-            } else {
-                $("#send-gab").prop('disabled', false);
-                emptyGab(max);
-            }
-        });
-
-        $('.gab-field').keypress(function (e) {
-            if(!e.shiftKey) {
-                if(e.which == 13) {
-                    copyToHiddenField();
-                    $("#gab-form").submit();
-                    return false;
-                }
-            }
-        });
+        manageBlock("#gab-form", ".content-field", "#content", "#send-gab", 255);
     });
     </script>
 {% endblock %}
