@@ -48,7 +48,6 @@
                     <form id="gab-form" action="{% url "post_gab" %}" method="post">
                         {% csrf_token %}
                         <div contentEditable="true" class="content-field" name="gab-div">
-                            <span class="help-text">Say something!</span>
                         </div>
                         <input type="hidden" name="text" id="content">
                         <div class="text-right">
