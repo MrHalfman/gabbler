@@ -82,15 +82,15 @@
 
 .content-field {
     padding-bottom: 5px;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 1px solid #d1d1c7;
 }
 
 .on-hover-gab {
-    border-bottom: 2px solid #5a8368;
+    border-bottom: 2px solid #009688;
 }
 
 .help-text {
-    color: darkgrey;
+    color: #bfbdbd;
 }
 
 .btn-update{
