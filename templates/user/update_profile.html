@@ -19,23 +19,12 @@
                 </ul>
             </li>
         </ul>
-        <form class="form-horizontal nav-spacing" method="post">
+
+        <form id="update-form" class="form-horizontal nav-spacing" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <div class="update-part general">
                     {% include 'skeletons/base_user_form.html' %}
-
-                    <!-- <label for="input-location" class="col-lg-2 control-label">About you</label>
-                    <div class="col-lg-10 form-spacing">
-                        <div contentEditable="true" class="gab-field" name="gab-div">
-                            {% if bio %}
-                                {{ bio }}
-                            {% else %}
-                                <span class="help-text">Say something!</span>
-                            {% endif %}
-                        </div>
-                        <input type="hidden" name="bio" id="content" value="{{ bio }}">
-                    </div> -->
 
                     <label for="input-birthdate" class="col-lg-2 control-label">Birthdate</label>
                     <div class="col-lg-10 form-spacing">
@@ -50,8 +39,21 @@
                     <div class="col-lg-5 form-spacing">
                         <input type="text" name="country" class="form-control" id="country" placeholder="Country" value="{{ user.place.country }}">
                     </div>
-                </div>
 
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <hr>
+                    </div>
+
+                    <label for="input-location" class="col-lg-2 control-label">About you</label>
+                    <div class="col-lg-10 form-spacing">
+                            <div contentEditable="true" class="content-field" name="gab-div">
+                                {% if user.bio %}
+                                    {{ user.bio }}
+                                {% endif %}
+                            </div>
+                            <input type="hidden" name="bio" id="bio">
+                    </div>
+                </div>
 
                 <div class="update-part picture">
                     <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
@@ -183,6 +185,13 @@
             $("#banner:file").change(function (){
                 var fileName = getFileName($(this).val(), "#banner-value");
             });
+
+            var isBio = false;
+            {% if user.bio %}
+                isBio = true;
+            {% endif %}
+
+            valueManager(".content-field", "What are you doing ?", isBio, "#bio");
         });
     </script>
 {% endblock %}
