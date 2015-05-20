@@ -56,15 +56,40 @@ function copyToHiddenField(field, hiddenField) {
     $(hiddenField).val(message);
 }
 
-function focusDiv() {
-    $(this).addClass("on-hover-gab");
+function addHint(field, hintText, isContent) {
+    if (!isContent){
+        $(field).html(hintText);
+        return false;
+    }
+    return true;
 }
 
-// Add CSS class when we click in the div
-function clearHint(field) {
-    $(field).click(function() {
-        focusDiv();
-        $(this).text("");
+/**
+ * Add or remove CSS class when we focus or not
+ * Save the content from the div to an hidden field
+ */
+function valueManager(field, hint, isContent, hiddenField) {
+    var hintText = "<span class=\"help-text\">" + hint + "</span>";
+    isContent = addHint(field, hintText, isContent);
+
+    $(field).focusin(function() {
+        $(this).addClass("on-hover-gab");
+        if(!isContent) {
+            $(this).text("");
+        }
+    });
+
+    $(field).focusout(function() {
+        $(this).removeClass("on-hover-gab");
+        var isText = $(this).text() == ""? false : true;
+        isContent = addHint(this, hintText, isText);
+
+        if (!isText) {
+            $(hiddenField).val("");
+        }
+        else {
+            copyToHiddenField(field, hiddenField)
+        }
     });
 }
 
@@ -72,12 +97,7 @@ function manageBlock(form, field, content, button, max) {
 
     $(".count").text(max); // Add a max value
 
-    // Verify some conditions before send the gab
-    $(form).submit(function() {
-        copyToHiddenField(field, content);
-    });
-
-    clearHint(field);
+    valueManager(field, "Say something!", false, content);
 
     $(field).keyup(function () {
 
