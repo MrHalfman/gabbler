@@ -10,9 +10,9 @@
                 </div>
                 <div class="col-sm-9 col-xs-9">
                     <p class="gab-text">{{ gab.text|urlize }}</p>
-                    {% if gab.youtube_link %}
+                    {% if gab.extras.video %}
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe src="{{ gab.youtube_link }}" ></iframe>
+                            <iframe src="{{ gab.extras.video }}" ></iframe>
                         </div>
                     {% endif %}
                     {% if gab.giphy %}
