@@ -25,7 +25,8 @@ function confirmDeletion(gabId){
 }
 
 function returnHome() {
-    window.location.href="/"
+    event.preventDefault();
+    window.location.href="/";
 }
 
 function displayDeletionForm() {
