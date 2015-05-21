@@ -2,7 +2,7 @@
 
 .header-home {
     background-color: #ffffff;
-    color: #5a8368;
+    color: #00796B;
     text-align: right;
     font-weight: bold;
     padding : 5px;
@@ -11,7 +11,7 @@
 
 .wrapper-content {
     height: 100%;
-    background-color: #5a8368;
+    background-color: #00796B;
     padding-bottom: 40px;
     position: absolute;
     top: 0;
@@ -22,17 +22,17 @@
 
 .tile {
     background-color: #ffffff;
-    color: #5a8368;
+    color: #00796B;
     padding: 10px;
     text-align: center;
     margin-bottom: 10px;
-    border-left: 5px solid #5a8368;
-    border-right: 5px solid #5a8368;
+    border-left: 5px solid #00796B;
+    border-right: 5px solid #00796B;
 }
 
 
 .tile:hover {
-    background-color: #5a8368;
+    background-color: #00796B;
     color: #ffffff;
     transition-duration: 800ms;
 }
