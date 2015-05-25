@@ -13,13 +13,6 @@ import re
 import json
 import urllib2
 
-
-"""
-def links_to_tags(text):
-    url_regex = re.compile(r'((https?:\/\/)?(www)?([\da-z\.-]+)\.([a-zA-Z-\.]{2,6})\/?[\/\w\.\?=&-]*\/?)')
-    return url_regex.sub(r'<a href="\1">\1</a>', text)
-"""
-
 def get_gif(gab):
     giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
     if giphy_request:
