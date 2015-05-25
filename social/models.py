@@ -45,3 +45,10 @@ class Notifications(models.Model):
     link = models.URLField()
     date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+
+class ModerationReport(models.Model):
+    by = models.ForeignKey("core.User", related_name="moderation_reports")
+    processed = models.BooleanField(default=False)
+    gab = models.ForeignKey("Gab")
+    date = models.DateTimeField(auto_now_add=True)
