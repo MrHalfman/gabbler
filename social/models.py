@@ -9,8 +9,8 @@ class FriendShip(models.Model):
 
 
 class AdditionalContent(models.Model):
-    video = models.URLField()
-    gif = models.CharField(max_length=250)
+    video = models.URLField(blank=True, null=True)
+    gif = models.CharField(max_length=250, blank=True, null=True)
 
 
 class Gab(models.Model):
