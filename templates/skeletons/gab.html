@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-sm-1 col-xs-1">
                     <div class="col-sm-12 col-xs-12">
-                        <a id="delete-gab" href="{% url "delete_gab" gab.pk %}" onclick="confirmDeletion({{ gab.pk }})">
+                        <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
                     </div>

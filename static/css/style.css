@@ -97,12 +97,12 @@
     margin-top: 10px;
 }
 
-#delete-gab{
+.delete-gab{
     color: darkgrey;
     font-size: 16px;
 }
 
-#delete-gab:hover {
+.delete-gab:hover {
     text-decoration: none;
     color: red;
 }

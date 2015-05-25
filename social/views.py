@@ -40,7 +40,5 @@ def post_gab(request):
 
 @login_required
 def delete_gab(request, gab_pk):
-    gab = Gab.objects.get(pk=gab_pk)
-    gab.extras.delete()
-    gab.delete()
+    Gab.objects.filter(pk=gab_pk).delete()
     return HttpResponseRedirect("/")

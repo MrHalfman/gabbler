@@ -71,6 +71,8 @@
     <script type="text/javascript">
     $(document).ready(function() {
         manageBlock("#gab-form", ".content-field", "#content", "#send-gab", 255);
+
+        $(".delete-gab").on("click", confirmDeletion);
     });
     </script>
 {% endblock %}

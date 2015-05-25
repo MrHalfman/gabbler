@@ -3,8 +3,9 @@ function updateRedirection(){
     document.location.href = "update";
 }
 
-function confirmDeletion(gabId){
-    event.preventDefault();
+function confirmDeletion(evt){
+    var $this = $(this);
+    evt.preventDefault();
     swal({
         title: "Are you sure to delete your gab?",
         text: "You will not be able to recover it!",
@@ -17,9 +18,7 @@ function confirmDeletion(gabId){
     },
     function(isConfirm){
         if (isConfirm) {
-            link = "delete_gab/" + gabId + "/";
-            console.log(link);
-            window.location = link;
+            window.location = $this.attr("href");
         }
     });
 }
