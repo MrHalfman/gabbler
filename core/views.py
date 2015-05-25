@@ -78,7 +78,10 @@ def login(request, username, password):
     user = authenticate(username=username, password=password)
     if user:
         django_login(request, user)  # Fait la variable de session avec l'utilisateur dedans
-        return HttpResponseRedirect("/")
+        if request.GET.get("next"):
+            return HttpResponseRedirect(request.GET.get("next"))
+        else:
+            return HttpResponseRedirect("/")
     else:
         messages.error(request, "Username or password invalid")
         return HttpResponseRedirect("/connect")

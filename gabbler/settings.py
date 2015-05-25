@@ -27,6 +27,9 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+LOGIN_REDIRECT_URL = "home"
+LOGIN_URL = "connect"
+LOGOUT_URL = "logout"
 
 
 # Application definition
