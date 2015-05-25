@@ -176,6 +176,7 @@ def register(request):
     return render(request, "register.html", data)
 
 
+@login_required
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect("/")
