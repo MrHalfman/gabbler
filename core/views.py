@@ -1,5 +1,10 @@
 # coding=UTF-8
 import datetime
+import random
+import string
+import re
+import json
+import urllib2
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -9,9 +14,6 @@ from social.models import Gab
 from core.models import User, Place, MailNotifications
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-import re
-import json
-import urllib2
 
 def get_gif(gab):
     giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
@@ -278,14 +280,11 @@ def delete_user(request):
                 return HttpResponseRedirect("user/delete_profile.html")
         else:
             message = "Just a quick message to say goodbye :(\n"\
-                "We hope you enjoyed to gab and spending time with us.\n\n"\
-                "Thank you for your interest, Maybe will see you again later!\n"\
-                "The gabbler team"
+                      "We hope you enjoyed to gab and spending time with us.\n\n"\
+                      "Thank you for your interest, Maybe will see you again later!\n"\
+                      "The gabbler team"
 
-            send_mail("Goodbye dear friend",
-                message,
-                "gabbler.noreply@gmail.com",
-                [request.user.email])
+            send_mail("Goodbye dear friend", message, "gabbler.noreply@gmail.com", [request.user.email])
 
             request.user.delete()
             return HttpResponseRedirect("/")
@@ -294,4 +293,21 @@ def delete_user(request):
         return render(request, "user/delete_profile.html")
 
 def lost_password(request):
-    return render(request, "user/lost_password.html")
+    if request.POST.get("email"):
+        if User.objects.filter(email=request.POST.get("email")):
+            random_string = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            request.session["check_password"] = random_string
+
+            message = "Someone asked to change your password. If you are the applicant, "\
+                      "thank you to confirm the change with this code *** " + random_string + " ***\n\n"\
+                      "If not, thank you to ignore this message.\n"\
+                      "The gabbler team"
+
+            send_mail("Update your password", message, "gabbler.noreply@gmail.com", [request.POST.get("email")])
+
+        else :
+            messages.error(request, "No account is attached to this email.")
+
+        return render(request, "user/lost_password.html")
+    else :
+        return render(request, "user/lost_password.html")
