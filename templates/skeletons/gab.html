@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="col-sm-9 col-xs-9">
-                    <p class="gab-text">{{ gab.text|urlize }}</p>
+                    <p class="gab-text">{{ gab.text|urlize|linebreaksbr }}</p>
                     {% if gab.extras.video %}
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe src="{{ gab.extras.video }}" ></iframe>
