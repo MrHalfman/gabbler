@@ -52,3 +52,4 @@ class ModerationReport(models.Model):
     processed = models.BooleanField(default=False)
     gab = models.ForeignKey("Gab")
     date = models.DateTimeField(auto_now_add=True)
+    reason = models.TextField()

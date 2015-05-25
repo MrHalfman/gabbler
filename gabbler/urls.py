@@ -15,6 +15,9 @@ urlpatterns = patterns('',
     # Social
     url(r'^post_gab/', 'social.views.post_gab', name="post_gab"),
     url(r'^delete_gab/(?P<gab_pk>\w+)/', 'social.views.delete_gab', name="delete_gab"),
+    url(r'^report_gab/(?P<gab_pk>\w+)/', 'social.views.report_gab', name="report_gab"),
 
-    url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/$', 'social.views.moderation_reports', name="admin"),
+    url(r'^admin/reports/$', 'social.views.moderation_reports', name="moderation_reports"),
+    url(r'^admin/reports/markAsProcessed/(?P<report_pk>\w+)/', 'social.views.moderation_reports_processed', name="mark_as_processed"),
 )

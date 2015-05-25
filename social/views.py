@@ -1,7 +1,10 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 import re
-from social.models import Gab, AdditionalContent
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from social.models import Gab, AdditionalContent, ModerationReport
 
 
 def catch_video_link(gab):
@@ -42,3 +45,31 @@ def post_gab(request):
 def delete_gab(request, gab_pk):
     Gab.objects.filter(pk=gab_pk).delete()
     return HttpResponseRedirect("/")
+
+
+@csrf_exempt
+@login_required
+def report_gab(request, gab_pk):
+    gab = Gab.objects.get(pk=gab_pk)
+    ModerationReport.objects.create(
+        by=request.user,
+        gab=gab,
+        reason=request.GET.get("reason")
+    )
+    return JsonResponse({"success": True})
+
+
+@staff_member_required
+@login_required
+def moderation_reports(request):
+    reports = ModerationReport.objects.filter(processed=False)
+    return render(request, "admin/moderation_reports.html", locals())
+
+
+@staff_member_required
+@login_required
+def moderation_reports_processed(request, report_pk):
+    report = ModerationReport.objects.get(pk=report_pk)
+    report.processed = True
+    report.save()
+    return HttpResponseRedirect("/admin/reports/")

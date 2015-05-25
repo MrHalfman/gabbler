@@ -97,7 +97,7 @@
     margin-top: 10px;
 }
 
-.delete-gab{
+.delete-gab, .report-gab{
     color: darkgrey;
     font-size: 16px;
 }
@@ -105,6 +105,11 @@
 .delete-gab:hover {
     text-decoration: none;
     color: red;
+}
+
+.report-gab:hover {
+    text-decoration: none;
+    color: orange;
 }
 
 /* --------------------------------------------- */

@@ -6,3 +6,7 @@ register = template.Library()
 @register.filter
 def userlink(user):
     return mark_safe("<a href='/user/%s'>%s</a>" % (user.username, user.username))
+
+@register.filter
+def toArray(object):
+    return [object]

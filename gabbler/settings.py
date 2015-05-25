@@ -23,7 +23,7 @@ SECRET_KEY = 'lbhe(dvn)#qt(^e=5lhum251_$qn)n9br!*ws3a^)m*2w7zmzk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ADMIN_ENABLED = False
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
