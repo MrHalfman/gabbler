@@ -8,7 +8,7 @@
                 <div class="panel panel-body">
                     <div class="col-sm-12 col-xs-4">
                         <div class="thumbnail">
-                            <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+                            {{ user|userAvatar }}
                         </div>
                     </div>
                     <div class="col-sm-12 col-xs-8">

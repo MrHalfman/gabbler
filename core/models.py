@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class Place(models.Model):
     country = models.TextField(max_length=150, blank=True)
     city = models.TextField(max_length=100, blank=True)
@@ -15,7 +16,7 @@ class MailNotifications(models.Model):
 
 class User(AbstractUser):
     # first_name, last_name and username, password, email are already defined in AbstractUser
-    avatar = models.ImageField(upload_to="avatars/", default="/media/avatars/default.png")
+    avatar = models.ImageField(upload_to="avatars/", default="avatars/default.png")
     banner = models.ImageField(upload_to="banners/", blank=True)
     bio = models.TextField(max_length=300, default="I'm true member of Gabbler and it's already not bad!", blank=True)
     birthdate = models.DateTimeField(default=None, blank=True, null=True)
@@ -30,7 +31,7 @@ class UserLink(models.Model):
 
 
 class UserLinkTypes(models.Model):
-    name = models.CharField(max_length = 255)
+    name = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="socialIcons/", blank=True)
 
 

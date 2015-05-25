@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-2 col-xs-2 profile-picture">
                     <div class="thumbnail">
-                        <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+                        {{ user|userAvatar }}
                     </div>
                 </div>
                 <div class="col-sm-9 col-xs-9">

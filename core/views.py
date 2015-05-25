@@ -1,7 +1,7 @@
 # coding=UTF-8
 import datetime
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
@@ -221,22 +221,10 @@ def update(request):
 
             check_boxes = request.POST.getlist("notifications")
 
-            request.user.mail_notifications.regab = False
-            request.user.mail_notifications.like = False
-            request.user.mail_notifications.private_message = False
-            request.user.mail_notifications.citation = False
-
-            if "regab" in check_boxes:
-                request.user.mail_notifications.regab = True
-
-            if "like" in check_boxes:
-                request.user.mail_notifications.like = True
-
-            if "private_message" in check_boxes:
-                request.user.mail_notifications.private_message = True
-
-            if "citation" in check_boxes:
-                request.user.mail_notifications.citation = True
+            request.user.mail_notifications.regab = "regab" in check_boxes
+            request.user.mail_notifications.like = "like" in check_boxes
+            request.user.mail_notifications.private_message = "private_message" in check_boxes
+            request.user.mail_notifications.citation = "citation" in check_boxes
 
             if request.POST.get("birthdate") != "":
                 try:
@@ -248,6 +236,9 @@ def update(request):
 
             if request.POST.get("new-password"):
                 request.user.set_password(request.POST.get("new-password"))
+
+            if request.FILES.get("avatar"):
+                request.user.avatar = request.FILES["avatar"]
 
             request.user.save()
             request.user.place.save()

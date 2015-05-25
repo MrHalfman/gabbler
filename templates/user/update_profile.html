@@ -20,7 +20,7 @@
             </li>
         </ul>
 
-        <form id="update-form" class="form-horizontal nav-spacing" method="post">
+        <form id="update-form" class="form-horizontal nav-spacing" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 <div class="update-part general">
@@ -56,27 +56,19 @@
                 </div>
 
                 <div class="update-part picture">
-                    <label for="upload-profile-picture" class="col-lg-2 control-label">Profile picture</label>
-                    <div class="col-lg-10 form-spacing">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <span class="btn btn-success btn-file">
-                                    Browse<input type="file" name="avatar" id="avatar">
-                                </span>
-                            </span>
-                            <input id="avatar-value" type="text" class="form-control" readonly="">
+                    <div class="form-group">
+                        <label for="avatar" class="col-lg-2 control-label">Avatar</label>
+                        <div class="col-lg-10">
+                            <input readonly="" class="form-control floating-label" placeholder="Browse..." type="text">
+                            <input id="avatar" name="avatar" type="file">
                         </div>
                     </div>
 
-                    <label for="upload-banner" class="col-lg-2 control-label">Banner</label>
-                    <div class="col-lg-10 form-spacing">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <span class="btn btn-success btn-file">
-                                    Browse<input type="file" name="banner" id="banner">
-                                </span>
-                            </span>
-                            <input id="banner-value" type="text" class="form-control" readonly="">
+                    <div class="form-group">
+                        <label for="banner" class="col-lg-2 control-label">Banner</label>
+                        <div class="col-lg-10">
+                            <input readonly="" class="form-control floating-label" placeholder="Browse..." type="text">
+                            <input id="banner" name="banner" type="file">
                         </div>
                     </div>
                 </div>

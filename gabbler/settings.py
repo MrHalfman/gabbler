@@ -60,19 +60,6 @@ ROOT_URLCONF = 'gabbler.urls'
 
 WSGI_APPLICATION = 'gabbler.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS' : {
-            'read_default_file' : 'gabbler/mysql.ini'
-        }
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -108,3 +95,8 @@ EMAIL_HOST_USER = 'gabbler.noreply@gmail.com'
 EMAIL_HOST_PASSWORD = 'Supinfo14,'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+try:
+    from local_settings import *
+except ImportError:
+    print "Check that you have correctly renamed local_settings.py.template file."
