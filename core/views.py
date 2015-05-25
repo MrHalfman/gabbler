@@ -299,3 +299,6 @@ def delete_user(request):
 
     else:
         return render(request, "user/delete_profile.html")
+
+def lost_password(request):
+    return render(request, "user/lost_password.html")
