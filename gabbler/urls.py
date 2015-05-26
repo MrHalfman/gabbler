@@ -11,7 +11,8 @@ urlpatterns = patterns('',
     url(r'^logout/', 'core.views.logout', name="logout"),
     url(r'^update/', 'core.views.update', name="update"),
     url(r'^delete_user/', 'core.views.delete_user', name="delete_user"),
-    url(r'^lost_password/', 'core.views.lost_password', name="lost_password"),
+    url(r'^lost_password-step-1/', 'core.views.lost_password_step_1', name="lost_password_step_1"),
+    url(r'^lost_password-step-2/', 'core.views.lost_password_step_2', name="lost_password_step_2"),
 
     # Social
     url(r'^post_gab/', 'social.views.post_gab', name="post_gab"),

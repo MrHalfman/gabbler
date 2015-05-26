@@ -256,8 +256,6 @@ def update(request):
 
         boole = bool(request.user.mail_notifications.regab)
 
-
-
         context = {
             "first_name":request.user.first_name,
             "last_name":request.user.last_name,
@@ -292,22 +290,80 @@ def delete_user(request):
     else:
         return render(request, "user/delete_profile.html")
 
-def lost_password(request):
-    if request.POST.get("email"):
-        if User.objects.filter(email=request.POST.get("email")):
+def lost_password_step_1(request):
+    if request.method == "POST":
+        error = False
+
+        if request.POST.get("email") == "":
+            error = True
+            messages.error(request, "You must give us a valid email.")
+        elif not User.objects.filter(email=request.POST.get("email")):
+            error = True
+            messages.error(request, "No account is attached to this email.")
+
+        if not error:
             random_string = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
             request.session["check_password"] = random_string
+            request.session["user_email"] = request.POST.get("email")
 
             message = "Someone asked to change your password. If you are the applicant, "\
                       "thank you to confirm the change with this code *** " + random_string + " ***\n\n"\
                       "If not, thank you to ignore this message.\n"\
                       "The gabbler team"
-
             send_mail("Update your password", message, "gabbler.noreply@gmail.com", [request.POST.get("email")])
+            return HttpResponseRedirect("/lost_password-step-2/")
 
-        else :
-            messages.error(request, "No account is attached to this email.")
+    return render(request, "user/lost_password_step_1.html")
 
-        return render(request, "user/lost_password.html")
-    else :
-        return render(request, "user/lost_password.html")
+def lost_password_step_2(request):
+    if request.session.get("check_password"):
+
+        if request.method == "POST":
+            error = False
+            context = {
+                "check_code": ""
+            }
+
+            if request.POST.get("code") == "":
+                error = True
+                messages.error(request, "You must enter the code that was sent to you by email.")
+            elif request.POST.get("code") != request.session.get("check_password"):
+                error = True
+                messages.error(request, "Wrong code, please check your email.")
+            else:
+                context["check_code"] = request.POST.get("code")
+
+            if request.POST.get("new-password") == "" or request.POST.get("new-password-confirm") == "":
+                error = True
+                messages.error(request, "You must fill the two password fields.")
+            elif request.POST.get("new-password") != request.POST.get("new-password-confirm"):
+                error = True
+                messages.error(request, "The two passwords aren't equals.")
+
+            if not error:
+                query = User.objects.filter(email=request.session.get("user_email"))
+                user_list = list(query[:1])
+                if user_list:
+                    user_list[0].set_password(request.POST.get("new-password"))
+                    user_list[0].save()
+                    context["confirm_message"] = True
+
+                    if request.session.get("user_email"):
+                        message = "Your password has been changed successfully, welcome back " + user_list[0].username + "!\n"\
+                                  "The gabbler team"
+                        send_mail("Update your password", message, "gabbler.noreply@gmail.com", [request.session.get("user_email")])
+
+                    del request.session["user_email"]
+                    del request.session["check_password"]
+
+                    return render(request, "user/lost_password_step_2.html", context)
+                else:
+                    messages.error(request,
+                                   "A problem occurred when changing the password. Sorry for the inconvenience.")
+            else:
+                return render(request, "user/lost_password_step_2.html", context)
+
+    else:
+        return HttpResponseRedirect("/lost_password-step-1/")
+
+    return render(request, "user/lost_password_step_2.html")
