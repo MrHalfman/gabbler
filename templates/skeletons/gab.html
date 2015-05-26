@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-sm-2 col-xs-2 profile-picture">
                     <div class="thumbnail">
-                        <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+                        {{ user|userAvatar }}
                     </div>
                 </div>
                 <div class="col-sm-9 col-xs-9">
-                    <p class="gab-text">{{ gab.text|urlize }}</p>
+                    <p class="gab-text">{{ gab.text|urlize|linebreaksbr }}</p>
                     {% if gab.extras.video %}
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe src="{{ gab.extras.video }}" ></iframe>
@@ -21,14 +21,19 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="col-sm-1 col-xs-1">
-                    <div class="col-sm-12 col-xs-12">
-                        <a id="delete-gab" href="{% url "delete_gab" gab.pk %}" onclick="confirmDeletion({{ gab.pk }})">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                {% if not noactions %}
+                    <div class="action_icons">
+                        {% if gab.user == user or user.is_staff%}
+                            <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        {% endif %}
+                        <a class="report-gab" href="{% url "report_gab" gab.pk %}">
+                            <span class="mdi-action-report-problem"></span>
                         </a>
+                        <!-- Add the fav & regab icons here! -->
                     </div>
-                    <!-- Add the fav & regab icons here! -->
-                </div>
+                {% endif %}
                 <div class="col-sm-12 col-xs-12">
                     <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
                 </div>

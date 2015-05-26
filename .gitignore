@@ -1,4 +1,4 @@
 *.pyc
 .idea/
 uwsgi.ini
-mysql.ini
+local_settings.py

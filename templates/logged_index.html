@@ -8,7 +8,7 @@
                 <div class="panel panel-body">
                     <div class="col-sm-12 col-xs-4">
                         <div class="thumbnail">
-                            <img src="{{ user.avatar }}" alt="{{ user.username }} at its best profile">
+                            {{ user|userAvatar }}
                         </div>
                     </div>
                     <div class="col-sm-12 col-xs-8">
@@ -71,6 +71,32 @@
     <script type="text/javascript">
     $(document).ready(function() {
         manageBlock("#gab-form", ".content-field", "#content", "#send-gab", 255);
+
+        $(".delete-gab").on("click", confirmDeletion);
+        $(".report-gab").on("click", function (evt) {
+           var url = $(this).attr("href");
+           evt.preventDefault();
+           swal({
+                title: "Report this gab.",
+                text: "Why do you find that this gab must be reported?",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                inputPlaceHolder: "Write a reason"
+           }, function (reason) {
+             if (reason === false) return false;
+
+             if (reason === "") {
+               swal.showInputError("You need to write a reason.");
+               return false
+             }
+             $.getJSON(url, {reason: reason}, function (resp) {
+               if (resp.success) {
+                   swal("Thanks!", "You reported this gab. Our moderation team will review your report as soon as possible.", "success");
+               }
+             });
+           });
+        });
     });
     </script>
 {% endblock %}

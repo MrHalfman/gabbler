@@ -6,7 +6,7 @@ import re
 import json
 import urllib2
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
@@ -15,9 +15,10 @@ from core.models import User, Place, MailNotifications
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
+
 def get_gif(gab):
     giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
-    if giphy_request:
+    """if giphy_request:
         get_parameters = "+".join(str(id[0]) for id in giphy_request)
         url = "http://api.giphy.com/v1/gifs/search?q=" + get_parameters + "&limit=1&api_key=dc6zaTOxFJmzC"
         req = urllib2.Request(url)
@@ -25,10 +26,11 @@ def get_gif(gab):
         if response:
             decoded_json = json.loads(response.read())
             if decoded_json["data"]:
-                gab.giphy = decoded_json["data"][0]["embed_url"]
+                gab.giphy = decoded_json["data"][0]["embed_url"]"""
 
 # ######################################################################################################################
 # ######################################################################################################################
+
 
 def home(request):
     if request.method == "POST":
@@ -71,7 +73,10 @@ def login(request, username, password):
     user = authenticate(username=username, password=password)
     if user:
         django_login(request, user)  # Fait la variable de session avec l'utilisateur dedans
-        return HttpResponseRedirect("/")
+        if request.GET.get("next"):
+            return HttpResponseRedirect(request.GET.get("next"))
+        else:
+            return HttpResponseRedirect("/")
     else:
         messages.error(request, "Username or password invalid")
         return HttpResponseRedirect("/connect")
@@ -87,13 +92,11 @@ def connect(request):
 
 def register(request):
     if request.method == "POST":
-
         error = False
 
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
-
 
         if not request.POST.get("last_name"):
             error = True
@@ -116,11 +119,10 @@ def register(request):
                     error = True
                     messages.error(request, "You must choose a valid username.")
 
-
         if not email:
             error = True
             messages.error(request, "Please give us your email.")
-        else :
+        else:
             if User.objects.filter(email=email).exists():
                 error = True
                 messages.error(request, "Someone already use this email. Please pick another one.")
@@ -131,10 +133,10 @@ def register(request):
 
         if error:
             pre_form = {
-                "email" : request.POST.get("email"),
-                "username" : request.POST.get("username"),
-                "first_name" : request.POST.get("first_name"),
-                "last_name" : request.POST.get("last_name")
+                "email": request.POST.get("email"),
+                "username": request.POST.get("username"),
+                "first_name": request.POST.get("first_name"),
+                "last_name": request.POST.get("last_name")
             }
             return render(request, "register.html", pre_form)
 
@@ -169,6 +171,7 @@ def register(request):
     return render(request, "register.html", data)
 
 
+@login_required
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect("/")
@@ -213,34 +216,24 @@ def update(request):
 
             check_boxes = request.POST.getlist("notifications")
 
-            request.user.mail_notifications.regab = False
-            request.user.mail_notifications.like = False
-            request.user.mail_notifications.private_message = False
-            request.user.mail_notifications.citation = False
-
-            if "regab" in check_boxes:
-                request.user.mail_notifications.regab = True
-
-            if "like" in check_boxes:
-                request.user.mail_notifications.like = True
-
-            if "private_message" in check_boxes:
-                request.user.mail_notifications.private_message = True
-
-            if "citation" in check_boxes:
-                request.user.mail_notifications.citation = True
-
+            request.user.mail_notifications.regab = "regab" in check_boxes
+            request.user.mail_notifications.like = "like" in check_boxes
+            request.user.mail_notifications.private_message = "private_message" in check_boxes
+            request.user.mail_notifications.citation = "citation" in check_boxes
 
             if request.POST.get("birthdate") != "":
-                try :
+                try:
                     request.user.birthdate = datetime.datetime.strptime(request.POST.get("birthdate"), "%d/%m/%Y")
-                except :
+                except ValueError:
                     messages.error(request, "You must choose a date from the date picker.")
             else:
                 request.user.birthdate = None
 
             if request.POST.get("new-password"):
                 request.user.set_password(request.POST.get("new-password"))
+
+            if request.FILES.get("avatar"):
+                request.user.avatar = request.FILES["avatar"]
 
             request.user.save()
             request.user.place.save()
@@ -249,23 +242,23 @@ def update(request):
         return HttpResponseRedirect("/update/")
 
     elif request.method == "GET":
-
         birthdate = ""
-        if request.user.birthdate != None:
-            birthdate =  request.user.birthdate.strftime('%d/%m/%Y')
+        if request.user.birthdate is not None:
+            birthdate = request.user.birthdate.strftime('%d/%m/%Y')
 
         boole = bool(request.user.mail_notifications.regab)
 
         context = {
-            "first_name":request.user.first_name,
-            "last_name":request.user.last_name,
-            "email":request.user.email,
-            "birthdate":birthdate,
+            "first_name": request.user.first_name,
+            "last_name": request.user.last_name,
+            "email": request.user.email,
+            "birthdate": birthdate,
             "bool": boole,
             "update_flag": True
         }
 
         return render(request, "user/update_profile.html", context)
+
 
 @login_required
 def delete_user(request):
@@ -282,7 +275,11 @@ def delete_user(request):
                       "Thank you for your interest, Maybe will see you again later!\n"\
                       "The gabbler team"
 
-            send_mail("Goodbye dear friend", message, "gabbler.noreply@gmail.com", [request.user.email])
+            send_mail(
+                "Goodbye dear friend",
+                message,
+                "gabbler.noreply@gmail.com",
+                [request.user.email])
 
             request.user.delete()
             return HttpResponseRedirect("/")

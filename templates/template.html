@@ -18,6 +18,9 @@
                 <li><a href="{% url "connect" %}">Connect</a></li>
                 <li><a href="{% url "register" %}">Register</a></li>
             {% else %}
+                {% if user.is_staff %}
+                    <li><a href="{% url "admin" %}">Admin</a></li>
+                {% endif %}
                 <li><a href="{% url "home" %}">Home</a></li>
                 <li><a href="{% url "logout" %}">Log Out</a></li>
             {% endif %}

@@ -3,8 +3,9 @@ function updateRedirection(){
     document.location.href = "update";
 }
 
-function confirmDeletion(gabId){
-    event.preventDefault();
+function confirmDeletion(evt){
+    var $this = $(this);
+    evt.preventDefault();
     swal({
         title: "Are you sure to delete your gab?",
         text: "You will not be able to recover it!",
@@ -17,9 +18,7 @@ function confirmDeletion(gabId){
     },
     function(isConfirm){
         if (isConfirm) {
-            link = "delete_gab/" + gabId + "/";
-            console.log(link);
-            window.location = link;
+            window.location = $this.attr("href");
         }
     });
 }
@@ -53,8 +52,21 @@ function emptyText(max, field, button) {
 
 // Copy the text in the div and set it into an hidden field
 function copyToHiddenField(field, hiddenField) {
-    var message = $(field).text();
-    $(hiddenField).val(message);
+    var $field = $(field).clone();
+
+    $field.find("div").replaceWith(function (n) {
+       return (n === 0 ? "\n" : "") + $(this).text() + "\n";
+    });
+
+    $field.find("p").replaceWith(function (n) {
+       return (n === 0 ? "\n" : "") + $(this).text() + "\n";
+    });
+
+    $field.find("br").replaceWith(function () {
+       return "\n";
+    });
+
+    $(hiddenField).val($field.text());
 }
 
 function addHint(field, hintText, isContent) {
@@ -82,7 +94,7 @@ function valueManager(field, hint, isContent, hiddenField) {
 
     $(field).focusout(function() {
         $(this).removeClass("on-hover-gab");
-        var isText = $(this).text() == ""? false : true;
+        var isText = $(this).text() != "";
         isContent = addHint(this, hintText, isText);
 
         if (!isText) {

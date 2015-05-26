@@ -97,14 +97,19 @@
     margin-top: 10px;
 }
 
-#delete-gab{
+.delete-gab, .report-gab{
     color: darkgrey;
     font-size: 16px;
 }
 
-#delete-gab:hover {
+.delete-gab:hover {
     text-decoration: none;
     color: red;
+}
+
+.report-gab:hover {
+    text-decoration: none;
+    color: orange;
 }
 
 /* --------------------------------------------- */
@@ -120,28 +125,6 @@
 
 .form-spacing {
     margin-bottom: 10px;
-}
-
-.spacing-up {
-    margin-top: 50px;
-}
-
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    margin-left: 10px;
-    top: 0;
-    right: 0;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
 }
 
 .sad-smiley {

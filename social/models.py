@@ -9,8 +9,8 @@ class FriendShip(models.Model):
 
 
 class AdditionalContent(models.Model):
-    video = models.URLField()
-    gif = models.CharField(max_length=250)
+    video = models.URLField(blank=True, null=True)
+    gif = models.CharField(max_length=250, blank=True, null=True)
 
 
 class Gab(models.Model):
@@ -45,3 +45,11 @@ class Notifications(models.Model):
     link = models.URLField()
     date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+
+class ModerationReport(models.Model):
+    by = models.ForeignKey("core.User", related_name="moderation_reports")
+    processed = models.BooleanField(default=False)
+    gab = models.ForeignKey("Gab")
+    date = models.DateTimeField(auto_now_add=True)
+    reason = models.TextField()

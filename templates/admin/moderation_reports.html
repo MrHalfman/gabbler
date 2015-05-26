@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+{% load extras %}
+
+{% block content %}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">Unprocessed Moderation Reports</h4>
+        </div>
+        <div class="panel-body">
+            {% for report in reports %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Report from {{ report.by|userlink }}, {{ report.date }}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <strong>Reason : </strong>
+                        {{ report.reason }}
+                        <hr>
+                        <strong>Gab : </strong>
+                        {% include "skeletons/gab.html" with gabs=report.gab|toArray noactions="true" %}
+                    </div>
+                    <div class="panel-footer">
+                        <a class="btn btn-success" href="{% url "mark_as_processed" report.pk %}">Mark as processed</a>
+                        <a class="btn btn-danger" href="{% url "delete_gab" report.gab.pk %}">Delete gab</a>
+                    </div>
+                </div>
+            {% empty %}
+                <em>There is no reports to process at the moment.</em>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
