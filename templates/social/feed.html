@@ -1,0 +1,10 @@
+{% for item in feed_items %}
+
+    <div class="panel panel-info">
+    {% if item.type == "regab" %}
+        {% include "skeletons/regab.html" with regab=item %}
+    {% else %}
+        {% include "skeletons/gab.html" with gab=item %}
+    {% endif %}
+    </div>
+{% endfor %}

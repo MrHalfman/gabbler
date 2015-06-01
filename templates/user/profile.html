@@ -60,7 +60,7 @@
                 </div>
             </div>
             {% endif %}
-            {% include "skeletons/gab.html" with gabs=req_user.gabs.all %}
+            {% include "social/feed.html" with feed_items=req_user.mixed_gabs %}
         </div>
     </div>
 {% endblock %}

@@ -1,43 +1,42 @@
 {% load extras %}
-{% for gab in gabs %}
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-2 col-xs-2 profile-picture">
-                    <div class="thumbnail">
-                        {{ gab.user|userAvatar }}
-                    </div>
-                </div>
-                <div class="col-sm-9 col-xs-9">
-                    <p class="gab-text">{{ gab.text|urlize|linebreaksbr }}</p>
-                    {% if gab.extras.video %}
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe src="{{ gab.extras.video }}" ></iframe>
-                        </div>
-                    {% endif %}
-                    {% if gab.giphy %}
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe src="{{ gab.giphy }}" ></iframe>
-                        </div>
-                    {% endif %}
-                </div>
-                {% if not noactions %}
-                    <div class="action_icons text-right" style="padding-right: 5px;">
-                        {% if gab.user == user or user.is_staff %}
-                            <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                        {% endif %}
-                        <a class="report-gab" href="{% url "report_gab" gab.pk %}">
-                            <span class="mdi-action-report-problem"></span>
-                        </a>
-                        <!-- Add the fav & regab icons here! -->
-                    </div>
-                {% endif %}
-                <div class="col-sm-12 col-xs-12">
-                    <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
-                </div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-sm-2 col-xs-2 profile-picture">
+            <div class="thumbnail">
+                {{ gab.user|userAvatar }}
             </div>
         </div>
+        <div class="col-sm-9 col-xs-9">
+            <p class="gab-text">{{ gab.text|urlize|linebreaksbr }}</p>
+            {% if gab.extras.video %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe src="{{ gab.extras.video }}" ></iframe>
+                </div>
+            {% endif %}
+            {% if gab.giphy %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe src="{{ gab.giphy }}" ></iframe>
+                </div>
+            {% endif %}
+        </div>
+        {% if not noactions %}
+            <div class="action_icons text-right" style="padding-right: 5px;">
+                <a class="regab" href="{% url "regab" gab.pk %}">
+                    <span class="mdi-action-autorenew"></span>
+                </a>
+                {% if gab.user == user or user.is_staff %}
+                    <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                {% endif %}
+                <a class="report-gab" href="{% url "report_gab" gab.pk %}">
+                    <span class="mdi-action-report-problem"></span>
+                </a>
+                <!-- Add the fav & regab icons here! -->
+            </div>
+        {% endif %}
+        <div class="col-sm-12 col-xs-12">
+            <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
+        </div>
     </div>
-{% endfor %}
+</div>

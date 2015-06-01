@@ -34,10 +34,8 @@ def get_gif(gab):
 
 def home(request):
     if request.user.is_authenticated():
-        gabs = Gab.objects.filter(user=request.user).order_by('-date')
-
         # Add a new field in the gab for the YouTube link (display it in an iframe later)
-        for gab in gabs:
+        for gab in request.user.gabs.all():
             get_gif(gab)
 
         place_elements = ""
@@ -47,8 +45,7 @@ def home(request):
 
         context = {
             "place": ", ".join(place_elements),
-            "req_user": request.user,
-            "gabs": gabs
+            "req_user": request.user
         }
         return render(request, "user/profile.html", context)
 

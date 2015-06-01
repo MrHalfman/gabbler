@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 import re
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from social.models import Gab, AdditionalContent, ModerationReport
+from social.models import Gab, AdditionalContent, ModerationReport, Regab
 
 
 def catch_video_link(gab):
@@ -73,3 +73,11 @@ def moderation_reports_processed(request, report_pk):
     report.processed = True
     report.save()
     return HttpResponseRedirect("/admin/reports/")
+
+@login_required
+def regab(request, gab_pk):
+    Regab.objects.create(
+        gab=Gab.objects.get(pk=gab_pk),
+        user=request.user
+    )
+    return HttpResponseRedirect("/")

@@ -23,6 +23,11 @@ class User(AbstractUser):
     place = models.ForeignKey("Place", default=None, blank=True, null=True, related_name="place")
     mail_notifications = models.OneToOneField("MailNotifications", unique=True)
 
+    @property
+    def mixed_gabs(self):
+        mixed = list(self.gabs.all()) + list(self.regabs.all())
+        return sorted(mixed, key=lambda i: i.date, reverse=True)
+
 
 class UserLink(models.Model):
     user = models.ForeignKey("User", related_name="links")

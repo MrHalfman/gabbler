@@ -1,0 +1,5 @@
+{% load extras %}
+<div class="panel-heading">
+    <h4 class="panel-title"><span class="mdi-action-autorenew"></span> Regab from {{ regab.gab.user|userlink }}</h4>
+</div>
+{% include "skeletons/gab.html" with gab=regab.gab %}

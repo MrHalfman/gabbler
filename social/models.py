@@ -20,6 +20,9 @@ class Gab(models.Model):
     extras = models.ForeignKey("AdditionalContent", related_name="extras", blank=True, null=True)
     reply = models.ForeignKey("Gab", related_name="replies", blank=True, null=True)
 
+    class Meta:
+        ordering = ['-date']
+
 
 class PrivateMessage(models.Model):
     sender = models.ForeignKey("core.User", related_name="sender")
@@ -32,6 +35,11 @@ class PrivateMessage(models.Model):
 class Regab(models.Model):
     user = models.ForeignKey("core.User", related_name="regabs")
     gab = models.ForeignKey("Gab", related_name="regabs")
+    type = "regab"
+
+    @property
+    def date(self):
+        return self.gab.date
 
 
 class Favorite(models.Model):
