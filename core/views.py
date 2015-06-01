@@ -33,20 +33,6 @@ def get_gif(gab):
 
 
 def home(request):
-    if request.method == "POST":
-        if request.POST.get("redirection") == "connect":
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            return login(request, username, password)
-
-        elif request.POST.get("redirection") == "new":
-            request.session["data_register"] = {
-                "username": request.POST.get("username_register"),
-                "email": request.POST.get("email_register"),
-                "password": request.POST.get("password_register")
-            }
-            return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
-
     if request.user.is_authenticated():
         gabs = Gab.objects.filter(user=request.user).order_by('-date')
 
@@ -61,10 +47,24 @@ def home(request):
 
         context = {
             "place": ", ".join(place_elements),
-            "birthdate": request.user.birthdate,
+            "req_user": request.user,
             "gabs": gabs
         }
-        return render(request, "logged_index.html", context)
+        return render(request, "user/profile.html", context)
+
+    if request.method == "POST":
+        if request.POST.get("redirection") == "connect":
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            return login(request, username, password)
+
+        elif request.POST.get("redirection") == "new":
+            request.session["data_register"] = {
+                "username": request.POST.get("username_register"),
+                "email": request.POST.get("email_register"),
+                "password": request.POST.get("password_register")
+            }
+            return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
 
     return render(request, "guest_index.html")
 
@@ -311,6 +311,7 @@ def lost_password_step_1(request):
             return HttpResponseRedirect("/lost_password-step-2/")
 
     return render(request, "user/lost_password_step_1.html")
+
 
 def lost_password_step_2(request):
     if request.session.get("check_password"):

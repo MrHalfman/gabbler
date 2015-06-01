@@ -21,7 +21,7 @@ class User(AbstractUser):
     bio = models.TextField(max_length=300, default="I'm true member of Gabbler and it's already not bad!", blank=True)
     birthdate = models.DateTimeField(default=None, blank=True, null=True)
     place = models.ForeignKey("Place", default=None, blank=True, null=True, related_name="place")
-    mail_notifications = models.OneToOneField(MailNotifications, unique=True)
+    mail_notifications = models.OneToOneField("MailNotifications", unique=True)
 
 
 class UserLink(models.Model):
@@ -33,5 +33,3 @@ class UserLink(models.Model):
 class UserLinkTypes(models.Model):
     name = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="socialIcons/", blank=True)
-
-

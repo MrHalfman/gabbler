@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-2 col-xs-2 profile-picture">
                     <div class="thumbnail">
-                        {{ user|userAvatar }}
+                        {{ gab.user|userAvatar }}
                     </div>
                 </div>
                 <div class="col-sm-9 col-xs-9">
@@ -22,8 +22,8 @@
                     {% endif %}
                 </div>
                 {% if not noactions %}
-                    <div class="action_icons">
-                        {% if gab.user == user or user.is_staff%}
+                    <div class="action_icons text-right" style="padding-right: 5px;">
+                        {% if gab.user == user or user.is_staff %}
                             <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
