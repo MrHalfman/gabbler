@@ -18,30 +18,32 @@
                     <iframe src="{{ gab.giphy }}" ></iframe>
                 </div>
             {% endif %}
-            <div class="action-buttons">
-                <a class="report-gab" href="{% url "report_gab" gab.pk %}">
-                    <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-warning"><i class="mdi-action-report-problem"></i></button>
-                </a> <br>
-                {% if gab.user == user or user.is_staff %}
-                    <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
-                        <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-danger"><i class="mdi-action-delete"></i></button>
-                    </a>
-                {% endif %}
-            </div>
+            {% if not noactions and user.is_authenticated %}
+                <div class="action-buttons">
+                    <a class="report-gab" href="{% url "report_gab" gab.pk %}">
+                        <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-warning"><i class="mdi-action-report-problem"></i></button>
+                    </a> <br>
+                    {% if gab.user == user or user.is_staff %}
+                        <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
+                            <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-danger"><i class="mdi-action-delete"></i></button>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            {% if not noactions %}
+            {% if not noactions and user.is_authenticated %}
                 <div class="bottom-action-buttons">
                     <div class="btn-group">
                         {% if gab.user != user and not regab %}
                             <a class="regab" href="{% url "regab" gab.pk %}">
-                                <button class="btn btn-info btn-sm"><i class="mdi-action-autorenew"></i></button>
+                                <button class="btn {% if user|in_regabs:gab %}btn-info{% else %}btn-material-grey-100{% endif %} btn-sm"><i class="mdi-action-autorenew"></i> <span class="badge">{{ gab.regabs.count }}</span></button>
                             </a>
                         {% endif %}
-                        <button class="btn btn-material-grey-100 btn-sm"><span class="mdi-action-thumb-up"></span></button>
-                        <button class="btn btn-material-grey-100 btn-sm"><span class="mdi-action-thumb-down"></span></button>
+                        <button class="btn btn-material-grey-100 btn-sm"><span class="mdi-action-thumb-up"></span> <span class="badge">0</span></button>
+                        <button class="btn btn-material-grey-100 btn-sm"><span class="mdi-action-thumb-down"></span> <span class="badge">0</span></button>
                     </div>
                 </div>
             {% endif %}

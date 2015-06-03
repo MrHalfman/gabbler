@@ -173,6 +173,11 @@
 .bottom-action-buttons button {
     border-radius: 0 !important;
 }
+
+.bottom-action-buttons .badge {
+    left: 5px !important;
+    top: -5px !important;
+}
 /* -------------------------- MEDIA QUERIES -------------------------- */
 
 @media all and (max-width: 800px)  {

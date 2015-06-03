@@ -74,10 +74,15 @@ def moderation_reports_processed(request, report_pk):
     report.save()
     return HttpResponseRedirect("/admin/reports/")
 
+
 @login_required
 def regab(request, gab_pk):
-    Regab.objects.create(
-        gab=Gab.objects.get(pk=gab_pk),
+    gab = Gab.objects.get(pk=gab_pk)
+    regab, created = Regab.objects.get_or_create(
+        gab=gab,
         user=request.user
     )
-    return HttpResponseRedirect("/")
+
+    if not created:
+        regab.delete()
+    return HttpResponseRedirect("/user/%s" % gab.user.username)

@@ -16,3 +16,7 @@ def toArray(object):
 @register.filter
 def userAvatar(user):
     return mark_safe("<img src='/media/%s'/>" % user.avatar)
+
+@register.filter
+def in_regabs(user, gab):
+    return user.regabs.filter(gab=gab).count() == 1
