@@ -148,7 +148,31 @@
     padding-top: 6px;
 }
 
+.btn-fab {
+    padding-left: 8px !important;
+}
 
+.action-buttons {
+    float: right;
+    position: absolute;
+    right: -60px;
+    top: -12px;
+}
+
+.action-buttons button {
+    margin: 5px !important;
+}
+
+.bottom-action-buttons {
+    float: left;
+    position: absolute;
+    bottom: -56px;
+    left: -1px;
+}
+
+.bottom-action-buttons button {
+    border-radius: 0 !important;
+}
 /* -------------------------- MEDIA QUERIES -------------------------- */
 
 @media all and (max-width: 800px)  {
