@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     # Social
     url(r'^post_gab/', 'social.views.post_gab', name="post_gab"),
     url(r'^regab/(?P<gab_pk>\w+)/', 'social.views.regab', name="regab"),
+    url(r'^like/(?P<gab_pk>\w+)/', 'social.views.like', name="like"),
+    url(r'^dislike/(?P<gab_pk>\w+)/', 'social.views.dislike', name="dislike"),
     url(r'^delete_gab/(?P<gab_pk>\w+)/', 'social.views.delete_gab', name="delete_gab"),
     url(r'^report_gab/(?P<gab_pk>\w+)/', 'social.views.report_gab', name="report_gab"),
 

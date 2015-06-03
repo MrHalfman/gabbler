@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 import re
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from social.models import Gab, AdditionalContent, ModerationReport, Regab
+from social.models import Gab, AdditionalContent, ModerationReport, Regab, GabOpinion
 
 
 def catch_video_link(gab):
@@ -85,4 +85,38 @@ def regab(request, gab_pk):
 
     if not created:
         regab.delete()
+    return HttpResponseRedirect("/user/%s" % gab.user.username)
+
+
+@login_required
+def like(request, gab_pk):
+    gab = Gab.objects.get(pk=gab_pk)
+    opinion, created = GabOpinion.objects.get_or_create(
+        user=request.user,
+        gab=gab
+    )
+
+    if not created and opinion.like is True:
+        opinion.delete()
+    else:
+        opinion.like = True
+        opinion.save()
+
+    return HttpResponseRedirect("/user/%s" % gab.user.username)
+
+
+@login_required
+def dislike(request, gab_pk):
+    gab = Gab.objects.get(pk=gab_pk)
+    opinion, created = GabOpinion.objects.get_or_create(
+        user=request.user,
+        gab=gab
+    )
+
+    if not created and opinion.like is False:
+        opinion.delete()
+    else:
+        opinion.like = False
+        opinion.save()
+
     return HttpResponseRedirect("/user/%s" % gab.user.username)

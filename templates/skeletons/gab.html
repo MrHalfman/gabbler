@@ -42,8 +42,12 @@
                                 <button class="btn {% if user|in_regabs:gab %}btn-info{% else %}btn-material-grey-100{% endif %} btn-sm"><i class="mdi-action-autorenew"></i> <span class="badge">{{ gab.regabs.count }}</span></button>
                             </a>
                         {% endif %}
-                        <button class="btn btn-material-grey-100 btn-sm"><span class="mdi-action-thumb-up"></span> <span class="badge">0</span></button>
-                        <button class="btn btn-material-grey-100 btn-sm"><span class="mdi-action-thumb-down"></span> <span class="badge">0</span></button>
+                        <a class="like" href="{% url "like" gab.pk %}">
+                            <button class="btn {% if user|is_liking:gab %}btn-success{% else %}btn-material-grey-100{% endif %} btn-sm"><span class="mdi-action-thumb-up"></span> <span class="badge">{{ gab.likes|length }}</span></button>
+                        </a>
+                        <a class="unlike" href="{% url "dislike" gab.pk %}">
+                            <button class="btn {% if user|is_disliking:gab %}btn-danger{% else %}btn-material-grey-100{% endif %} btn-sm"><span class="mdi-action-thumb-down"></span> <span class="badge">{{ gab.dislikes|length }}</span></button>
+                        </a>
                     </div>
                 </div>
             {% endif %}

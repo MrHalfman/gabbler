@@ -17,6 +17,17 @@ def toArray(object):
 def userAvatar(user):
     return mark_safe("<img src='/media/%s'/>" % user.avatar)
 
+
 @register.filter
 def in_regabs(user, gab):
     return user.regabs.filter(gab=gab).count() == 1
+
+
+@register.filter
+def is_liking(user, gab):
+    return user.opinions.filter(gab=gab, like=True).count() == 1
+
+
+@register.filter
+def is_disliking(user, gab):
+    return user.opinions.filter(gab=gab, like=False).count() == 1

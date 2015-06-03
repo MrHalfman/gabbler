@@ -20,8 +20,22 @@ class Gab(models.Model):
     extras = models.ForeignKey("AdditionalContent", related_name="extras", blank=True, null=True)
     reply = models.ForeignKey("Gab", related_name="replies", blank=True, null=True)
 
+    @property
+    def likes(self):
+        return self.opinions.filter(like=True)
+
+    @property
+    def dislikes(self):
+        return self.opinions.filter(like=False)
+
     class Meta:
         ordering = ['-date']
+
+
+class GabOpinion(models.Model):
+    user = models.ForeignKey("core.User", related_name="opinions")
+    gab = models.ForeignKey("Gab", related_name="opinions")
+    like = models.BooleanField(default=0)
 
 
 class PrivateMessage(models.Model):
