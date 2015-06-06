@@ -96,14 +96,21 @@ def like(request, gab_pk):
         user=request.user,
         gab=gab
     )
+    response = {
+        "success": True
+    }
 
     if not created and opinion.like is True:
         opinion.delete()
     else:
         opinion.like = True
         opinion.save()
+        response['liking'] = True
 
-    return HttpResponseRedirect("/user/%s" % gab.user.username)
+    response['likes'] = gab.likes.count()
+    response['dislikes'] = gab.dislikes.count()
+
+    return JsonResponse(response)
 
 
 @login_required
@@ -113,14 +120,21 @@ def dislike(request, gab_pk):
         user=request.user,
         gab=gab
     )
+    response = {
+        "success": True
+    }
 
     if not created and opinion.like is False:
         opinion.delete()
     else:
         opinion.like = False
         opinion.save()
+        response['disliking'] = True
 
-    return HttpResponseRedirect("/user/%s" % gab.user.username)
+    response['dislikes'] = gab.dislikes.count()
+    response['likes'] = gab.likes.count()
+
+    return JsonResponse(response)
 
 
 @login_required
