@@ -69,7 +69,11 @@
                 </div>
             </div>
             {% endif %}
-            {% include "social/feed.html" with feed_items=req_user.mixed_gabs %}
+            {% if req_user == user %}
+                {% include "social/feed.html" with feed_items=req_user.gabsfeed %}
+            {% else %}
+                {% include "social/feed.html" with feed_items=req_user.mixed_gabs %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

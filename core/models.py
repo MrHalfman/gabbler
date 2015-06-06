@@ -29,6 +29,13 @@ class User(AbstractUser):
         return sorted(mixed, key=lambda i: i.date, reverse=True)
 
     @property
+    def gabsfeed(self):
+        gabs = self.mixed_gabs
+        for user in self.following:
+            gabs += user.mixed_gabs
+        return sorted(gabs, key=lambda i: i.date, reverse=True)
+
+    @property
     def followers(self):
         return [relation.user for relation in self.rel_followers.all()]
 
