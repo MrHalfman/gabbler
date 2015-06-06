@@ -2,3 +2,5 @@
 .idea/
 uwsgi.ini
 local_settings.py
+media/avatars/*.png
+!media/avatars/default.png
