@@ -28,6 +28,14 @@ class User(AbstractUser):
         mixed = list(self.gabs.all()) + list(self.regabs.all())
         return sorted(mixed, key=lambda i: i.date, reverse=True)
 
+    @property
+    def followers(self):
+        return [relation.user for relation in self.rel_followers.all()]
+
+    @property
+    def following(self):
+        return [relation.following for relation in self.rel_following.all()]
+
 
 class UserLink(models.Model):
     user = models.ForeignKey("User", related_name="links")

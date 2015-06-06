@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 import re
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from social.models import Gab, AdditionalContent, ModerationReport, Regab, GabOpinion
+from core.models import User
+from social.models import Gab, AdditionalContent, ModerationReport, Regab, GabOpinion, UserRelationships
 
 
 def catch_video_link(gab):
@@ -120,3 +121,17 @@ def dislike(request, gab_pk):
         opinion.save()
 
     return HttpResponseRedirect("/user/%s" % gab.user.username)
+
+
+@login_required
+def follow(request, user_pk):
+    usr = User.objects.get(pk=user_pk)
+    relationship, created = UserRelationships.objects.get_or_create(
+        user=request.user,
+        following=usr
+    )
+
+    if not created:
+        relationship.delete()
+
+    return HttpResponseRedirect("/user/%s" % usr.username)

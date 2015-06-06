@@ -56,6 +56,11 @@ class Regab(models.Model):
         return self.gab.date
 
 
+class UserRelationships(models.Model):
+    user = models.ForeignKey("core.User", related_name="rel_following")
+    following = models.ForeignKey("core.User", related_name="rel_followers")
+
+
 class Favorite(models.Model):
     user = models.ForeignKey("core.User", related_name="favorites")
     gab = models.ForeignKey("Gab", related_name="favorites")

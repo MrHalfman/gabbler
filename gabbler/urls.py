@@ -15,14 +15,15 @@ urlpatterns = patterns('',
     url(r'^lost_password-step-2/', 'core.views.lost_password_step_2', name="lost_password_step_2"),
 
     # Social
+    url(r'follow/(?P<user_pk>\d+)', 'social.views.follow', name="follow"),
     url(r'^post_gab/', 'social.views.post_gab', name="post_gab"),
-    url(r'^regab/(?P<gab_pk>\w+)/', 'social.views.regab', name="regab"),
-    url(r'^like/(?P<gab_pk>\w+)/', 'social.views.like', name="like"),
-    url(r'^dislike/(?P<gab_pk>\w+)/', 'social.views.dislike', name="dislike"),
-    url(r'^delete_gab/(?P<gab_pk>\w+)/', 'social.views.delete_gab', name="delete_gab"),
-    url(r'^report_gab/(?P<gab_pk>\w+)/', 'social.views.report_gab', name="report_gab"),
+    url(r'^regab/(?P<gab_pk>\d+)/', 'social.views.regab', name="regab"),
+    url(r'^like/(?P<gab_pk>\d+)/', 'social.views.like', name="like"),
+    url(r'^dislike/(?P<gab_pk>\d+)/', 'social.views.dislike', name="dislike"),
+    url(r'^delete_gab/(?P<gab_pk>\d+)/', 'social.views.delete_gab', name="delete_gab"),
+    url(r'^report_gab/(?P<gab_pk>\d+)/', 'social.views.report_gab', name="report_gab"),
 
     url(r'^admin/$', 'social.views.moderation_reports', name="admin"),
     url(r'^admin/reports/$', 'social.views.moderation_reports', name="moderation_reports"),
-    url(r'^admin/reports/markAsProcessed/(?P<report_pk>\w+)/', 'social.views.moderation_reports_processed', name="mark_as_processed"),
+    url(r'^admin/reports/markAsProcessed/(?P<report_pk>\d+)/', 'social.views.moderation_reports_processed', name="mark_as_processed"),
 )
