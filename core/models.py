@@ -6,6 +6,11 @@ class Place(models.Model):
     country = models.TextField(max_length=150, blank=True)
     city = models.TextField(max_length=100, blank=True)
 
+    def __str__(self):
+        if self.city and self.country:
+            return self.city + ", " + self.country
+        return self.city or self.country
+
 
 class MailNotifications(models.Model):
     regab = models.BooleanField(default=True)
@@ -20,7 +25,7 @@ class User(AbstractUser):
     banner = models.ImageField(upload_to="banners/", blank=True)
     bio = models.TextField(max_length=300, default="I'm true member of Gabbler and it's already not bad!", blank=True)
     birthdate = models.DateTimeField(default=None, blank=True, null=True)
-    place = models.ForeignKey("Place", default=None, blank=True, null=True, related_name="place")
+    place = models.ForeignKey("Place", default=None, blank=True, null=True)
     mail_notifications = models.OneToOneField("MailNotifications", unique=True)
 
     @property

@@ -38,13 +38,7 @@ def home(request):
         for gab in request.user.gabs.all():
             get_gif(gab)
 
-        place_elements = ""
-        if request.user.place:
-            place_elements = request.user.place.city, request.user.place.country
-            place_elements = filter(None, place_elements)
-
         context = {
-            "place": ", ".join(place_elements),
             "req_user": request.user
         }
         return render(request, "user/profile.html", context)
@@ -138,9 +132,6 @@ def register(request):
             return render(request, "register.html", pre_form)
 
         else:
-            new_place = Place()
-            new_place.save()
-
             notifications = MailNotifications()
             notifications.save()
 
@@ -149,7 +140,6 @@ def register(request):
                 username=request.POST.get("username"),
                 first_name=request.POST.get("first_name"),
                 last_name=request.POST.get("last_name"),
-                place=new_place,
                 mail_notifications=notifications
             )
 
@@ -208,8 +198,12 @@ def update(request):
             request.user.first_name = request.POST.get("first_name")
             request.user.last_name = request.POST.get("last_name")
             request.user.email = request.POST.get("email")
-            request.user.place.city = request.POST.get("city")
-            request.user.place.country = request.POST.get("country")
+
+            if request.POST.get("city") or request.POST.get("country"):
+                request.user.place.city = request.POST.get("city")
+                request.user.place.country = request.POST.get("country")
+            elif request.user.place:
+                request.user.place.delete()
 
             check_boxes = request.POST.getlist("notifications")
 
@@ -231,6 +225,9 @@ def update(request):
 
             if request.FILES.get("avatar"):
                 request.user.avatar = request.FILES["avatar"]
+
+            if request.FILES.get("banner"):
+                request.user.banner = request.FILES["banner"]
 
             request.user.save()
             request.user.place.save()
@@ -283,6 +280,7 @@ def delete_user(request):
 
     else:
         return render(request, "user/delete_profile.html")
+
 
 def lost_password_step_1(request):
     if request.method == "POST":

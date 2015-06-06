@@ -1,5 +1,10 @@
 /* ----------------- HOME PAGE ----------------- */
 
+body {
+    background: url(/test.png) no-repeat 50% 0;
+    background-size: 100% 600px;
+}
+
 .header-home {
     background-color: #ffffff;
     color: #00796B;
