@@ -19,6 +19,7 @@ class Gab(models.Model):
     text = models.CharField(max_length=255)
     extras = models.ForeignKey("AdditionalContent", related_name="extras", blank=True, null=True)
     reply = models.ForeignKey("Gab", related_name="replies", blank=True, null=True)
+    gifId = models.CharField(max_length=64, blank=True, null=True, default=None)
 
     @property
     def likes(self):

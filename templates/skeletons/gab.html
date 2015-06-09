@@ -13,9 +13,10 @@
                     <iframe src="{{ gab.extras.video }}" ></iframe>
                 </div>
             {% endif %}
-            {% if gab.giphy %}
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe src="{{ gab.giphy }}" ></iframe>
+            {% if gab.gifId %}
+                <div class="thumbnail">
+                    <img src="http://media0.giphy.com/media/{{ gab.gifId }}/200.gif"/> <br>
+                    <img src="/media/powered_giphy.png"/>
                 </div>
             {% endif %}
             {% if not noactions and user.is_authenticated %}

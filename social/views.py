@@ -6,6 +6,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from core.models import User
 from social.models import Gab, AdditionalContent, ModerationReport, Regab, GabOpinion, UserRelationships
+import urllib2
+import json
 
 
 def catch_video_link(gab):
@@ -23,20 +25,42 @@ def catch_video_link(gab):
     return False
 
 
+def catch_gifid(text):
+    giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', text)
+    if giphy_request:
+        get_parameters = "+".join(str(id[0]) for id in giphy_request)
+        url = "http://api.giphy.com/v1/gifs/search?q=" + get_parameters + "&limit=1&api_key=l41lICEpoxH594Kly"
+        req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
+        response = urllib2.urlopen(req)
+        if response:
+            decoded_json = json.loads(response.read())
+            if decoded_json["data"]:
+                return decoded_json["data"][0]["id"]
+    return False
+
+
 @login_required
 def post_gab(request):
-    gab = Gab.objects.create(
+    text = request.POST.get("text")
+    gab = Gab(
         user=request.user,
-        text=request.POST.get("text")
+        text=text
     )
 
-    video = catch_video_link(request.POST.get("text"))
+    gif = catch_gifid(text)
+
+    if gif:
+        gab.gifId = gif
+
+    video = catch_video_link(text)
     if video:
         extra_content = AdditionalContent(
             video=video
         )
         extra_content.save()
         gab.extras = extra_content
+
+    if gif or video:
         gab.save()
 
     return HttpResponseRedirect("/")

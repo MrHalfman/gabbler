@@ -16,28 +16,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
 
-def get_gif(gab):
-    giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', gab.text)
-    """if giphy_request:
-        get_parameters = "+".join(str(id[0]) for id in giphy_request)
-        url = "http://api.giphy.com/v1/gifs/search?q=" + get_parameters + "&limit=1&api_key=dc6zaTOxFJmzC"
-        req = urllib2.Request(url)
-        response = urllib2.urlopen(req)
-        if response:
-            decoded_json = json.loads(response.read())
-            if decoded_json["data"]:
-                gab.giphy = decoded_json["data"][0]["embed_url"]"""
-
-# ######################################################################################################################
-# ######################################################################################################################
-
-
 def home(request):
     if request.user.is_authenticated():
-        # Add a new field in the gab for the YouTube link (display it in an iframe later)
-        for gab in request.user.gabs.all():
-            get_gif(gab)
-
         context = {
             "req_user": request.user
         }
