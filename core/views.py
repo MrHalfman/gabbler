@@ -141,8 +141,10 @@ def register(request):
                                  " us :)"
                 }
                 html_content = render_to_string("mail_template.html", mail_content)
-                string_content = "Welcome " + request.POST.get("username") + "!\n\n"\
-                    "Just a short message to wish you a warm welcome! We hope you enjoy spending time with us :)"
+                string_content = "Welcome " + request.POST.get("username") + "!\n"\
+                    "Just a short message to wish you a warm welcome! We hope you enjoy spending time with us :)\n\n"\
+                    "The gabbler team"
+
 
                 send_mail("Welcome!", string_content, "gabbler.noreply@gmail.com",
                 [request.POST.get("email")], fail_silently=True, html_message=html_content)
@@ -264,16 +266,19 @@ def delete_user(request):
             if error:
                 return HttpResponseRedirect("user/delete_profile.html")
         else:
-            message = "Just a quick message to say goodbye :(\n"\
-                      "We hope you enjoyed to gab and spending time with us.\n\n"\
-                      "Thank you for your interest, Maybe will see you again later!\n"\
-                      "The gabbler team"
+            mail_content = {
+                "mail_title": "Just a quick message to say goodbye :(",
+                "mail_body": "We hope you enjoyed to gab and spending time with us.\n\n"
+                             "Thank you for your interest, Maybe will see you again later!"
+            }
+            html_content = render_to_string("mail_template.html", mail_content)
+            string_content = "Just a quick message to say goodbye :(\n"\
+                             "We hope you enjoyed to gab and spending time with us.\n\n"\
+                             "Thank you for your interest, Maybe will see you again later!\n"\
+                             "The gabbler team"
 
-            send_mail(
-                "Goodbye dear friend",
-                message,
-                "gabbler.noreply@gmail.com",
-                [request.user.email])
+            send_mail("Goodbye dear friend", string_content, "gabbler.noreply@gmail.com", [request.user.email],
+                      fail_silently=True, html_message=html_content)
 
             request.user.delete()
             return HttpResponseRedirect("/")
@@ -298,11 +303,21 @@ def lost_password_step_1(request):
             request.session["check_password"] = random_string
             request.session["user_email"] = request.POST.get("email")
 
-            message = "Someone asked to change your password. If you are the applicant, "\
-                      "thank you to confirm the change with this code *** " + random_string + " ***\n\n"\
-                      "If not, thank you to ignore this message.\n"\
-                      "The gabbler team"
-            send_mail("Update your password", message, "gabbler.noreply@gmail.com", [request.POST.get("email")])
+            mail_content = {
+                "mail_title": "Someone asked to change your password",
+                "mail_body": "If you are the applicant, thank you to confirm the change with this code "
+                             "***" + random_string + "***\n"
+                             "If not, thank you to ignore this message."
+            }
+            html_content = render_to_string("mail_template.html", mail_content)
+            string_content = "Someone asked to change your password. If you are the applicant, "\
+                             "thank you to confirm the change with this code *** " + random_string + " ***\n"\
+                             "If not, thank you to ignore this message.\n\n"\
+                             "The gabbler team"
+
+            send_mail("Recover your account", string_content, "gabbler.noreply@gmail.com", [request.POST.get("email")],
+                      fail_silently=True, html_message=html_content)
+
             return HttpResponseRedirect("/lost_password-step-2/")
 
     return render(request, "user/lost_password_step_1.html")
@@ -342,9 +357,16 @@ def lost_password_step_2(request):
                     context["confirm_message"] = True
 
                     if request.session.get("user_email"):
-                        message = "Your password has been changed successfully, welcome back " + user_list[0].username + "!\n"\
-                                  "The gabbler team"
-                        send_mail("Update your password", message, "gabbler.noreply@gmail.com", [request.session.get("user_email")])
+                        mail_content = {
+                            "mail_title": "Password changed",
+                            "mail_body": "Your password has been changed successfully, welcome back " + user_list[0].username + "!"
+                        }
+                        html_content = render_to_string("mail_template.html", mail_content)
+                        string_content = "Your password has been changed successfully, welcome back " + user_list[0].username + "!\n\n"\
+                                         "The gabbler team"
+
+                        send_mail("Password changed", string_content, "gabbler.noreply@gmail.com",
+                                  [request.session.get("user_email")], fail_silently=True, html_message=html_content)
 
                     del request.session["user_email"]
                     del request.session["check_password"]
