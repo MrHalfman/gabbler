@@ -239,7 +239,6 @@ def update(request):
                 request.user.banner = request.FILES["banner"]
 
             request.user.save()
-            request.user.place.save()
             request.user.mail_notifications.save()
 
         return HttpResponseRedirect("/update/")
