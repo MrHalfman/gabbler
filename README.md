@@ -25,5 +25,6 @@ Installation
   * **pidfile** : Absolute path to the process file (name must be unique)
   * **daemonize** : Absolute path to the log files
 7. Launch uwsgi :  `gabbler $ uwsgi --ini uwsgi.ini`
-8. Configure your webserver (see [uWSGI documentation](https://uwsgi-docs.readthedocs.org/en/latest/)
-9. Enjoy!
+8. Migrate models : `gabbler $ python manage.py migrate`
+9. Configure your webserver (see [uWSGI documentation](https://uwsgi-docs.readthedocs.org/en/latest/)
+10. Enjoy!
