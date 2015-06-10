@@ -11,6 +11,7 @@ from django.contrib import messages
 from core.models import User, MailNotifications
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 def home(request):
@@ -133,6 +134,18 @@ def register(request):
             if created:
                 user.set_password(password)
                 user.save()
+
+                mail_content = {
+                    "mail_title": "Welcome " + request.POST.get("username") + "!",
+                    "mail_body": "Just a short message to wish you a warm welcome! We hope you enjoy spending time with"
+                                 " us :)"
+                }
+                html_content = render_to_string("mail_template.html", mail_content)
+                string_content = "Welcome " + request.POST.get("username") + "!\n\n"\
+                    "Just a short message to wish you a warm welcome! We hope you enjoy spending time with us :)"
+
+                send_mail("Welcome!", string_content, "gabbler.noreply@gmail.com",
+                [request.POST.get("email")], fail_silently=True, html_message=html_content)
 
             user = authenticate(username=username, password=password)
 
