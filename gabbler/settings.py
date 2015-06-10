@@ -98,6 +98,10 @@ EMAIL_HOST_PASSWORD = 'Supinfo14,'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
+
 try:
     from local_settings import *
 except ImportError:

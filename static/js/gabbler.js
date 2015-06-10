@@ -66,6 +66,10 @@ function copyToHiddenField(field, hiddenField) {
        return "\n";
     });
 
+    $field.find(".userlink").replaceWith(function () {
+       return "@" + $(this).data("username");
+    });
+
     $(hiddenField).val($field.text());
 }
 
@@ -112,18 +116,22 @@ function manageBlock(form, field, content, button, max) {
 
     valueManager(field, "Say something!", false, content);
 
-    var autocompleteUser_tpl = "${name}";
     $(field).atwho({
         at: "@",
+        searchKey: "username",
         callbacks: {
             remoteFilter: function (query, callback) {
                 if (query === "") {
                     return [];
                 }
-                $.getJSON("/api/users/")
+                $.getJSON("/api/users/", {search: query},  function (data) {
+                    callback(data);
+                });
             }
-        }
-    })
+        },
+        displayTpl: "<li>${username}</li>",
+        insertTpl: "<span class='label label-primary userlink' data-username='${username}'>${username}</span>"
+    });
 
     $(field).keyup(function () {
 

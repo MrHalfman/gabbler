@@ -1,12 +1,16 @@
+import django_filters
 from rest_framework import viewsets
 from core.models import User, Place, MailNotifications, UserLink, UserLinkTypes
 from social.models import Gab, Regab, Notifications
+from rest_framework import filters
 import serializers
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('username',)
 
 
 class PlaceViewset(viewsets.ModelViewSet):

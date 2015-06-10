@@ -3,3 +3,4 @@ django-extensions
 Pillow
 MySQLdb-python
 djangorestframework
+django-filter
