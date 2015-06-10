@@ -23,7 +23,7 @@ Installation
 6. Edit the newly created `uwsgi.ini` file and replace chdir, pidfile and daemonize values by the good ones :
   * **chdir** : Absolute path to gabbler's directory
   * **pidfile** : Absolute path to the process file (name must be unique)
-  * **daemonize** : Absolute path to the log files
+  * **daemonize** : Absolute path to the logs directory (*Important* : This directory must be already created)
 7. Launch uwsgi :  `gabbler $ uwsgi --ini uwsgi.ini`
 8. Migrate models : `gabbler $ python manage.py migrate`
 9. Configure your webserver (see [uWSGI documentation](https://uwsgi-docs.readthedocs.org/en/latest/)
