@@ -1,5 +1,17 @@
-from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from django.conf.urls import patterns, url, include
+from rest_framework.routers import DefaultRouter
+import rest_api.views as api_views
+
+
+router = DefaultRouter()
+router.register(r'gabs', api_views.GabsViewSet)
+router.register(r'regabs', api_views.ReGabsViewSet)
+router.register(r'notifications', api_views.NotificationsViewSet)
+router.register(r'users', api_views.UserViewSet)
+router.register(r'places', api_views.PlaceViewset)
+router.register(r'mailnotifications', api_views.MailNotificationsViewSet)
+router.register(r'userlinks', api_views.UserLinkViewSet)
+router.register(r'useerlinkstypes', api_views.UserLinkTypesViewSet)
 
 urlpatterns = patterns('',
     url(r'^$', 'core.views.home', name='home'),
@@ -27,4 +39,8 @@ urlpatterns = patterns('',
     url(r'^admin/$', 'social.views.moderation_reports', name="admin"),
     url(r'^admin/reports/$', 'social.views.moderation_reports', name="moderation_reports"),
     url(r'^admin/reports/markAsProcessed/(?P<report_pk>\d+)/', 'social.views.moderation_reports_processed', name="mark_as_processed"),
+
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 )

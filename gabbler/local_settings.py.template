@@ -11,3 +11,4 @@ DATABASES = {
 }
 
 MEDIA_ROOT = ''
+STATIC_ROOT = ''

@@ -26,5 +26,5 @@ Installation
   * **daemonize** : Absolute path to the logs directory (*Important* : This directory must be already created)
 7. Launch uwsgi :  `gabbler $ uwsgi --ini uwsgi.ini`
 8. Migrate models : `gabbler $ python manage.py migrate`
-9. Configure your webserver (see [uWSGI documentation](https://uwsgi-docs.readthedocs.org/en/latest/)
+9. Configure your webserver (see [uWSGI documentation](https://uwsgi-docs.readthedocs.org/en/latest/))
 10. Enjoy!

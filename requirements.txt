@@ -2,3 +2,4 @@ Django
 django-extensions
 Pillow
 MySQLdb-python
+djangorestframework
