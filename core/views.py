@@ -3,17 +3,15 @@ import datetime
 import random
 import string
 import re
-import json
-import urllib2
 
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
-from social.models import Gab
-from core.models import User, Place, MailNotifications
+from core.models import User, MailNotifications
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 def home(request):
@@ -34,7 +32,7 @@ def home(request):
                 "username": request.POST.get("username_register"),
                 "email": request.POST.get("email_register")
             }
-            return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
+            return HttpResponseRedirect("/register")
 
     return render(request, "guest_index.html")
 
@@ -42,7 +40,7 @@ def home(request):
 def login(request, username, password):
     user = authenticate(username=username, password=password)
     if user:
-        django_login(request, user)  # Fait la variable de session avec l'utilisateur dedans
+        django_login(request, user)
         if request.GET.get("next"):
             return HttpResponseRedirect(request.GET.get("next"))
         else:
@@ -136,6 +134,18 @@ def register(request):
             if created:
                 user.set_password(password)
                 user.save()
+
+                mail_content = {
+                    "mail_title": "Welcome " + request.POST.get("username") + "!",
+                    "mail_body": "Just a short message to wish you a warm welcome! We hope you enjoy spending time with"
+                                 " us :)"
+                }
+                html_content = render_to_string("mail_template.html", mail_content)
+                string_content = "Welcome " + request.POST.get("username") + "!\n\n"\
+                    "Just a short message to wish you a warm welcome! We hope you enjoy spending time with us :)"
+
+                send_mail("Welcome!", string_content, "gabbler.noreply@gmail.com",
+                [request.POST.get("email")], fail_silently=True, html_message=html_content)
 
             user = authenticate(username=username, password=password)
 
