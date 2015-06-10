@@ -192,9 +192,16 @@ def update(request):
             error = True
             messages.error(request, "Please type your password before validate your modifications.")
 
-        if request.POST.get("new-password") != request.POST.get("new-password-confirm"):
-            error = True
-            messages.error(request, "Password and confirmation passwords aren't the same.")
+        if request.POST.get("new-password") != "" or request.POST.get("new-password-confirm") != "":
+            if request.POST.get("new-password") != request.POST.get("new-password-confirm"):
+                error = True
+                messages.error(request, "Password and confirmation passwords aren't the same.")
+            else:
+                reg_password = re.compile("(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}")
+                if not reg_password.match(request.POST.get("new-password")):
+                    error = True
+                    messages.error(request, "The password must be contain at least 8 characters, one number "
+                                            "and both lowercase and uppercase letters")
 
         if not error:
             request.user.first_name = request.POST.get("first_name")
@@ -347,6 +354,12 @@ def lost_password_step_2(request):
             elif request.POST.get("new-password") != request.POST.get("new-password-confirm"):
                 error = True
                 messages.error(request, "The two passwords aren't equals.")
+            else:
+                reg_password = re.compile("(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}")
+                if not reg_password.match(request.POST.get("new-password")):
+                    error = True
+                    messages.error(request, "The password must be contain at least 8 characters, one number "
+                                            "and both lowercase and uppercase letters")
 
             if not error:
                 query = User.objects.filter(email=request.session.get("user_email"))
