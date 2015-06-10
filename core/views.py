@@ -187,6 +187,10 @@ def update(request):
         if not request.POST.get("email"):
             error = True
             messages.error(request, "Please give us your email.")
+        else :
+            if User.objects.filter(email=request.POST.get("email")).exists():
+                error = True
+                messages.error(request, "Someone already use this email. Please pick another one.")
 
         if not request.user.check_password(request.POST.get("old-password")):
             error = True
