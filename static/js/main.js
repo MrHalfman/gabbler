@@ -47,4 +47,10 @@
            }
         });
     });
+
+    $("#search").on("keydown", function (evt) {
+        if (evt.keyCode === 13 && this.value.length >= 2) {
+            window.location = "/search/" + this.value;
+        }
+    });
 })();

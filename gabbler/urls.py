@@ -34,6 +34,7 @@ urlpatterns = patterns('',
     url(r'^dislike/(?P<gab_pk>\d+)/', 'social.views.dislike', name="dislike"),
     url(r'^delete_gab/(?P<gab_pk>\d+)/', 'social.views.delete_gab', name="delete_gab"),
     url(r'^report_gab/(?P<gab_pk>\d+)/', 'social.views.report_gab', name="report_gab"),
+    url(r'^search/(?P<query>\w+)/', 'social.views.search', name="search"),
     url(r'^notifications_read/', 'social.views.mark_notifications_asread', name="notifications_read"),
 
     url(r'^admin/$', 'social.views.moderation_reports', name="admin"),

@@ -173,7 +173,16 @@ def follow(request, user_pk):
 
     return HttpResponseRedirect("/user/%s" % usr.username)
 
+
 @login_required
 def mark_notifications_asread(request):
     request.user.unread_notifications.update(read=True)
     return JsonResponse({"success": True})
+
+
+@login_required
+def search(request, query):
+    gabs = Gab.objects.filter(text__icontains=query)
+    users = User.objects.filter(username__icontains=query)
+
+    return render(request, "search.html", locals())

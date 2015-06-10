@@ -39,7 +39,7 @@
         <div class="col-md-6">
             <div class="bottom-action-buttons">
                 <div class="btn-group">
-                    {% if gab.user != user and not regab and user.is_authenticated %}
+                    {% if gab.user != user and not regab and user.is_authenticated and not noregab%}
                         <a class="regab" href="{% url "regab" gab.pk %}">
                             <button class="btn {% if user|in_regabs:gab %}btn-info{% else %}btn-material-grey-100{% endif %} btn-sm"><i class="mdi-action-autorenew"></i> <span class="badge">{{ gab.regabs.count }}</span></button>
                         </a>

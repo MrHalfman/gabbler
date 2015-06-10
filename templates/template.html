@@ -26,6 +26,7 @@
             </button>
             {% if user.is_authenticated %}
                 <a class="navbar-brand" href="{% url "home" %}">Welcome, {{ user.username }}</a>
+                <input id="search" placeholder="Search...">
             {% else %}
                 <a class="navbar-brand" href="{% url "home" %}">Home</a>
             {% endif %}

@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+{% load extras %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Users ({{ users|length }})</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for user in users %}
+                            <div class="list-group-item">
+                                <div class="row-picture">
+                                    <img class="circle" src="/media/{{ user.avatar }}" alt="icon">
+                                </div>
+                                <div class="row-content">
+                                    <h4 class="list-group-item-heading">{{ user|userlink }}</h4>
+                                    <p class="list-group-item-text">{{ user.bio }}</p>
+                                </div>
+                            </div>
+                            <div class="list-group-separator"></div>
+                        {% empty %}
+                            No users matching your search.
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Gabs ({{ gabs|length }})</h4>
+                </div>
+                <div class="panel-body">
+                    {% for gab in gabs %}
+                        {% include "skeletons/gab.html" with gab=gab noregab="true" %}
+                        <hr>
+                    {% empty %}
+                        No gabs matching your search.
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
