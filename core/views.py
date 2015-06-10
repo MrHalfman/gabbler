@@ -32,8 +32,7 @@ def home(request):
         elif request.POST.get("redirection") == "new":
             request.session["data_register"] = {
                 "username": request.POST.get("username_register"),
-                "email": request.POST.get("email_register"),
-                "password": request.POST.get("password_register")
+                "email": request.POST.get("email_register")
             }
             return HttpResponseRedirect("/register")  # Redirection en cas d'autentification
 
@@ -68,6 +67,7 @@ def register(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
+        password_confirm = request.POST.get("password-confirm")
 
         if not request.POST.get("last_name"):
             error = True
@@ -101,6 +101,10 @@ def register(request):
         if not password:
             error = True
             messages.error(request, "You must choose a great password to protect your account.")
+        else:
+            if password != password_confirm:
+                error = True
+                messages.error(request, "The confirmation of the password is not equal to the first field")
 
         if error:
             pre_form = {
