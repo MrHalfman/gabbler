@@ -38,4 +38,13 @@
            }
         });
     });
+
+    $("#notifications_dropdown").on("click", function () {
+        $.getJSON("/notifications_read/", function (data) {
+           if (data.success) {
+               $("#notifications_dropdown").find(".badge").html(0);
+               $(".notification-item.unread").removeClass("unread");
+           }
+        });
+    });
 })();

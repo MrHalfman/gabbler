@@ -172,3 +172,8 @@ def follow(request, user_pk):
         relationship.delete()
 
     return HttpResponseRedirect("/user/%s" % usr.username)
+
+@login_required
+def mark_notifications_asread(request):
+    request.user.unread_notifications.update(read=True)
+    return JsonResponse({"success": True})

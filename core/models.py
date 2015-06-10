@@ -48,6 +48,10 @@ class User(AbstractUser):
     def following(self):
         return [relation.following for relation in self.rel_following.all()]
 
+    @property
+    def unread_notifications(self):
+        return self.notifications.filter(read=False)
+
 
 class UserLink(models.Model):
     user = models.ForeignKey("User", related_name="links")

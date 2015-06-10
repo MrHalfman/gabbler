@@ -36,6 +36,23 @@
                     <li><a href="{% url "connect" %}">Connect</a></li>
                     <li><a href="{% url "register" %}">Register</a></li>
                 {% else %}
+                    <li id="notifications_dropdown" class="dropdown" role="menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="mdi-social-notifications"></span><span class="badge">{{ user.unread_notifications|length }}</span></a>
+                        <ul class="dropdown-menu">
+                            {% for notification in user.notifications.all %}
+                                <li class="notification-item{% if not notification.read %} unread{% endif %}">
+                                    <a href="{{ notification.link }}">
+                                        <div class="row">
+                                            {{ notification.text }}
+                                        </div>
+                                        <div class="row notification-date">
+                                            {{ notification.date }}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                     {% if user.is_staff %}
                         <li><a href="{% url "admin" %}">Admin</a></li>
                     {% endif %}
