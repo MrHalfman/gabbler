@@ -112,6 +112,19 @@ function manageBlock(form, field, content, button, max) {
 
     valueManager(field, "Say something!", false, content);
 
+    var autocompleteUser_tpl = "${name}";
+    $(field).atwho({
+        at: "@",
+        callbacks: {
+            remoteFilter: function (query, callback) {
+                if (query === "") {
+                    return [];
+                }
+                $.getJSON("/api/users/")
+            }
+        }
+    })
+
     $(field).keyup(function () {
 
         // decrements the count
@@ -137,12 +150,10 @@ function manageBlock(form, field, content, button, max) {
 
     // Send the message when we press enter
     $(field).keypress(function (e) {
-        if(!e.shiftKey) {
-            if(e.which == 13) {
-                copyToHiddenField(field, content);
-                $(form).submit();
-                return false;
-            }
+        if(e.which === 13 && !e.shiftKey) {
+            copyToHiddenField(field, content);
+            $(form).submit();
+            return false;
         }
     });
 }

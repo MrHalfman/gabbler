@@ -1,7 +1,6 @@
 /* ----------------- HOME PAGE ----------------- */
 
 body {
-    background: url(/test.png) no-repeat 50% 0;
     background-size: 100% 600px;
 }
 
@@ -216,7 +215,7 @@ body {
 #search {
     color: #424242;
     width: auto;
-    display: inline-block;
+    display: block;
     margin: 16px;
     border-radius: 0;
     box-shadow: inset 0 0 3px 0;
