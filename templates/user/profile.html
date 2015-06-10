@@ -72,7 +72,7 @@
                 </div>
             </div>
             {% endif %}
-            {% if req_user == user %}
+            {% if req_user == user and not profile %}
                 {% include "social/feed.html" with feed_items=req_user.gabsfeed %}
             {% else %}
                 {% include "social/feed.html" with feed_items=req_user.mixed_gabs %}
