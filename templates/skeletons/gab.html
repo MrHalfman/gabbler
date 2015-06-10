@@ -21,12 +21,14 @@
             {% endif %}
             {% if not noactions and user.is_authenticated %}
                 <div class="action-buttons">
-                    <a class="report-gab" href="{% url "report_gab" gab.pk %}">
-                        <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-warning"><i class="mdi-action-report-problem"></i></button>
-                    </a> <br>
                     {% if gab.user == user or user.is_staff %}
                         <a class="delete-gab" href="{% url "delete_gab" gab.pk %}">
                             <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-danger"><i class="mdi-action-delete"></i></button>
+                        </a> <br>
+                    {% endif %}
+                    {% if gab.user != user %}
+                        <a class="report-gab" href="{% url "report_gab" gab.pk %}">
+                            <button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-warning"><i class="mdi-action-report-problem"></i></button>
                         </a>
                     {% endif %}
                 </div>
