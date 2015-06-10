@@ -60,8 +60,7 @@ def post_gab(request):
         extra_content.save()
         gab.extras = extra_content
 
-    if gif or video:
-        gab.save()
+    gab.save()
 
     return HttpResponseRedirect("/")
 
