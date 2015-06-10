@@ -105,6 +105,12 @@ def register(request):
             if password != password_confirm:
                 error = True
                 messages.error(request, "The confirmation of the password is not equal to the first field")
+            else:
+                reg_password = re.compile("(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}")
+                if not reg_password.match(password):
+                    error = True
+                    messages.error(request, "The password must be contain at least 8 characters, one number "
+                                            "and both lowercase and uppercase letters")
 
         if error:
             pre_form = {
