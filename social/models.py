@@ -51,10 +51,7 @@ class Regab(models.Model):
     user = models.ForeignKey("core.User", related_name="regabs")
     gab = models.ForeignKey("Gab", related_name="regabs")
     type = "regab"
-
-    @property
-    def date(self):
-        return self.gab.date
+    date = models.DateTimeField(auto_now_add=True)
 
 
 class UserRelationships(models.Model):
