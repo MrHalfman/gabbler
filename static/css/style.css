@@ -141,11 +141,11 @@ body {
     white-space: nowrap;
 }
 
-.update-part {
+.update-part, .search-part {
     display: none;
 }
 
-.general {
+.general, .user-search {
     display: block;
 }
 

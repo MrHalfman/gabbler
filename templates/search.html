@@ -3,12 +3,20 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">Users ({{ users|length }})</h4>
-                </div>
-                <div class="panel-body">
+        <div class="col-md-3">
+            <div class="panel panel-body">
+                <h1>Results</h1>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#" onclick='displayPart(".search-part", ".user-search")'><h4>Users ({{ users|length }})</h4></a></li>
+                    <li><a href="#" onclick='displayPart(".search-part", ".gab-search")'><h4>Gabs ({{ gabs|length }})</h4></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-body">
+                <div class="search-part user-search">
+                    <h3 class="title-spacing">Users ({{ users|length }})</h3>
+
                     <div class="list-group">
                         {% for user in users %}
                             <div class="list-group-item">
@@ -26,14 +34,10 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h4 class="panel-title">Gabs ({{ gabs|length }})</h4>
-                </div>
-                <div class="panel-body">
+
+
+                <div class="search-part gab-search">
+                    <h3 class="title-spacing">Gabs ({{ gabs|length }})</h3>
                     {% for gab in gabs %}
                         {% include "skeletons/gab.html" with gab=gab noregab="true" %}
                         <hr>

@@ -32,9 +32,9 @@ function displayDeletionForm() {
     $('#delete-form').show();
 }
 
-function displayPart(part) {
-    $(".update-part").hide();
-    $(part).show();
+function displayPart(toHide, toShow) {
+    $(toHide).hide();
+    $(toShow).show();
 }
 
 
