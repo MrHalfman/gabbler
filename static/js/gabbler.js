@@ -134,25 +134,31 @@ function manageBlock(form, field, content, button, max) {
     });
 
     $(field).keyup(function () {
-
         // decrements the count
         var preMessage = $(this).text();
+        var that = this;
         var charCount = max - preMessage.length;
         $(".count").text(charCount);
 
-
-        var re = /\S/; // Match if they are only non-visible char
-        if(!re.test(preMessage) || (charCount < 0)) {
-            if(charCount < 0) {
-                $(".count").addClass('gab-overflow');
-            }
-            else {
-                $(".count").removeClass('gab-overflow');
-            }
+        if(charCount < 0) {
+            $(".count").addClass('gab-overflow');
             $(button).prop('disabled', true);
-        } else {
-            $(button).prop('disabled', false);
-            emptyText(max, field, button);
+            isUnderZero = true;
+        }
+        else {
+            if ($(".count").hasClass('gab-overflow')) {
+                $(".count").removeClass('gab-overflow');
+                $(button).prop('disabled', false);
+            }
+
+            var re = /\S/; // Match if they are only non-visible char
+            if(re.test(preMessage) || charCount == max) {
+                $(button).prop('disabled', true);
+                emptyText(max, field, button);
+            }
+            else if ($(button).isDisabled) {
+                $(button).prop('disabled', false);
+            }
         }
     });
 
