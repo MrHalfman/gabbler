@@ -26,7 +26,7 @@ def catch_video_link(gab):
 
 
 def catch_gifid(text):
-    giphy_request = re.findall(r'G>(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', text)
+    giphy_request = re.findall(r'g/(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', text)
     if giphy_request:
         get_parameters = "+".join(str(id[0]) for id in giphy_request)
         url = "http://api.giphy.com/v1/gifs/search?q=" + get_parameters + "&limit=1&api_key=l41lICEpoxH594Kly"
