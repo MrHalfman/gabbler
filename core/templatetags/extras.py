@@ -43,7 +43,7 @@ def replace_mentions(gab_text):
     for uname in userlist:
         try:
             user = User.objects.get(username=uname[1:])
-            gab_text = gab_text.replace(uname, "<a href='/user/%s'>@%s</a>" % (user.username, user.username))
+            gab_text = gab_text.replace(uname, "<a href='/user/%s'>%s</a>" % (user.username, uname))
         except User.DoesNotExist:
             pass
 
