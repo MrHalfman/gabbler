@@ -186,3 +186,13 @@ def search(request, query):
     users = User.objects.filter(username__icontains=query)
 
     return render(request, "search.html", locals())
+
+
+@login_required
+def getGabs(request, page):
+    gabs_per_page = 10
+    min = int(page) * gabs_per_page
+    max = min + gabs_per_page
+    gabs = request.user.gabsfeed[min:max]
+
+    return render(request, "skeletons/gabs_list.html", {"gabs": gabs})

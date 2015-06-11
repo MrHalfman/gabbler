@@ -1,4 +1,7 @@
 (function () {
+    var actual_page = 1,
+        loading_gabs = false;
+
     $.material.init();
 
     $(".like").on("click", function () {
@@ -51,6 +54,30 @@
     $("#search").on("keydown", function (evt) {
         if (evt.keyCode === 13 && this.value.length >= 2) {
             window.location = "/search/" + this.value;
+        }
+    });
+
+    function loadMoreGabs() {
+        if (loading_gabs) {
+            return false;
+        }
+        loading_gabs = true;
+
+        $.get("/gabs_list/" + actual_page, function (resp) {
+            $("#gabs_list").append(resp);
+            actual_page++;
+            loading_gabs = false;
+        });
+    }
+
+
+    $(window).scroll(function () {
+        var $window = $(window),
+            $document = $(document),
+            px_tobottom = ($document.height() - $window.height()) - $window.scrollTop();
+
+        if (px_tobottom < 150) {
+            loadMoreGabs();
         }
     });
 })();

@@ -72,11 +72,13 @@
                 </div>
             </div>
             {% endif %}
-            {% if req_user == user and not profile %}
-                {% include "social/feed.html" with feed_items=req_user.gabsfeed %}
-            {% else %}
-                {% include "social/feed.html" with feed_items=req_user.mixed_gabs %}
-            {% endif %}
+            <div id="gabs_list">
+                {% if req_user == user and not profile %}
+                    {% include "social/feed.html" with feed_items=req_user.gabsfeed|slice:":10" %}
+                {% else %}
+                    {% include "social/feed.html" with feed_items=req_user.mixed_gabs|slice:":10" %}
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^lost_password-step-2/', 'core.views.lost_password_step_2', name="lost_password_step_2"),
 
     # Social
+    url(r'gabs_list/(?P<page>\d+)', 'social.views.getGabs', name="getGabs"),
     url(r'follow/(?P<user_pk>\d+)', 'social.views.follow', name="follow"),
     url(r'^post_gab/', 'social.views.post_gab', name="post_gab"),
     url(r'^regab/(?P<gab_pk>\d+)/', 'social.views.regab', name="regab"),
