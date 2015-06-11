@@ -34,6 +34,7 @@ def is_liking(user, gab):
 def is_disliking(user, gab):
     return user.opinions.filter(gab=gab, like=False).count() == 1
 
+
 @register.filter
 def replace_mentions(gab_text):
     regex = re.compile('(@\w+)')
@@ -42,8 +43,20 @@ def replace_mentions(gab_text):
     for uname in userlist:
         try:
             user = User.objects.get(username=uname[1:])
-            gab_text = gab_text.replace(uname, "<a href='/user/%s'>%s</a>" % (user.username, user.username))
+            gab_text = gab_text.replace(uname, "<a href='/user/%s'>%s</a>" % (user.username, uname))
         except User.DoesNotExist:
             pass
+
+    return mark_safe(gab_text)
+
+
+@register.filter
+def replace_hashtags(gab_text):
+    regex = re.compile('(#\w+)')
+    hashtags = regex.findall(gab_text)
+
+    for tag in hashtags:
+        tag_text = tag[1:]
+        gab_text = gab_text.replace(tag, "<a href='/search/%s'>%s</a>" % (tag_text, tag))
 
     return mark_safe(gab_text)
