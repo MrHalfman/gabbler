@@ -83,7 +83,7 @@ def register(request):
                 error = True
                 messages.error(request, "This username is already used, please choose another one.")
             else:
-                reg_username = re.compile("[a-z0-9_-]{3,16}")
+                reg_username = re.compile("[a-zA-Z0-9_-]{3,16}")
                 if not reg_username.match(username):
                     error = True
                     messages.error(request, "You must choose a valid username.")
