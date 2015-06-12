@@ -1,16 +1,12 @@
 from django.db import models
 
-
-class AdditionalContent(models.Model):
-    video = models.URLField(blank=True, null=True)
-
-
 class Gab(models.Model):
     user = models.ForeignKey("core.User", related_name="gabs")
     date = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=255)
-    extras = models.ForeignKey("AdditionalContent", related_name="extras", blank=True, null=True)
-    gifId = models.CharField(max_length=64, blank=True, null=True, default=None)
+    gif_id = models.CharField(max_length=64, blank=True, null=True, default=None)
+    video = models.URLField(blank=True, null=True, default=None)
+    picture = models.URLField(blank=True, null=True, default=None)
 
     @property
     def likes(self):

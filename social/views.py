@@ -5,7 +5,7 @@ import re
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from core.models import User
-from social.models import Gab, AdditionalContent, ModerationReport, Regab, GabOpinion, UserRelationships
+from social.models import Gab, ModerationReport, Regab, GabOpinion, UserRelationships
 import urllib2
 import json
 
@@ -21,9 +21,13 @@ def catch_video_link(gab):
             id_video = re.search(r'[^ =&]+', id_video)
             if id_video:
                 return "http://www.youtube.com/embed/" + id_video.group()
-
     return False
 
+def catch_photo_link(gab):
+    photo_link = re.search(r'(https?\:\/\/)?[$\-./+!*(),\w]+/[\w-]+\.(png|jpg|gif)', gab)
+    if photo_link:
+        return photo_link.group()
+    return False
 
 def catch_gifid(text):
     giphy_request = re.findall(r'g/(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', text)
@@ -48,17 +52,17 @@ def post_gab(request):
     )
 
     gif = catch_gifid(text)
+    video = catch_video_link(text)
+    picture = catch_photo_link(text)
 
     if gif:
-        gab.gifId = gif
+        gab.gif_id = gif
 
-    video = catch_video_link(text)
     if video:
-        extra_content = AdditionalContent(
-            video=video
-        )
-        extra_content.save()
-        gab.extras = extra_content
+        gab.video = video
+
+    if picture:
+        gab.picture = picture
 
     gab.save()
 

@@ -8,18 +8,27 @@
         </div>
         <div class="col-sm-9 col-xs-9">
             <p class="gab-text">{{ gab.text|urlize|linebreaksbr|replace_mentions|replace_hashtags }}</p>
-            {% if gab.extras.video %}
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe src="{{ gab.extras.video }}" ></iframe>
+            {% if gab.video %}
+                <div class="thumbnail">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="{{ gab.video }}" ></iframe>
+                    </div>
                 </div>
             {% endif %}
 
-            {% if gab.gifId %}
+            {% if gab.gif_id %}
                 <div class="thumbnail">
-                    <img src="http://media0.giphy.com/media/{{ gab.gifId }}/200.gif"/> <br>
+                    <img src="http://media0.giphy.com/media/{{ gab.gif_id }}/200.gif"/> <br>
                     <a href="http://giphy.com/"><img src="/media/powered_giphy.png"/></a>
                 </div>
             {% endif %}
+
+            {% if gab.picture %}
+                <div class="thumbnail">
+                    <img src="{{ gab.picture }}">
+                </div>
+            {% endif %}
+
             {% if not noactions and user.is_authenticated %}
                 <div class="action-buttons">
                     {% if gab.user == user or user.is_staff %}
