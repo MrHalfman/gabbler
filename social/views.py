@@ -5,7 +5,7 @@ import re
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from core.models import User
-from social.models import Gab, ModerationReport, Regab, GabOpinion, UserRelationships
+from social.models import Gab, ModerationReport, Regab, GabOpinion, UserRelationships, Notifications
 import urllib2
 import json
 
@@ -133,6 +133,12 @@ def like(request, gab_pk):
         opinion.like = True
         opinion.save()
         response['liking'] = True
+
+    Notifications.objects.create(
+        user=gab.user,
+        text="%s liked your gab." % request.user.username,
+        link="/gab/%d" % gab.pk
+    )
 
     response['likes'] = gab.likes.count()
     response['dislikes'] = gab.dislikes.count()
