@@ -64,7 +64,24 @@ def post_gab(request):
     if picture:
         gab.picture = picture
 
+    regex = re.compile('(@\w+)')
+    userlist = regex.findall(text)
+
     gab.save()
+
+    notifications_bulk = []
+    for uname in userlist:
+        try:
+            user = User.objects.get(username=uname[1:])
+            notifications_bulk.append(Notifications(
+                user=user,
+                text="%s mentioned your name in a gab." % request.user.username,
+                link="/gab/%d" % gab.pk
+            ))
+        except User.DoesNotExist:
+            pass
+
+    Notifications.objects.bulk_create(notifications_bulk)
 
     return HttpResponseRedirect("/")
 
