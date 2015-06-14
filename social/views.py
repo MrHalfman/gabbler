@@ -111,14 +111,15 @@ def regab(request, gab_pk):
         user=request.user
     )
 
-    Notifications.objects.create(
-        user=gab.user,
-        text="%s regabbed your gab." % request.user.username,
-        link="/gab/%d" % regab.pk
-    )
-
     if not created:
         regab.delete()
+    else:
+        Notifications.objects.create(
+            user=gab.user,
+            text="%s regabbed your gab." % request.user.username,
+            link="/gab/%d" % regab.pk
+        )
+
     return HttpResponseRedirect("/user/%s" % gab.user.username)
 
 
@@ -139,12 +140,13 @@ def like(request, gab_pk):
         opinion.like = True
         opinion.save()
         response['liking'] = True
+        Notifications.objects.create(
+            user=gab.user,
+            text="%s liked your gab." % request.user.username,
+            link="/gab/%d" % gab.pk
+        )
 
-    Notifications.objects.create(
-        user=gab.user,
-        text="%s liked your gab." % request.user.username,
-        link="/gab/%d" % gab.pk
-    )
+
 
     response['likes'] = gab.likes.count()
     response['dislikes'] = gab.dislikes.count()
@@ -186,6 +188,12 @@ def follow(request, user_pk):
 
     if not created:
         relationship.delete()
+    else:
+        Notifications.objects.create(
+            user=usr,
+            text="%s followed you." % request.user.username,
+            link="/user/%d" % request.user.username
+        )
 
     return HttpResponseRedirect("/user/%s" % usr.username)
 
