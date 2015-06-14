@@ -402,10 +402,11 @@ def lost_password_step_2(request):
 
 def followers(request, username):
         user = User.objects.get(username=username)
-        return render(request, "user/followers.html")
+        followers = user.followers
+        return render(request, "user/followers.html", {"followers": followers})
 
-def followings(request, username):
 
 def following(request, username):
         user = User.objects.get(username=username)
-        return render(request, "user/following.html")
+        following = user.following
+        return render(request, "user/following.html", {"following": following})

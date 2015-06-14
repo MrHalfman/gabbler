@@ -2,4 +2,25 @@
 {% block title %} Followers {% endblock %}
 
 {% block content %}
+    <div class="panel panel-body">
+        <div class="search-part user-search">
+            <h3 class="title-spacing">Followers</h3>
+            <div class="list-group">
+                {% for user in followers %}
+                    <div class="list-group-item">
+                        <div class="row-picture">
+                            <img class="circle" src="/media/{{ user.avatar }}" alt="icon">
+                        </div>
+                        <div class="row-content">
+                            <h4 class="list-group-item-heading"><a href='/user/{{ user.username }}'>{{ user.username }}</a></h4>
+                            <p class="list-group-item-text">{{ user.bio }}</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                {% empty %}
+                    No followers :(
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
