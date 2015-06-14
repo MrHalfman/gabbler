@@ -3,6 +3,7 @@ import datetime
 import random
 import string
 import re
+import os
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -237,9 +238,12 @@ def update(request):
                 request.user.set_password(request.POST.get("new-password"))
 
             if request.FILES.get("avatar"):
+                if request.user.avatar.name != "avatars/default.png":
+                    os.remove(request.user.avatar.name)
                 request.user.avatar = request.FILES["avatar"]
 
             if request.FILES.get("banner"):
+                os.remove(request.user.banner.name)
                 request.user.banner = request.FILES["banner"]
 
             request.user.save()
