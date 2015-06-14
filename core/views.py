@@ -399,10 +399,13 @@ def lost_password_step_2(request):
 
     return render(request, "user/lost_password_step_2.html")
 
+
 def followers(request, username):
         user = User.objects.get(username=username)
         return render(request, "user/followers.html")
 
 def followings(request, username):
+
+def following(request, username):
         user = User.objects.get(username=username)
-        return render(request, "user/followings.html")
+        return render(request, "user/following.html")
