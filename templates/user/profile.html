@@ -13,8 +13,8 @@
                     </div>
                     <div class="col-sm-12 col-xs-8">
                         <h3>{{ req_user.first_name }} {{ req_user.last_name }}</h3>
-                        <strong>Followers : </strong>{{ req_user.followers|length }} <br>
-                        <strong>Following : </strong>{{ req_user.following|length }}
+                        <p><strong><a href="{% url "followers" req_user.username %}">Followers</a> : </strong>{{ req_user.followers|length }}</p>
+                        <p><strong><a href="{% url "following" req_user.username %}">Following</a> : </strong>{{ req_user.following|length }}</p>
                         <hr>
 
                         {%  if req_user.bio %}
