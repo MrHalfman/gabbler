@@ -111,6 +111,12 @@ def regab(request, gab_pk):
         user=request.user
     )
 
+    Notifications.objects.create(
+        user=gab.user,
+        text="%s regabbed your gab." % request.user.username,
+        link="/gab/%d" % regab.pk
+    )
+
     if not created:
         regab.delete()
     return HttpResponseRedirect("/user/%s" % gab.user.username)
