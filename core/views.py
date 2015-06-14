@@ -398,3 +398,7 @@ def lost_password_step_2(request):
         return HttpResponseRedirect("/lost_password-step-1/")
 
     return render(request, "user/lost_password_step_2.html")
+
+def followers(request, username):
+        user = User.objects.get(username=username)
+        return render(request, "user/followers.html")
