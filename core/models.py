@@ -15,7 +15,6 @@ class Place(models.Model):
 class MailNotifications(models.Model):
     regab = models.BooleanField(default=True)
     like = models.BooleanField(default=True)
-    private_message = models.BooleanField(default=True)
     citation = models.BooleanField(default=True)
 
 
