@@ -49,6 +49,6 @@ class Notifications(models.Model):
 class ModerationReport(models.Model):
     by = models.ForeignKey("core.User", related_name="moderation_reports")
     processed = models.BooleanField(default=False)
-    gab = models.ForeignKey("Gab")
+    gab = models.ForeignKey("Gab", related_name="reports")
     date = models.DateTimeField(auto_now_add=True)
     reason = models.TextField()
