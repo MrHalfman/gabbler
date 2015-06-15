@@ -71,6 +71,11 @@
     }
 
     function update() {
+        if (document.hidden) {
+            window.setTimeout(update, 2000);
+            return;
+        }
+
         $.get("/gabs_list/0", function (resp) {
             if (resp) {
                 var last_gabs = $(resp).find(".gab"),
