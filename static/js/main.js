@@ -1,11 +1,9 @@
 (function () {
-    var actual_page = 1,
-        loading_gabs = false;
 
     $.material.init();
 
     $(".like").on("click", function () {
-        var id = $(this).data('id'),
+        var id = $(this).parents(".gab").data('id'),
             $this = $(this);
         $.getJSON("/like/" + id, function (data) {
            if (data.success) {
@@ -24,7 +22,7 @@
     });
 
     $(".dislike").on("click", function () {
-        var id = $(this).data('id'),
+        var id = $(this).parents(".gab").data('id'),
             $this = $(this);
         $.getJSON("/dislike/" + id, function (data) {
            if (data.success) {
@@ -55,6 +53,23 @@
         if (evt.keyCode === 13 && this.value.length >= 2) {
             window.location = "/search/" + this.value;
         }
+    });
+
+    $(".regab").on("click", function () {
+        var id = $(this).parents(".gab").data('id'),
+            $this = $(this);
+        $.getJSON("/regab/" + id, function (data) {
+           if (data.success) {
+               $this.find(".badge").html(data.regabs);
+               if (data.regabbed) {
+                   $this.removeClass("btn-material-grey-100");
+                   $this.addClass("btn-info");
+               } else {
+                   $this.addClass("btn-material-grey-100");
+                   $this.removeClass("btn-info");
+               }
+           }
+        });
     });
 
 })();

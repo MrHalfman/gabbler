@@ -1,5 +1,5 @@
 {% load extras %}
-<div class="panel-body gab" data-id="{{ gab.pk }}">
+<div class="panel-body gab{% if regab %}regab-panel{% endif %}" data-id="{{ gab.pk }}">
     <div class="row">
         <div class="col-sm-2 col-xs-2 profile-picture">
             <div class="thumbnail">
@@ -49,13 +49,11 @@
         <div class="col-md-6">
             <div class="bottom-action-buttons">
                 <div class="btn-group">
+                    <button class="btn like {% if user.is_authenticated and user|is_liking:gab %}btn-success{% else %}btn-material-grey-100{% endif %} btn-sm"><span class="mdi-action-thumb-up"></span> <span class="badge">{{ gab.likes|length }}</span></button>
+                    <button class="btn dislike {% if user.is_authenticated and user|is_disliking:gab %}btn-danger{% else %}btn-material-grey-100{% endif %} btn-sm"><span class="mdi-action-thumb-down"></span> <span class="badge">{{ gab.dislikes|length }}</span></button>
                     {% if gab.user != user and not regab and user.is_authenticated and not noregab%}
-                        <a class="regab" href="{% url "regab" gab.pk %}">
-                            <button class="btn {% if user|in_regabs:gab %}btn-info{% else %}btn-material-grey-100{% endif %} btn-sm"><i class="mdi-action-autorenew"></i> <span class="badge">{{ gab.regabs.count }}</span></button>
-                        </a>
+                            <button class="regab btn {% if user|in_regabs:gab %}btn-info{% else %}btn-material-grey-100{% endif %} btn-sm"><i class="mdi-action-autorenew"></i> <span class="badge">{{ gab.regabs.count }}</span></button>
                     {% endif %}
-                    <button class="btn like {% if user.is_authenticated and user|is_liking:gab %}btn-success{% else %}btn-material-grey-100{% endif %} btn-sm" data-id="{{ gab.pk }}"><span class="mdi-action-thumb-up"></span> <span class="badge">{{ gab.likes|length }}</span></button>
-                    <button class="btn dislike {% if user.is_authenticated and user|is_disliking:gab %}btn-danger{% else %}btn-material-grey-100{% endif %} btn-sm" data-id="{{ gab.pk }}"><span class="mdi-action-thumb-down"></span> <span class="badge">{{ gab.dislikes|length }}</span></button>
                 </div>
             </div>
         </div>

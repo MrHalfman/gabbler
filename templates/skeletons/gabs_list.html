@@ -1,5 +1,9 @@
 {% for gab in gabs %}
-    <div class="panel panel-default">
-        {% include "skeletons/gab.html" with gab=gab %}
+    <div class="panel {% if gab.type == "regab" %}panel-info{% else %}panel-default{% endif %}">
+        {% if gab.type == "regab" %}
+            {% include "skeletons/regab.html" with regab=gab %}
+        {% else %}
+            {% include "skeletons/gab.html" with gab=gab %}
+        {% endif %}
     </div>
 {% endfor %}

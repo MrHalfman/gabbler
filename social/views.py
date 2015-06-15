@@ -130,6 +130,7 @@ def regab(request, gab_pk):
         gab=gab,
         user=request.user
     )
+    regabbed = created
 
     if not created:
         regab.delete()
@@ -140,7 +141,11 @@ def regab(request, gab_pk):
             link="/gab/%d" % regab.pk
         )
 
-    return HttpResponseRedirect("/user/%s" % gab.user.username)
+    return JsonResponse({
+        "success": True,
+        "regabbed": regabbed,
+        "regabs": gab.regabs.count()
+    })
 
 
 @login_required
@@ -238,7 +243,7 @@ def search(request, query):
 
 
 @login_required
-def getGabs(request, page):
+def getGabs(request, page=0):
     gabs_per_page = 10
     min = int(page) * gabs_per_page
     max = min + gabs_per_page
