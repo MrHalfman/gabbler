@@ -46,6 +46,9 @@ class Notifications(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ["-date"]
+
 
 class ModerationReport(models.Model):
     by = models.ForeignKey("core.User", related_name="moderation_reports")

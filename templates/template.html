@@ -44,8 +44,8 @@
                 {% else %}
                     <li id="notifications_dropdown" class="dropdown" role="menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="mdi-social-notifications"></span><span class="badge">{{ user.unread_notifications|length }}</span></a>
-                        <ul class="dropdown-menu" role="menu" style="max-height: 250px; overflow: auto;">
-                            {% for notification in user.notifications.all %}
+                        <ul class="dropdown-menu notifications-panel" role="menu">
+                            {% for notification in user.notifications.all|slice:":10" %}
                                 <li class="notification-item{% if not notification.read %} unread{% endif %}">
                                     <a href="{{ notification.link }}">
                                         <div class="row">

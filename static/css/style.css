@@ -219,6 +219,12 @@ body {
     max-height: 300px;
 }
 
+.notifications-panel {
+    width: 300px;
+    max-height: 400px;
+    overflow: auto;
+}
+
 
 /* -------------------------- MEDIA QUERIES -------------------------- */
 @media all and (max-width: 1190px) {
