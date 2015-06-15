@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from core.models import User
 from social.models import Gab, ModerationReport, Regab, GabOpinion, UserRelationships, Notifications
-from django.utils import timezone
+from django.template.loader import render_to_string
+from django.core.mail import send_mail as django_send_mail
 import urllib2
 import json
 
@@ -46,6 +47,27 @@ def catch_gifid(text):
     return False
 
 
+def send_mail(user, title, html_body, text, type):
+    if not getattr(user.mail_notifications, type):
+        return False
+
+    mail_content = {
+        "mail_title": title,
+        "mail_body": html_body
+    }
+    html_content = render_to_string("mail_template.html", mail_content)
+    string_content = text
+
+    django_send_mail(
+        "Welcome!",
+        string_content,
+        "gabbler.noreply@gmail.com",
+        [user.email],
+        fail_silently=True,
+        html_message=html_content
+    )
+
+
 @login_required
 def post_gab(request):
     text = request.POST.get("text")
@@ -76,11 +98,13 @@ def post_gab(request):
     for uname in userlist:
         try:
             user = User.objects.get(username=uname[1:])
+            text = "%s mentioned your name in a gab." % request.user.username
             notifications_bulk.append(Notifications(
                 user=user,
-                text="%s mentioned your name in a gab." % request.user.username,
+                text=text,
                 link="/gab/%d" % gab.pk
             ))
+            send_mail(user, "You have been mentioned on Gabbler.", text, text, "citation")
         except User.DoesNotExist:
             pass
 
@@ -135,11 +159,13 @@ def regab(request, gab_pk):
     if not created:
         regab.delete()
     else:
+        text = "%s regabbed your gab." % request.user.username
         Notifications.objects.create(
             user=gab.user,
-            text="%s regabbed your gab." % request.user.username,
+            text=text,
             link="/gab/%d" % regab.pk
         )
+        send_mail(gab.user, "One of your gabs has been regabbed.", text, text, "regab")
 
     return JsonResponse({
         "success": True,
@@ -165,11 +191,13 @@ def like(request, gab_pk):
         opinion.like = True
         opinion.save()
         response['liking'] = True
+        text = "%s liked your gab." % request.user.username
         Notifications.objects.create(
             user=gab.user,
-            text="%s liked your gab." % request.user.username,
+            text=text,
             link="/gab/%d" % gab.pk
         )
+        send_mail(gab.user, "One of your gabs has been liked.", text, text, "like")
 
 
 

@@ -150,8 +150,14 @@ def register(request):
                     "The gabbler team"
 
 
-                send_mail("Welcome!", string_content, "gabbler.noreply@gmail.com",
-                [request.POST.get("email")], fail_silently=True, html_message=html_content)
+                send_mail(
+                    "Welcome!",
+                    string_content,
+                    "gabbler.noreply@gmail.com",
+                    [request.POST.get("email")],
+                    fail_silently=True,
+                    html_message=html_content
+                )
 
             user = authenticate(username=username, password=password)
 
