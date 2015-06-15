@@ -1,5 +1,6 @@
 {% extends "template.html" %}
 {% load extras %}
+{% load staticfiles %}
 
 {% block content %}
     <div class="row">
@@ -120,4 +121,7 @@
         });
     });
     </script>
+    {% if req_user == user %}
+        <script type="text/javascript" src="{% static "js/timeline.js" %}"></script>
+    {% endif %}
 {% endblock %}
