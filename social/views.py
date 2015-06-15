@@ -212,7 +212,7 @@ def follow(request, user_pk):
         Notifications.objects.create(
             user=usr,
             text="%s followed you." % request.user.username,
-            link="/user/%d" % request.user.username
+            link="/user/%s" % request.user.username
         )
 
     return HttpResponseRedirect("/user/%s" % usr.username)
