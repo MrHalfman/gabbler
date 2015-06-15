@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, Place, MailNotifications, UserLink, UserLinkTypes
+from core.models import User, Place, MailNotifications
 from social.models import Gab, Regab, Notifications
 
 

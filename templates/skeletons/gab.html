@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <p class="gab-footer">{{ gab.user|userlink }} - {{ gab.date }}</p>
+            <p class="gab-footer">{{ gab.user|userlink }} - <a href="{% url "getGab" gab.pk %}">{{ gab.date }}</a></p>
         </div>
     </div>
 </div>

@@ -244,4 +244,4 @@ def getGabs(request, page):
 
 @login_required
 def getGab(request, pk):
-    return render(request, "skeletons/gabs_list.html", {"gabs": [Gab.objects.get(pk=pk)]})
+    return render(request, "social/gab.html", {"gab": Gab.objects.get(pk=pk)})

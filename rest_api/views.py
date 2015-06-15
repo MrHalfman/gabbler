@@ -1,6 +1,6 @@
 import django_filters
 from rest_framework import viewsets
-from core.models import User, Place, MailNotifications, UserLink, UserLinkTypes
+from core.models import User, Place, MailNotifications
 from social.models import Gab, Regab, Notifications
 from rest_framework import filters
 import serializers

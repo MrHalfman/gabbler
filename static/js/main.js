@@ -76,7 +76,7 @@
             return;
         }
 
-        $.get("/gabs_list/0", function (resp) {
+        $.get("/gabs_list/0/", function (resp) {
             if (resp) {
                 var last_gabs = $(resp).find(".gab"),
                     $list = $("#gabs_list");
