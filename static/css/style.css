@@ -215,15 +215,12 @@ body {
     padding: 5px;
 }
 
-
-/* -------------------------- MEDIA QUERIES -------------------------- */
-
-@media all and (max-width: 800px)  {
-    .sad-smiley {
-        display: none;
-    }
+.profile-picture  img {
+    max-height: 300px;
 }
 
+
+/* -------------------------- MEDIA QUERIES -------------------------- */
 @media all and (max-width: 1190px) {
     .action-buttons {
         right: -43px;
