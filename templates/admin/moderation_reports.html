@@ -14,7 +14,8 @@
                     {{ report.reason }}
                     <hr>
                     <strong>Gab : </strong>
-                    {% include "skeletons/gab.html" with gabs=report.gab noactions="true" %}
+                    {% include "skeletons/gab.html" with gab=report.gab noactions="true" noregab="true" %} <br>
+                    Reported {{ report.gab.reports.count }} times.
                 </div>
                 <div class="panel-footer">
                     <a class="btn btn-success" href="{% url "mark_as_processed" report.pk %}">Mark as processed</a>
