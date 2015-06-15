@@ -226,8 +226,13 @@ def mark_notifications_asread(request):
 
 @login_required
 def search(request, query):
-    gabs = Gab.objects.filter(text__icontains=query)
-    users = User.objects.filter(username__icontains=query)
+    words = query.split(" ")
+    gabs = list()
+    users = list()
+
+    for word in words:
+        gabs += list(Gab.objects.filter(text__icontains=word))
+        users += list(User.objects.filter(username__icontains=word))
 
     return render(request, "search.html", locals())
 
