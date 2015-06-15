@@ -60,7 +60,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'gabbler.urls'
 
-WSGI_APPLICATION = 'gabbler.wsgi.application'
+WSGI_APPLICATION = 'gabbler.wsgi_nouwsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
