@@ -249,11 +249,12 @@ def update(request):
 
             if request.FILES.get("avatar"):
                 if request.user.avatar.name != "avatars/default.png":
-                    os.remove(request.user.avatar.name)
+                    os.remove(request.user.avatar.path)
                 request.user.avatar = request.FILES["avatar"]
 
             if request.FILES.get("banner"):
-                os.remove(request.user.banner.name)
+                if request.user.banner.name != '':
+                    os.remove(request.user.banner.path)
                 request.user.banner = request.FILES["banner"]
 
             request.user.save()
