@@ -112,12 +112,13 @@ function valueManager(field, hint, isContent, hiddenField) {
 
 function manageBlock(form, field, content, button, max) {
     var form_sending = false;
-
-    $(".count").text(max); // Add a max value
+    var $count = $(".count");
+    var $field = $(field);
+    $count.text(max); // Add a max value
 
     valueManager(field, "Say something!", false, content);
 
-    $(field).atwho({
+    $field.atwho({
         at: "@",
         searchKey: "username",
         callbacks: {
@@ -134,21 +135,21 @@ function manageBlock(form, field, content, button, max) {
         insertTpl: "<span class='label label-primary userlink' data-username='${username}'>${username}</span>"
     });
 
-    $(field).keyup(function () {
+    $field.keyup(function () {
         // decrements the count
         var preMessage = $(this).text();
-        var that = this;
         var charCount = max - preMessage.length;
-        $(".count").text(charCount);
+        if ($field.find("br").length > 0) {
+            charCount -= $field.find("br").length * 2 - 1;
+        }
+        $count.text(charCount);
 
         if(charCount < 0) {
             $(".count").addClass('gab-overflow');
             $(button).prop('disabled', true);
-            isUnderZero = true;
-        }
-        else {
-            if ($(".count").hasClass('gab-overflow')) {
-                $(".count").removeClass('gab-overflow');
+        } else {
+            if ($count.hasClass('gab-overflow')) {
+                $count.removeClass('gab-overflow');
                 $(button).prop('disabled', false);
             }
 
@@ -164,7 +165,7 @@ function manageBlock(form, field, content, button, max) {
     });
 
     // Send the message when we press enter
-    $(field).keypress(function (e) {
+    $field.keypress(function (e) {
         if(e.which === 13 && !e.shiftKey) {
             if (form_sending) {
                 return false;
