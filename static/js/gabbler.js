@@ -176,4 +176,23 @@ function manageBlock(form, field, content, button, max) {
             return false;
         }
     });
+
+    $field.on('paste',function() {
+        var $this = $(this);
+        setTimeout(function () {
+            $this.find('style meta link button img').remove();
+
+            console.log($this.find("div"));
+            $this.find("div").replaceWith(function (el) {
+                return $(this).text();
+            });
+            console.log($this.find("div"));
+            $this.find("p").replaceWith(function (el) {
+                return $(this).text();
+            });
+            $this.find("a").replaceWith(function (el) {
+                return $(this).text();
+            });
+        }, 100);
+    });
 }
