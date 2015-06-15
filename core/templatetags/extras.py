@@ -52,8 +52,8 @@ def replace_mentions(gab_text):
 
 @register.filter
 def replace_hashtags(gab_text):
-    regex = re.compile('(#\w+)')
-    hashtags = regex.findall(gab_text)
+    regex = re.compile('(^#\w+|\s#\w+)', re.MULTILINE)
+    hashtags = [result[1:] if result[0] == " " else result for result in regex.findall(gab_text)]
 
     for tag in hashtags:
         tag_text = tag[1:]
