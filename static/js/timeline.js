@@ -16,9 +16,13 @@
 
                 for (var i = 0; i < last_gabs.length; i++) {
                     var $last_gab = $(last_gabs[i]),
-                        id = $(last_gabs[i]).data("id");
-                    if ($list.find(".gab[data-id='" + id + "']").length < 1) {
+                        id = $(last_gabs[i]).data("id"),
+                        selected_gab = $list.find(".gab[data-id='" + id + "']");
+                    if (selected_gab.length < 1) {
                         $list.prepend($last_gab.parent());
+                    } else {
+                        selected_gab.find(".bottom-action-buttons").replaceWith($last_gab.find(".bottom-action-buttons"));
+                        selected_gab.find(".dislike .badge").html($last_gab.find(".dislike .badge").html());
                     }
                 }
 
@@ -29,6 +33,7 @@
                         $gab.remove();
                     }
                 }
+                bind_actions();
             }
             window.setTimeout(update, 2000);
         });

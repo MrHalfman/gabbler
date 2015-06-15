@@ -8,14 +8,17 @@
             <div class="panel panel-default">
                 <div class="panel panel-body">
                     <div class="col-sm-12 col-xs-4">
+                        <h2><a href="{% url "user_profile" req_user.username %}">@{{ req_user.username }}</a></h2>
                         <div class="thumbnail profile-picture">
                             {{ req_user|userAvatar }}
                         </div>
                     </div>
                     <div class="col-sm-12 col-xs-8">
-                        <h2>{{ req_user.first_name }} {{ req_user.last_name }}</h2>
-                        <p><strong><a href="{% url "followers" req_user.username %}">Followers</a> : </strong>{{ req_user.followers|length }}</p>
-                        <p><strong><a href="{% url "following" req_user.username %}">Following</a> : </strong>{{ req_user.following|length }}</p>
+                        <h3>{{ req_user.first_name }} {{ req_user.last_name }}</h3>
+                        <div class="row">
+                            <div class="col-md-6">{{ req_user.followers|length }} <a href="{% url "followers" req_user.username %}">Followers</a></div>
+                            <div class="col-md-6">{{ req_user.following|length }} <a href="{% url "following" req_user.username %}">Following</a></div>
+                        </div>
                         <hr>
 
                         {%  if req_user.bio %}
