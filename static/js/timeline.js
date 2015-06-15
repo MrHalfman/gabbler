@@ -10,7 +10,8 @@
 
         $.get("/gabs_list/0/", function (resp) {
             if (resp) {
-                var last_gabs = $(resp).find(".gab"),
+                var $resp = $(resp),
+                    last_gabs = $resp.find(".gab"),
                     $list = $("#gabs_list");
 
                 for (var i = 0; i < last_gabs.length; i++) {
@@ -18,6 +19,14 @@
                         id = $(last_gabs[i]).data("id");
                     if ($list.find(".gab[data-id='" + id + "']").length < 1) {
                         $list.prepend($last_gab.parent());
+                    }
+                }
+
+                var actual_gabs = $list.find(".gab");
+                for (var j = 0; j < actual_gabs.length; j++) {
+                    var $gab = $(actual_gabs[j]);
+                    if ($resp.find("[data-id='" + $gab.data("id") + "']").length < 1) {
+                        $gab.remove();
                     }
                 }
             }
