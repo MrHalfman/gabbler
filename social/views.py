@@ -192,14 +192,13 @@ def like(request, gab_pk):
         opinion.save()
         response['liking'] = True
         text = "%s liked your gab." % request.user.username
-        Notifications.objects.create(
-            user=gab.user,
-            text=text,
-            link="/gab/%d" % gab.pk
-        )
-        send_mail(gab.user, "One of your gabs has been liked.", text, text, "like")
-
-
+        if gab.user != request.user:
+            Notifications.objects.create(
+                user=gab.user,
+                text=text,
+                link="/gab/%d" % gab.pk
+            )
+            send_mail(gab.user, "One of your gabs has been liked.", text, text, "like")
 
     response['likes'] = gab.likes.count()
     response['dislikes'] = gab.dislikes.count()
