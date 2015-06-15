@@ -46,12 +46,7 @@
 
                     <label for="input-location" class="col-lg-2 control-label">About you</label>
                     <div class="col-lg-10 form-spacing">
-                            <div contentEditable="true" class="content-field" name="gab-div">
-                                {% if user.bio %}
-                                    {{ user.bio }}
-                                {% endif %}
-                            </div>
-                            <input type="hidden" name="bio" id="bio">
+                        <textarea class="form-control" placeholder="Tell us more about you..." name="bio">{{ user.bio }}</textarea>
                     </div>
                 </div>
 
@@ -146,26 +141,6 @@
                 clearBtn: true,
                 endDate: Date.now()
             });
-
-            function getFileName(path, inputName) {
-                var fileName = path.replace(/\\/g, '/').replace(/.*\//, '');
-                $(inputName).val(fileName);
-            }
-
-            $("#avatar:file").change(function (){
-                var fileName = getFileName($(this).val(), "#avatar-value");
-            });
-
-            $("#banner:file").change(function (){
-                var fileName = getFileName($(this).val(), "#banner-value");
-            });
-
-            var isBio = false;
-            {% if user.bio %}
-                isBio = true;
-            {% endif %}
-
-            valueManager(".content-field", "What are you doing ?", isBio, "#bio");
         });
     </script>
 {% endblock %}

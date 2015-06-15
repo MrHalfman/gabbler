@@ -191,7 +191,7 @@ def update(request):
         if not request.POST.get("email"):
             error = True
             messages.error(request, "Please give us your email.")
-        else :
+        elif request.POST.get("email") != request.user.email:
             if User.objects.filter(email=request.POST.get("email")).exists():
                 error = True
                 messages.error(request, "Someone already use this email. Please pick another one.")
@@ -215,6 +215,7 @@ def update(request):
             request.user.first_name = request.POST.get("first_name")
             request.user.last_name = request.POST.get("last_name")
             request.user.email = request.POST.get("email")
+            request.user.bio = request.POST.get("bio")
 
             if request.POST.get("city") or request.POST.get("country"):
                 request.user.place.city = request.POST.get("city")
