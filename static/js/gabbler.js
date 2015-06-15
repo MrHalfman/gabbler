@@ -111,6 +111,7 @@ function valueManager(field, hint, isContent, hiddenField) {
 }
 
 function manageBlock(form, field, content, button, max) {
+    var form_sending = false;
 
     $(".count").text(max); // Add a max value
 
@@ -165,8 +166,12 @@ function manageBlock(form, field, content, button, max) {
     // Send the message when we press enter
     $(field).keypress(function (e) {
         if(e.which === 13 && !e.shiftKey) {
+            if (form_sending) {
+                return false;
+            }
             copyToHiddenField(field, content);
             $(form).submit();
+            form_sending = true;
             return false;
         }
     });
