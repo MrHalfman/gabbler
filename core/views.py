@@ -13,6 +13,7 @@ from core.models import User, MailNotifications
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 
 def home(request):
@@ -20,6 +21,8 @@ def home(request):
         context = {
             "req_user": request.user
         }
+        request.user.last_update = timezone.now()
+        request.user.save()
         return render(request, "user/profile.html", context)
 
     if request.method == "POST":

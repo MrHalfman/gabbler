@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from core.models import User
 from social.models import Gab, ModerationReport, Regab, GabOpinion, UserRelationships, Notifications
+from django.utils import timezone
 import urllib2
 import json
 
@@ -23,11 +24,13 @@ def catch_video_link(gab):
                 return "http://www.youtube.com/embed/" + id_video.group()
     return False
 
+
 def catch_photo_link(gab):
     photo_link = re.search(r'(https?\:\/\/)?[$\-./+!*(),\w]+/[\w-]+\.(png|jpg|gif)', gab)
     if photo_link:
         return photo_link.group()
     return False
+
 
 def catch_gifid(text):
     giphy_request = re.findall(r'g/(([a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*))', text)
@@ -237,3 +240,8 @@ def getGabs(request, page):
     gabs = request.user.gabsfeed[min:max]
 
     return render(request, "skeletons/gabs_list.html", {"gabs": gabs})
+
+
+@login_required
+def getGab(request, pk):
+    return render(request, "skeletons/gabs_list.html", {"gabs": [Gab.objects.get(pk=pk)]})

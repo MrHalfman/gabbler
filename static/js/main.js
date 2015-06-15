@@ -70,7 +70,26 @@
         });
     }
 
+    function update() {
+        $.get("/gabs_list/0", function (resp) {
+            if (resp) {
+                var last_gabs = $(resp).find(".gab"),
+                    $list = $("#gabs_list");
 
+                for (var i = 0; i < last_gabs.length; i++) {
+                    var $last_gab = $(last_gabs[i]),
+                        id = $(last_gabs[i]).data("id");
+                    if ($list.find(".gab[data-id='" + id + "']").length < 1) {
+                        $list.prepend($last_gab.parent());
+                    }
+                }
+            }
+            window.setTimeout(update, 2000);
+        });
+    }
+
+
+    update();
     $(window).scroll(function () {
         var $window = $(window),
             $document = $(document),
