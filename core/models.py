@@ -50,14 +50,3 @@ class User(AbstractUser):
     @property
     def unread_notifications(self):
         return self.notifications.filter(read=False)
-
-
-class UserLink(models.Model):
-    user = models.ForeignKey("User", related_name="links")
-    type = models.ForeignKey("UserLinkTypes")
-    url = models.URLField()
-
-
-class UserLinkTypes(models.Model):
-    name = models.CharField(max_length=255)
-    icon = models.ImageField(upload_to="socialIcons/", blank=True)

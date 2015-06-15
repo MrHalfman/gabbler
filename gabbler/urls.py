@@ -10,8 +10,6 @@ router.register(r'notifications', api_views.NotificationsViewSet)
 router.register(r'users', api_views.UserViewSet)
 router.register(r'places', api_views.PlaceViewset)
 router.register(r'mailnotifications', api_views.MailNotificationsViewSet)
-router.register(r'userlinks', api_views.UserLinkViewSet)
-router.register(r'useerlinkstypes', api_views.UserLinkTypesViewSet)
 
 urlpatterns = patterns('',
     url(r'^$', 'core.views.home', name='home'),

@@ -23,16 +23,6 @@ class MailNotificationsViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.MailNotificationsSerializer
 
 
-class UserLinkViewSet(viewsets.ModelViewSet):
-    queryset = UserLink.objects.all()
-    serializer_class = serializers.UserLinkSerializer
-
-
-class UserLinkTypesViewSet(viewsets.ModelViewSet):
-    queryset = UserLinkTypes.objects.all()
-    serializer_class = serializers.UserLinkTypesSerializer
-
-
 class GabsViewSet(viewsets.ModelViewSet):
     queryset = Gab.objects.all()
     serializer_class = serializers.GabSerializer

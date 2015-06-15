@@ -21,18 +21,6 @@ class MailNotificationsSerializer(serializers.ModelSerializer):
         fields = ('id', 'regab', 'like', 'private_message', 'citation')
 
 
-class UserLinkSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserLink
-        fields = ('id', 'user', 'type', 'url')
-
-
-class UserLinkTypesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserLinkTypes
-        fields = ('id', 'name', 'icon')
-
-
 class GabSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gab
